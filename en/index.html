@@ -56,7 +56,9 @@ nav a:hover{color:var(--choc)}
 .hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
 .hero h1 em{color:var(--choc)}
 .hero .lead{margin:22px 0 32px}
-.hero .ctas{display:flex;flex-wrap:wrap;gap:12px}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:10px}
+.hero .ctas .btn{padding:13px 18px;font-size:14.5px}
+@media(max-width:520px){.hero .ctas .btn{width:100%;justify-content:center}}
 .hero-pics{position:relative;aspect-ratio:4/4.4}
 .hero-pics img{position:absolute;border-radius:18px;object-fit:cover;box-shadow:0 24px 60px rgba(70,40,20,.22)}
 .hero-pics .p1{width:66%;height:84%;right:0;top:0}
@@ -245,7 +247,8 @@ footer a:hover{color:#fff}
       <p class="lead">Tut Tvoy Aromat (Russian for “Here is your scent”) is a Russian fragrance boutique with original perfumery from affordable to niche. We sell full-size bottles at prices below Russian retail chains and put together personal boxes based on a 5-question survey.</p>
       <div class="ctas">
         <a class="btn btn-main" href="#partners">Partner with us</a>
-        <a class="btn btn-ghost" href="#advent">See our advent calendars</a>
+        <a class="btn btn-ghost" href="#advent">Advent calendars</a>
+        <a class="btn btn-ghost" href="#boxes">Gift boxes</a>
       </div>
       <div class="facts">
         <span><b>Originals only</b></span>

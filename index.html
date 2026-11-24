@@ -54,7 +54,9 @@ nav a:hover{color:var(--choc)}
 .hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
 .hero h1 em{color:var(--choc)}
 .hero .lead{margin:22px 0 32px}
-.hero .ctas{display:flex;flex-wrap:wrap;gap:12px}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:10px}
+.hero .ctas .btn{padding:13px 18px;font-size:14.5px}
+@media(max-width:520px){.hero .ctas .btn{width:100%;justify-content:center}}
 .hero-pics{position:relative;aspect-ratio:4/4.4}
 .hero-pics img{position:absolute;border-radius:18px;object-fit:cover;box-shadow:0 24px 60px rgba(70,40,20,.22)}
 .hero-pics .p1{width:66%;height:84%;right:0;top:0}
@@ -245,7 +247,8 @@ footer a:hover{color:#fff}
         <button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Расскажите, для кого ищете аромат и что нравится">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.2A8.5 8.5 0 1 1 21 12z" stroke-linejoin="round"/></svg>
           Подобрать аромат</button>
-        <a class="btn btn-ghost" href="#advent">Смотреть адвенты</a>
+        <a class="btn btn-ghost" href="#advent">Подобрать адвент</a>
+        <a class="btn btn-ghost" href="#boxes">Подобрать бокс</a>
       </div>
       <div class="facts">
         <span><b>Только оригиналы</b></span>
