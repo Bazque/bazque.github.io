@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Тут твой аромат: парфюмерные адвенты, боксы и распивы в Петербурге</title>
+<meta name="description" content="Новогодние парфюмерные адвенты для неё и для него, готовые боксы и распивы по 2 мл из оригинальных флаконов. Санкт-Петербург, доставка по России.">
+<meta property="og:title" content="Тут твой аромат">
+<meta property="og:description" content="Парфюмерные адвенты, боксы и распивы из оригинальных флаконов. Санкт-Петербург.">
+<meta property="og:image" content="img/foto-0.jpg">
+<meta name="theme-color" content="#F3EBDD">
+<style>
+@font-face{font-family:"Cormorant";src:url(fonts/cormorant-garamond-600.woff2) format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:"Cormorant";src:url(fonts/cormorant-italic.woff2) format("woff2");font-style:italic;font-weight:400 700;font-display:swap}
+@font-face{font-family:"Inter";src:url(fonts/Inter-Regular.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Inter";src:url(fonts/Inter-SemiBold.woff2) format("woff2");font-weight:600;font-display:swap}
+:root{--cream:#F3EBDD;--paper:#FBF7F0;--choc:#6B2E2A;--ink:#1A1A1A;--beige:#D9C7AE;--brown:#8B6A4F;--rose:#E8C4C0;--line:#E2D6C3}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{font:400 16px/1.6 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--cream);-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+h1,h2,h3,.price,.inside b,.r-grid b,.nums b{font-variant-numeric:lining-nums}
+h1,h2,h3{font-family:Cormorant,Georgia,serif;font-weight:600;line-height:1.08;letter-spacing:-.01em}
+h1{font-size:clamp(40px,6.2vw,76px)}
+h2{font-size:clamp(34px,4.6vw,54px);margin-bottom:12px}
+h3{font-size:28px}
+em,.it{font-family:Cormorant,Georgia,serif;font-style:italic}
+.wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+section{padding:88px 0}
+.kicker{font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--choc);margin-bottom:14px}
+.lead{font-size:18px;color:#3b3330;max-width:640px}
+.btn{white-space:nowrap;display:inline-flex;align-items:center;gap:10px;padding:15px 26px;border-radius:999px;font-weight:600;font-size:15px;text-decoration:none;transition:transform .15s,background .15s;cursor:pointer;border:0}
+.btn:hover{transform:translateY(-1px)}
+.btn-main{background:var(--choc);color:#fff}
+.btn-main:hover{background:#561f1c}
+.btn-ghost{border:1.5px solid var(--choc);color:var(--choc);background:transparent}
+.btn svg{width:18px;height:18px}
+
+/* header */
+header{position:sticky;top:0;z-index:20;background:rgba(243,235,221,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;height:64px;gap:20px}
+.logo{display:flex;align-items:center;gap:8px;font:700 17px/1 Georgia,serif;letter-spacing:.14em;text-decoration:none;white-space:nowrap}
+.logo svg{width:22px;height:26px}
+nav{display:flex;gap:26px;font-size:14px}
+nav a{text-decoration:none;color:#3b3330}
+nav a:hover{color:var(--choc)}
+.bar .btn{padding:10px 18px;font-size:14px}
+@media(max-width:900px){nav{display:none}}
+@media(max-width:420px){.logo span{font-size:14px}.bar .btn{padding:9px 14px;font-size:13px}}
+
+/* hero */
+.hero{padding:56px 0 80px}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+.hero h1 em{color:var(--choc)}
+.hero .lead{margin:22px 0 32px}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:12px}
+.hero-pics{position:relative;aspect-ratio:4/4.4}
+.hero-pics img{position:absolute;border-radius:18px;object-fit:cover;box-shadow:0 24px 60px rgba(70,40,20,.22)}
+.hero-pics .p1{width:66%;height:84%;right:0;top:0}
+.hero-pics .p2{width:48%;height:58%;left:0;bottom:0;border:6px solid var(--cream)}
+.facts{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:34px;font-size:14px;color:var(--brown)}
+.facts b{color:var(--ink);font-weight:600}
+@media(max-width:860px){.hero .wrap{grid-template-columns:1fr;gap:40px}.hero{padding-top:32px}}
+
+/* advent */
+.advent{background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.adv-top{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end;margin-bottom:28px}
+.badge{display:inline-block;background:var(--rose);color:var(--choc);font-weight:600;font-size:13px;padding:6px 12px;border-radius:999px;margin-bottom:16px}
+.inside{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:34px 0 44px}
+.inside div{background:var(--cream);border-radius:14px;padding:18px}
+.inside b{display:block;font-family:Cormorant,serif;font-size:30px;color:var(--choc);line-height:1}
+.inside span{font-size:14px;color:#4a403b}
+@media(max-width:760px){.inside{grid-template-columns:1fr 1fr}.adv-top{grid-template-columns:1fr}}
+.tabs{display:inline-flex;background:var(--cream);border-radius:999px;padding:5px;gap:4px}
+.tabs button{font:600 15px Inter,sans-serif;border:0;background:none;padding:11px 22px;border-radius:999px;cursor:pointer;color:#5a4d46}
+.tabs button[aria-selected=true]{background:var(--choc);color:#fff}
+.variants{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.variants[hidden]{display:none}
+@media(max-width:960px){.variants{grid-template-columns:1fr}}
+.card{background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;display:flex;flex-direction:column}
+.card .pic{background:var(--cream);aspect-ratio:4/5;overflow:hidden}
+.card .pic img{width:100%;height:100%;object-fit:cover}
+.card .body{padding:22px 22px 24px;display:flex;flex-direction:column;flex:1}
+.card .head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:4px}
+.price{font-family:Cormorant,serif;font-weight:600;font-size:30px;color:var(--choc);white-space:nowrap}
+.card .sub{font-size:14px;color:var(--brown);margin-bottom:14px}
+.card ul{list-style:none;font-size:14.5px;margin-bottom:16px}
+.card li{padding:7px 0;border-bottom:1px dashed var(--line)}
+.card li:last-child{border:0}
+.card li small{color:var(--brown)}
+.card .alt{font-size:13.5px;background:var(--cream);border-radius:10px;padding:10px 12px;margin-bottom:16px}
+.card .value{font-size:13.5px;color:var(--brown);margin:auto 0 16px}
+.card .value b{color:var(--ink)}
+.card .btn{justify-content:center}
+.choose{display:flex;gap:6px;margin-bottom:12px}
+.choose button{flex:1;font:600 13px Inter,sans-serif;border:1.5px solid var(--line);background:#fff;border-radius:10px;padding:8px;cursor:pointer;color:#5a4d46}
+.choose button[aria-pressed=true]{border-color:var(--choc);color:var(--choc);background:#fbf3f1}
+.adv-note{margin-top:28px;font-size:14px;color:#5a4d46;text-align:center}
+
+/* gallery */
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:36px}
+.gallery figure{position:relative;border-radius:16px;overflow:hidden;aspect-ratio:3/4}
+.gallery img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.gallery figure:hover img{transform:scale(1.04)}
+.gallery figcaption{position:absolute;left:0;right:0;bottom:0;padding:34px 14px 12px;background:linear-gradient(transparent,rgba(26,18,14,.72));color:#fff;font-size:14px}
+@media(max-width:760px){.gallery{grid-template-columns:1fr 1fr}}
+
+/* boxes */
+.boxes-grid{display:grid;grid-template-columns:1fr 1.5fr;gap:40px;align-items:start;margin-top:36px}
+.boxes-grid>img{border-radius:20px;position:sticky;top:90px;aspect-ratio:3/4;object-fit:cover;width:100%}
+.box{padding:22px 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:1fr auto;gap:6px 20px}
+.box:first-child{padding-top:0}
+.box h3{font-size:26px}
+.box p{grid-column:1/-1;font-size:15px;color:#4a403b}
+.box .comp{grid-column:1/-1;font-size:13.5px;color:var(--brown)}
+.box .price{font-size:28px;text-align:right;line-height:1.1}
+.box .price s{display:block;font:400 13px Inter,sans-serif;color:var(--brown)}
+@media(max-width:860px){.boxes-grid{grid-template-columns:1fr}.boxes-grid>img{position:static;aspect-ratio:16/10}}
+
+/* raspiv */
+.raspiv{background:var(--choc);color:#f6ece6}
+.raspiv .kicker{color:var(--rose)}
+.raspiv h2{color:#fff}
+.raspiv .lead{color:#ecdcd4}
+.r-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:40px 0}
+.r-grid div{border:1px solid rgba(255,255,255,.2);border-radius:16px;padding:24px}
+.r-grid b{display:block;font-family:Cormorant,serif;font-size:36px;color:#fff;line-height:1.1;margin-bottom:6px}
+.r-grid span{font-size:15px}
+.raspiv .btn-main{background:var(--cream);color:var(--choc)}
+@media(max-width:760px){.r-grid{grid-template-columns:1fr}}
+
+/* how */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:36px;counter-reset:s}
+.steps div{counter-increment:s}
+.steps div::before{content:counter(s);display:grid;place-items:center;width:46px;height:46px;border-radius:50%;background:var(--choc);color:#fff;font:600 22px Cormorant,serif;margin-bottom:14px}
+.steps h3{font-size:24px;margin-bottom:6px}
+.steps p{font-size:15px;color:#4a403b}
+@media(max-width:860px){.steps{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.steps{grid-template-columns:1fr}}
+.trust{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:48px}
+.trust div{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:22px}
+.trust h3{font-size:23px;margin-bottom:6px}
+.trust p{font-size:15px;color:#4a403b}
+@media(max-width:760px){.trust{grid-template-columns:1fr}}
+.delivery{margin-top:18px;font-size:15px;color:#4a403b}
+
+/* tg */
+.tg{padding:0 0 88px}
+.tg-card{background:var(--paper);border:1px solid var(--line);border-radius:24px;padding:40px;display:grid;grid-template-columns:1fr auto;gap:28px;align-items:center}
+.tg-card h2{font-size:clamp(30px,3.6vw,42px)}
+@media(max-width:760px){.tg-card{grid-template-columns:1fr;padding:28px}}
+
+/* partners */
+.partners{background:var(--paper);border-top:1px solid var(--line)}
+.p-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.p-list{list-style:none}
+.p-list li{padding:14px 0 14px 30px;border-bottom:1px solid var(--line);position:relative;font-size:15.5px}
+.p-list li::before{content:"";position:absolute;left:4px;top:23px;width:10px;height:10px;border-radius:50%;background:var(--choc)}
+.nums{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:26px 0}
+.nums div{background:var(--cream);border-radius:14px;padding:16px}
+.nums b{display:block;font:600 34px/1 Cormorant,serif;color:var(--choc)}
+.nums span{font-size:13px;color:#4a403b}
+@media(max-width:860px){.p-grid{grid-template-columns:1fr}}
+
+footer{background:var(--ink);color:#d8cfc6;padding:48px 0;font-size:14px}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px;align-items:center}
+footer .logo{color:#fff}
+footer .links{display:flex;gap:22px;flex-wrap:wrap}
+footer a{text-decoration:none}
+footer a:hover{color:#fff}
+
+.float{position:fixed;right:18px;bottom:18px;z-index:30;box-shadow:0 10px 30px rgba(70,30,20,.35);display:none}
+@media(max-width:760px){.float{display:inline-flex}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap bar">
+    <a class="logo" href="#top" aria-label="Тут твой аромат">
+      <svg viewBox="0 0 22 26" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="1" width="8" height="5" rx="1.5"/><path d="M11 8 4 5.5v6L11 9l7 2.5v-6z" stroke-linejoin="round"/><rect x="2" y="9" width="18" height="16" rx="4"/></svg>
+      <span>ТУТ ТВОЙ АРОМАТ</span>
+    </a>
+    <nav>
+      <a href="#advent">Адвенты</a>
+      <a href="#boxes">Боксы</a>
+      <a href="#raspiv">Распивы</a>
+      <a href="#how">Как заказать</a>
+      <a href="#partners">Партнёрам</a>
+    </nav>
+    <a class="btn btn-main dm" href="https://ig.me/m/tut_tvoy_aromat" target="_blank" rel="noopener">Написать нам</a>
+  </div>
+</header>
+
+<main id="top">
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <div class="kicker">Распивы и парфюмерные подарки · Санкт-Петербург</div>
+      <h1>Найдём аромат, который <em>звучит как вы</em></h1>
+      <p class="lead">Оригинальные ароматы по 2 мл: от доступных до нишевых. Собираем их в адвенты и боксы, упаковываем как подарок и объясняем без сложных слов про молекулы.</p>
+      <div class="ctas">
+        <a class="btn btn-main" href="https://ig.me/m/tut_tvoy_aromat" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.2A8.5 8.5 0 1 1 21 12z" stroke-linejoin="round"/></svg>
+          Подобрать аромат</a>
+        <a class="btn btn-ghost" href="#advent">Смотреть адвенты</a>
+      </div>
+      <div class="facts">
+        <span><b>Только оригиналы</b>, разливаем из флаконов</span>
+        <span><b>Подбор бесплатно</b></span>
+        <span><b>Доставка</b> по Петербургу и России</span>
+      </div>
+    </div>
+    <div class="hero-pics">
+      <img class="p1" src="img/foto-6.jpg" alt="Открытый адвент для неё: семь пронумерованных коробочек и письмо под крышкой">
+      <img class="p2" src="img/foto-0.jpg" alt="Две коробки адвентов: розовая для неё и чёрная для него">
+    </div>
+  </div>
+</section>
+
+<section class="advent" id="advent">
+  <div class="wrap">
+    <div class="adv-top">
+      <div>
+        <span class="badge">Принимаем предзаказы</span>
+        <div class="kicker">Новогодний парфюмерный адвент</div>
+        <h2>Семь дней, семь коробочек</h2>
+        <p class="lead">Две версии: розовая для неё и чёрная для него. Открываете по одной коробочке в день и слушаете каждый аромат на себе.</p>
+      </div>
+      <div class="tabs" role="tablist">
+        <button role="tab" aria-selected="true" data-tab="neyo">Для неё</button>
+        <button role="tab" aria-selected="false" data-tab="nego">Для него</button>
+      </div>
+    </div>
+
+    <div class="inside">
+      <div><b>6</b><span>оригинальных ароматов по 2 мл</span></div>
+      <div><b>7-я</b><span>коробочка с подарком</span></div>
+      <div><b>Карточка</b><span>к каждому аромату: образ, с чем наслаивать, как наносить</span></div>
+      <div><b>Коробка</b><span>с магнитной крышкой остаётся для вашего гардероба</span></div>
+    </div>
+
+    <!-- ДЛЯ НЕЁ -->
+    <div class="variants" id="v-neyo">
+      <article class="card">
+        <div class="pic"><img src="img/advent-neyo-1.jpg" alt="Состав адвента для неё, Парфюмерный гардероб 1" loading="lazy"></div>
+        <div class="body">
+          <div class="head"><h3>Парфюмерный гардероб&nbsp;1</h3><span class="price">3 400 ₽</span></div>
+          <div class="sub">Узнаваемые ароматы на каждый день и на вечер</div>
+          <ul>
+            <li>Juliette Has a Gun Not a Perfume Superdose</li>
+            <li>Kilian Angels' Share</li>
+            <li>Mancera Aoud Café</li>
+            <li>Jo Malone Wood Sage &amp; Sea Salt</li>
+            <li>RudRoss Montana</li>
+            <li>Coach Floral</li>
+          </ul>
+          <p class="value">Те же ароматы в полных флаконах стоят <b>больше 64 000 ₽</b></p>
+          <a class="btn btn-main" href="https://ig.me/m/tut_tvoy_aromat" target="_blank" rel="noopener">Заказать в директе</a>
+        </div>
+      </article>
+      <article class="card">
+        <div class="pic"><img src="img/advent-neyo-2.jpg" alt="Состав адвента для неё, Парфюмерный гардероб 2" loading="lazy"></div>
+        <div class="body">
+          <div class="head"><h3>Парфюмерный гардероб&nbsp;2</h3><span class="price">3 490 ₽</span></div>
+          <div class="sub">Тёплые, уютные и вечерние ароматы</div>
+          <ul>
+            <li>Juliette Has a Gun Not a Perfume Superdose</li>
+            <li>Chanel Coco Noir</li>
+            <li>Essential Parfums Ambre Latte</li>
+            <li>Kilian Angels' Share</li>
+            <li>Maison Margiela By the Fireplace</li>
+            <li>Chopard Rose Malaki</li>
+          </ul>
+          <p class="value">Те же ароматы в полных флаконах стоят <b>больше 82 000 ₽</b></p>
+          <a class="btn btn-main" href="https://ig.me/m/tut_tvoy_aromat" target="_blank" rel="noopener">Заказать в директе</a>
+        </div>
+      </article>
+      <article class="card niche" data-group="neyo">
+        <div class="pic"><img src="img/advent-neyo-3a.jpg" data-a="img/advent-neyo-3a.jpg" data-b="img/advent-neyo-3b.jpg" alt="Состав адвента для неё, Ниша для ценителя" loading="lazy"></div>
+        <div class="body">
+          <div class="head"><h3>Ниша для ценителя</h3><span class="price">3 500 ₽</span></div>
+          <div class="sub">Нишевая парфюмерия и редкие дуэты</div>
+          <div class="choose"><button aria-pressed="true" data-v="a">Вариант А</button><button aria-pressed="false" data-v="b">Вариант Б</button></div>
+          <ul>
+            <li>Juliette Has a Gun Not a Perfume Superdose</li>
+            <li>Bybozo Habibi</li>
+            <li>Amouage Guidance 46</li>
+            <li>Le Labo Another 13</li>
+            <li class="va">UNUM · Filippo Sorcinelli But Not Today</li>
+            <li class="va">Дуэт по 1 мл: Ex Nihilo Fleur Narcotique + Vertus Narcos'is</li>
+            <li class="vb" hidden>Filippo Sorcinelli Notre-Dame Notte di Natale</li>
+            <li class="vb" hidden>Дуэт по 1 мл: Chanel Coco Mademoiselle + Chanel 1932</li>
+          </ul>
+          <p class="value">Те же ароматы в полных флаконах стоят <b>больше 109 000 ₽</b></p>
+          <a class="btn btn-main" href="https://ig.me/m/tut_tvoy_aromat" target="_blank" rel="noopener">Заказать в директе</a>
+        </div>
+      </article>
+    </div>
+
+    <!-- ДЛЯ НЕГО -->
+    <div class="variants" id="v-nego" hidden>
+      <article class="card">
+        <div class="pic"><img src="img/advent-nego-1.jpg" alt="Состав адвента для него, Парфюмерный гардероб 1" loading="lazy"></div>
+        <div class="body">
+          <div class="head"><h3>Парфюмерный гардероб&nbsp;1</h3><span class="price">3 490 ₽</span></div>
+          <div class="sub">Свежие и пряные ароматы на каждый день</div>
+          <ul>
+            <li>Emporio Armani Stronger With You</li>
+            <li>RudRoss Montana</li>
+            <li>Guerlain Homme L'Eau</li>
+            <li>Bvlgari Le Gemme Tygar</li>
+            <li>Jo Malone Wood Sage &amp; Sea Salt</li>
+            <li>Maison Margiela By the Fireplace</li>
+          </ul>
+          <p class="value">Те же ароматы в полных флаконах стоят <b>больше 79 000 ₽</b></p>
+          <a class="btn btn-main" href="https://ig.me/m/tut_tvoy_aromat" target="_blank" rel="noopener">Заказать в директе</a>
+        </div>
+      </article>
+      <article class="card">
+        <div class="pic"><img src="img/advent-nego-2.jpg" alt="Состав адвента для него, Парфюмерный гардероб 2" loading="lazy"></div>
+        <div class="body">
+          <div class="head"><h3>Парфюмерный гардероб&nbsp;2</h3><span class="price">3 390 ₽</span></div>
+          <div class="sub">Тёплые, древесные и вечерние ароматы</div>
+          <ul>
+            <li>Emporio Armani Stronger With You</li>
+            <li>RudRoss Montana</li>
+            <li>Maison Margiela By the Fireplace</li>
+            <li>Mancera Aoud Café</li>
+            <li>Essential Parfums Bois Impérial</li>
+            <li>Jo Malone Wood Sage &amp; Sea Salt</li>
+          </ul>
+          <p class="value">Те же ароматы в полных флаконах стоят <b>больше 62 000 ₽</b></p>
+          <a class="btn btn-main" href="https://ig.me/m/tut_tvoy_aromat" target="_blank" rel="noopener">Заказать в директе</a>
+        </div>
+      </article>
+      <article class="card niche" data-group="nego">
+        <div class="pic"><img src="img/advent-nego-3a.jpg" data-a="img/advent-nego-3a.jpg" data-b="img/advent-nego-3b.jpg" alt="Состав адвента для него, Ниша для ценителя" loading="lazy"></div>
+        <div class="body">
+          <div class="head"><h3>Ниша для ценителя</h3><span class="price">3 350 ₽</span></div>
+          <div class="sub">Нишевые ароматы с характером</div>
+          <div class="choose"><button aria-pressed="true" data-v="a">Вариант А</button><button aria-pressed="false" data-v="b">Вариант Б</button></div>
+          <ul>
+            <li>Emporio Armani Stronger With You</li>
+            <li>RudRoss Montana</li>
+            <li>Le Labo Another 13</li>
+            <li>Essential Parfums Bois Impérial</li>
+            <li class="va">Filippo Sorcinelli Notre-Dame Notte di Natale</li>
+            <li class="vb" hidden>UNUM · Filippo Sorcinelli But Not Today</li>
+            <li>Nasomatto Black Afgano, 1 мл</li>
+          </ul>
+          <div class="alt">В подарок: Filippo Sorcinelli Ennui Noir и Quando Rapita in Estasi по 1 мл</div>
+          <p class="value">Те же ароматы в полных флаконах стоят <b>больше 100 000 ₽</b></p>
+          <a class="btn btn-main" href="https://ig.me/m/tut_tvoy_aromat" target="_blank" rel="noopener">Заказать в директе</a>
+        </div>
+      </article>
+    </div>
+
+    <p class="adv-note">Хотите заменить аромат в составе? Напишите нам, подберём замену под ваш вкус.</p>
+  </div>
+</section>
+
+<section id="look">
+  <div class="wrap">
+    <div class="kicker">Как это выглядит вживую</div>
+    <h2>Подарок, который приятно открывать</h2>
+    <p class="lead">Снимали сами, без студии и фильтров. Под крышкой письмо о том, как открывать адвент, а карточки к ароматам собираются в конверт.</p>
+    <div class="gallery">
+      <figure><img src="img/dlya-nego-otkryt.jpg" alt="Открытый адвент для него" loading="lazy"><figcaption>Для него: магнитная крышка и 7 коробочек</figcaption></figure>
+      <figure><img src="img/atomaizer.jpg" alt="Атомайзер 2 мл в руке" loading="lazy"><figcaption>В каждой коробочке оригинальный аромат 2&nbsp;мл</figcaption></figure>
+      <figure><img src="img/foto-4.jpg" alt="Карточка к аромату" loading="lazy"><figcaption>К каждому аромату своя карточка</figcaption></figure>
+      <figure><img src="img/foto-1.jpg" alt="Коробки адвентов для неё и для него" loading="lazy"><figcaption>Розовая для неё, чёрная для него</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section id="boxes" style="padding-top:0">
+  <div class="wrap">
+    <div class="kicker">Готовые боксы</div>
+    <h2>Наборы на случай жизни</h2>
+    <p class="lead">3–4 оригинальных аромата по 2 мл в кремовой коробке с шоколадной лентой. Несколько ароматов в одном боксе, чтобы выбрать свой. В бокс кладём открытку с описанием каждого аромата одной фразой.</p>
+    <div class="boxes-grid">
+      <img src="img/box.jpg" alt="Кремовая коробка с шоколадной лентой" loading="lazy">
+      <div>
+        <div class="box">
+          <h3>«Осень в Петербурге»</h3><div class="price">1 290 ₽<s>1 570 ₽</s></div>
+          <p>Когда сыро, темно в пять вечера и хочется завернуться в плед. Тёплые и сладкие ароматы.</p>
+          <div class="comp">Mancera Aoud Café · Mancera Aoud Orchid · YSL Black Opium</div>
+        </div>
+        <div class="box">
+          <h3>«Я знаю себе цену»</h3><div class="price">1 390 ₽<s>1 670 ₽</s></div>
+          <p>На свидание и ужин, когда хочется, чтобы обернулись. Тёмные, магнетичные ароматы.</p>
+          <div class="comp">Chanel Coco Noir · Mancera Aoud Orchid · Carine Roitfeld Lawrence. С оригинальным пробником MFK Baccarat Rouge 540: 1 890 ₽</div>
+        </div>
+        <div class="box">
+          <h3>«Подозрительно всё в порядке»</h3><div class="price">1 090 ₽<s>1 370 ₽</s></div>
+          <p>Чистые и спокойные ароматы на каждый день. Для тех, кому говорят: «Мне просто нравится, как от вас пахнет».</p>
+          <div class="comp">RudRoss Montana · DKNY Be Delicious · Juliette Has a Gun Not a Perfume</div>
+        </div>
+        <div class="box">
+          <h3>«Для него. Не носки»</h3><div class="price">990 ₽<s>1 170 ₽</s></div>
+          <p>Подарок мужчине, когда вкус не знаете, а дарить носки уже стыдно. Свежие и понятные ароматы.</p>
+          <div class="comp">Armaf Club de Nuit Iconic · DKNY Be Delicious Men · Guerlain Homme L'Eau. Премиум с Bvlgari Tygar: 2 090 ₽</div>
+        </div>
+        <div class="box">
+          <h3>«Не могу решить»</h3><div class="price">1 890 ₽<s>2 260 ₽</s></div>
+          <p>Подарок, когда не знаете, что любит человек: по одному аромату из четырёх настроений.</p>
+          <div class="comp">DKNY Be Delicious · RudRoss Montana · Mancera Aoud Café · Chanel Coco Noir</div>
+        </div>
+        <p class="delivery">Зачёркнутая цена: те же ароматы по отдельности. Если аромат из бокса закончился, предложим равноценную замену.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="raspiv" id="raspiv">
+  <div class="wrap">
+    <div class="kicker">Распивы и пробники</div>
+    <h2>Услышали аромат на ком-то и ищете?</h2>
+    <p class="lead">Напишите нам название или просто опишите, как он звучал. Найдём аромат и предложим, как с ним познакомиться.</p>
+    <div class="r-grid">
+      <div><b>от 290 ₽</b><span>распив 2 мл из оригинального флакона</span></div>
+      <div><b>2 мл</b><span>хватает, чтобы носить аромат несколько дней и понять, ваш ли он</span></div>
+      <div><b>Оригинальные пробники</b><span>редкие ароматы целиком, в заводской упаковке</span></div>
+    </div>
+    <a class="btn btn-main" href="https://ig.me/m/tut_tvoy_aromat" target="_blank" rel="noopener">Написать название аромата</a>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <div class="kicker">Как заказать</div>
+    <h2>Четыре шага до вашего аромата</h2>
+    <div class="steps">
+      <div><h3>Напишите нам</h3><p>В директ Instagram: что выбрали или для кого ищете подарок.</p></div>
+      <div><h3>Подберём бесплатно</h3><p>Зададим пару вопросов о вкусе и настроении и предложим варианты.</p></div>
+      <div><h3>Упакуем как подарок</h3><p>Коробка, лента, тишью и пупырка с сердечками. Можно сразу дарить.</p></div>
+      <div><h3>Доставим</h3><p>По Петербургу курьером или встретимся. По России: СДЭК, Яндекс Доставка, 5Post, Почта России.</p></div>
+    </div>
+    <div class="trust">
+      <div><h3>Только оригиналы</h3><p>Разливаем из оригинальных флаконов. Не продаём аналоги и «тестеры из ОАЭ».</p></div>
+      <div><h3>Покажем всё</h3><p>До покупки покажем флакон, код партии и процесс распива по видеосвязи.</p></div>
+      <div><h3>Расскажем просто</h3><p>Объясняем ароматы через образы и настроение, без сложных слов про молекулы.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="tg">
+  <div class="wrap">
+    <div class="tg-card">
+      <div>
+        <div class="kicker">Наш Telegram-канал</div>
+        <h2>Предложения, которых нет в Instagram</h2>
+        <p class="lead">Подписчики канала первыми узнают о новинках и специальных предложениях. И читают больше о парфюмерии: как носить, наслаивать и выбирать ароматы.</p>
+      </div>
+      <a class="btn btn-ghost" href="https://t.me/tut_tvoy_aromat" target="_blank" rel="noopener">Подписаться в Telegram</a>
+    </div>
+  </div>
+</section>
+
+<section class="partners" id="partners">
+  <div class="wrap p-grid">
+    <div>
+      <div class="kicker">Брендам и дистрибьюторам</div>
+      <h2>Знакомим людей с ароматами</h2>
+      <p class="lead">«Тут твой аромат» в Петербурге собирает оригинальные ароматы в подарочные адвенты и боксы. Человек несколько дней слушает аромат на себе, а понравившийся покупает полным флаконом.</p>
+      <div class="nums">
+        <div><b>8</b><span>вариантов новогоднего адвента</span></div>
+        <div><b>5</b><span>готовых боксов</span></div>
+        <div><b>3</b><span>площадки продаж: Instagram, Telegram, Авито</span></div>
+      </div>
+    </div>
+    <div>
+      <ul class="p-list">
+        <li>Делаем наборы-знакомства с линейкой бренда и парные боксы «для него и для неё»</li>
+        <li>Продаём полные флаконы тем, кому аромат понравился в боксе</li>
+        <li>Снимаем распив, упаковку и распаковку для соцсетей, отмечаем бренд</li>
+        <li>Упаковка как подарок и карточка к каждому аромату: образ, с чем наслаивать, как наносить</li>
+      </ul>
+      <p style="margin:24px 0 18px;font-size:15px;color:#4a403b">Обсудим оптовые условия, тестеры и совместное продвижение.</p>
+      <a class="btn btn-main" href="https://ig.me/m/tut_tvoy_aromat" target="_blank" rel="noopener">Написать о сотрудничестве</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <a class="logo" href="#top"><span>ТУТ ТВОЙ АРОМАТ</span></a>
+    <div class="links">
+      <a href="https://instagram.com/tut_tvoy_aromat" target="_blank" rel="noopener">Instagram @tut_tvoy_aromat</a>
+      <a href="https://t.me/tut_tvoy_aromat" target="_blank" rel="noopener">Telegram</a>
+      <span>Санкт-Петербург</span>
+    </div>
+  </div>
+</footer>
+
+<a class="btn btn-main float" href="https://ig.me/m/tut_tvoy_aromat" target="_blank" rel="noopener">Написать нам</a>
+
+<script>
+document.querySelectorAll('.tabs button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.tabs button').forEach(x=>x.setAttribute('aria-selected',x===b));
+  document.getElementById('v-neyo').hidden=b.dataset.tab!=='neyo';
+  document.getElementById('v-nego').hidden=b.dataset.tab!=='nego';
+}));
+document.querySelectorAll('.card.niche').forEach(card=>{
+  card.querySelectorAll('.choose button').forEach(b=>b.addEventListener('click',()=>{
+    const v=b.dataset.v;
+    card.querySelectorAll('.choose button').forEach(x=>x.setAttribute('aria-pressed',x===b));
+    card.querySelectorAll('.va').forEach(li=>li.hidden=v!=='a');
+    card.querySelectorAll('.vb').forEach(li=>li.hidden=v!=='b');
+    const img=card.querySelector('.pic img'); img.src=img.dataset[v];
+  }));
+});
+</script>
+</body>
+</html>
