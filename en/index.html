@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Tut Tvoy Aromat: fragrance decants, advent calendars and gift boxes in Saint Petersburg</title>
-<meta name="description" content="Fragrance boutique in Saint Petersburg, Russia: decants from original bottles, New Year advent calendars and discovery gift boxes. Partnership for fragrance brands and distributors.">
+<title>Tut Tvoy Aromat: Russian fragrance boutique. Decants, samples, full bottles, boxes and advent calendars</title>
+<meta name="description" content="Russian fragrance boutique with delivery across Russia: decants from original bottles, New Year advent calendars and discovery gift boxes. Partnership for fragrance brands and distributors.">
 <meta property="og:title" content="Tut Tvoy Aromat">
-<meta property="og:description" content="Decants, advent calendars and gift boxes from original fragrances. Saint Petersburg, Russia.">
+<meta property="og:description" content="Decants, advent calendars and gift boxes from original fragrances. Delivery across Russia.">
 <meta property="og:image" content="../img/hero-dlya-nego.jpg">
 <link rel="alternate" hreflang="ru" href="https://bazque.github.io/">
 <link rel="alternate" hreflang="en" href="https://bazque.github.io/en/">
@@ -61,6 +61,10 @@ nav a:hover{color:var(--choc)}
 .hero-pics img{position:absolute;border-radius:18px;object-fit:cover;box-shadow:0 24px 60px rgba(70,40,20,.22)}
 .hero-pics .p1{width:66%;height:84%;right:0;top:0}
 .hero-pics .p2{width:48%;height:58%;left:0;bottom:0;border:6px solid var(--cream)}
+.assort{display:flex;flex-wrap:wrap;gap:8px;list-style:none;padding:0;margin:22px 0 0}
+.assort a{display:inline-block;padding:7px 14px;border:1px solid var(--line);border-radius:999px;background:var(--paper);font-size:14px;color:var(--ink);text-decoration:none}
+.assort a:hover{border-color:var(--choc);color:var(--choc)}
+.hero .assort+.lead{margin-top:20px}
 .facts{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:34px;font-size:14px;color:var(--brown)}
 .facts b{color:var(--ink);font-weight:600}
 @media(max-width:860px){.hero .wrap{grid-template-columns:1fr;gap:40px}.hero{padding-top:32px}}
@@ -123,6 +127,8 @@ button.btn{font-family:inherit;line-height:inherit}
 .box p{grid-column:1/-1;font-size:15px;color:#4a403b}
 .box .comp{grid-column:1/-1;font-size:13.5px;color:var(--brown)}
 .box .price{font-size:28px;text-align:right;line-height:1.1}
+.box-personal .price{font:500 15px/1.4 Inter,sans-serif;color:var(--brown);padding-top:6px}
+.box-personal .btn{margin-top:10px;padding:11px 20px;font-size:14px}
 .box .price s{display:block;font:400 13px Inter,sans-serif;color:var(--brown)}
 @media(max-width:860px){.boxes-grid{grid-template-columns:1fr}.boxes-grid>img{position:static;aspect-ratio:16/10}}
 
@@ -227,17 +233,24 @@ footer a:hover{color:#fff}
 <section class="hero">
   <div class="wrap">
     <div>
-      <div class="kicker">Decants and fragrance gifts · Saint Petersburg, Russia</div>
+      <div class="kicker">Fragrance boutique · Delivery across Russia</div>
       <h1>We help people find a scent that <em>feels like them</em></h1>
-      <p class="lead">Tut Tvoy Aromat (Russian for “Here is your scent”) is a fragrance boutique in Saint Petersburg. We decant original fragrances into 2&nbsp;ml vials, from affordable to niche, build them into advent calendars and discovery boxes, wrap them as gifts and explain every scent in simple words.</p>
+      <ul class="assort">
+        <li><a href="#raspiv">Decants from 2&nbsp;ml</a></li>
+        <li><a href="#raspiv">Original samples and miniatures</a></li>
+        <li><a href="#raspiv">Full-size bottles</a></li>
+        <li><a href="#boxes">Personal boxes</a></li>
+        <li><a href="#advent">Advent calendars for her and for him</a></li>
+      </ul>
+      <p class="lead">Tut Tvoy Aromat (Russian for “Here is your scent”) is a Russian fragrance boutique with original perfumery from affordable to niche. We sell full-size bottles at prices below Russian retail chains and put together personal boxes based on a 5-question survey.</p>
       <div class="ctas">
         <a class="btn btn-main" href="#partners">Partner with us</a>
         <a class="btn btn-ghost" href="#advent">See our advent calendars</a>
       </div>
       <div class="facts">
-        <span><b>Originals only:</b> decants from original bottles, original samples and miniatures</span>
+        <span><b>Originals only</b></span>
         <span><b>Free scent consultation</b></span>
-        <span><b>Delivery</b> across Saint Petersburg and Russia</span>
+        <span><b>Delivery</b> across Russia</span>
       </div>
     </div>
     <div class="hero-pics">
@@ -431,12 +444,17 @@ footer a:hover{color:#fff}
 
 <section id="boxes" style="padding-top:0">
   <div class="wrap">
-    <div class="kicker">Ready-made gift boxes</div>
+    <div class="kicker">Boxes</div>
     <h2>A box for every occasion</h2>
-    <p class="lead">3–4 original fragrances, 2&nbsp;ml each, in a cream box with a chocolate ribbon. Several scents in one box, so you can choose your own. Inside is a card that describes each scent in one line.</p>
+    <p class="lead">3–4 original fragrances, 2&nbsp;ml each, in a cream box with a chocolate ribbon. Several scents in one box, so you can choose your own. Inside is a card that describes each scent in one line. Choose a ready-made box or let us put together a personal one.</p>
     <div class="boxes-grid">
       <img src="../img/boksy-firmennye.jpg" alt="Cream boxes with chocolate ribbon and fragrance rollers" loading="lazy">
       <div>
+        <div class="box box-personal">
+          <h3>Personal box</h3><div class="price">price depends on the scents</div>
+          <p>Answer 5 questions about what you like, and we will put together a box of scents to your taste.</p>
+          <div class="comp"><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Write “SURVEY” and we will send you 5 questions">Take the survey</button></div>
+        </div>
         <div class="box">
           <h3>“Autumn in Saint Petersburg”</h3><div class="price">1 290 ₽<s>1 570 ₽</s></div>
           <p>For damp evenings when it is dark by five and all you want is a blanket. Warm and sweet scents.</p>
@@ -524,7 +542,7 @@ footer a:hover{color:#fff}
       <a href="https://t.me/tut_tvoy_aromat" target="_blank" rel="noopener">Telegram</a>
       <a href="https://vk.ru/tut_tvoy_aromat" target="_blank" rel="noopener">VK</a>
       <a href="https://max.ru/channel_tut_tvoy_aromat" target="_blank" rel="noopener">MAX</a>
-      <span>Saint Petersburg, Russia</span>
+      <span>Delivery across Russia</span>
       <a href="../" lang="ru">Русская версия</a>
     </div>
   </div>
