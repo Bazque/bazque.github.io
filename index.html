@@ -93,6 +93,10 @@ nav a:hover{color:var(--choc)}
 .card .value{font-size:13.5px;color:var(--brown);margin:auto 0 16px}
 .card .value b{color:var(--ink)}
 .card .btn{justify-content:center;width:100%}
+.cmenu{display:flex;align-items:center;gap:10px}
+.lang{font-size:13px;font-weight:600;letter-spacing:.04em;text-decoration:none;color:var(--choc);border:1px solid var(--line);border-radius:999px;padding:8px 11px}
+.lang:hover{background:#fff}
+@media(max-width:480px){.lang{display:none}}
 .cpop-hint{font-size:13.5px;color:#4a403b;padding:10px 12px 6px;line-height:1.4;margin:0}
 button.btn{font-family:inherit;line-height:inherit}
 .choose{display:flex;gap:6px;margin-bottom:12px}
@@ -210,6 +214,7 @@ footer a:hover{color:#fff}
       <a href="#partners">Партнёрам</a>
     </nav>
     <div class="cmenu">
+      <a class="lang" href="en/" lang="en" aria-label="English version">EN</a>
       <button class="btn btn-main js-contact" id="cbtn" aria-haspopup="true" aria-expanded="false" aria-controls="cpop">Написать нам</button>
     </div>
   </div>
@@ -534,6 +539,7 @@ footer a:hover{color:#fff}
       <a href="https://max.ru/channel_tut_tvoy_aromat" target="_blank" rel="noopener">MAX</a>
       <a href="mailto:tuttvoyaromat@yandex.ru">tuttvoyaromat@yandex.ru</a>
       <span>Санкт-Петербург</span>
+      <a href="en/" lang="en">English version</a>
     </div>
   </div>
 </footer>
