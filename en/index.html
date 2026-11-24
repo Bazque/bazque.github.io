@@ -180,6 +180,13 @@ button.btn{font-family:inherit;line-height:inherit}
 @media(max-width:1000px){.raspiv .r-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:560px){.raspiv .r-grid{grid-template-columns:1fr}}
 @media(max-width:760px){.tabs{display:flex;width:100%}.tabs button{flex:1}}
+.path{border:1px solid rgba(255,255,255,.22);border-radius:18px;padding:22px 24px;margin-top:18px}
+.path h3{color:#fff;font-size:26px;margin-bottom:6px}
+.path p{color:#ecdcd4;font-size:15px;margin:0 0 16px}
+.path .a-btns{margin-top:0}
+.path .btn{padding:12px 18px;font-size:14px}
+.a-list{overflow:hidden}
+.raspiv .lead{margin-bottom:8px}
 /* how */
 .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:36px;counter-reset:s}
 .steps div{counter-increment:s}
@@ -493,12 +500,20 @@ footer a:hover{color:#fff}
   <div class="wrap a-grid">
     <div>
       <div class="blk"><span>03</span>Find your scent</div>
-      <h2>We will find your scent with a short survey</h2>
-      <p class="lead">Answer 5 questions and tell us your budget. Send your answers wherever is easiest: email, Instagram, Telegram, VK or MAX. We will choose scents for free and suggest a format: a decant, a sample, a full bottle or a personal box.</p>
-      <p class="a-know">Already know the scent, or caught it on someone? Just send us its name or describe what it was like.</p>
-      <div class="a-btns">
-        <button class="btn btn-main" id="copyq" type="button">Copy the questions</button>
-        <button class="btn btn-ghost js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Paste the questions, add your answers and send them to us">Send your answers</button>
+      <h2>We will find a scent for your request</h2>
+      <p class="lead">We will suggest several options: a decant, a miniature or a full-size bottle, depending on what suits you best. The consultation is free.</p>
+      <div class="path">
+        <h3>Know which scent you want?</h3>
+        <p>Send us its name or describe it in your own words. Tell us the volume you need or the budget you would like to stay within, and we will suggest options.</p>
+        <button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Send the name of the scent or describe it, and tell us the volume or budget">Write to us</button>
+      </div>
+      <div class="path">
+        <h3>Not sure what to choose?</h3>
+        <p>Answer the 5 survey questions and tell us your budget. Send your answers wherever is easiest: email, Instagram, Telegram, VK or MAX. We will choose several options for you.</p>
+        <div class="a-btns">
+          <button class="btn btn-main" id="copyq" type="button">Copy the questions</button>
+          <button class="btn btn-ghost js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Paste the questions, add your answers and send them to us">Send your answers</button>
+        </div>
       </div>
       <p class="a-note">This website does not store or collect anything. You send your answers to us yourself, in an ordinary conversation.</p>
     </div>
