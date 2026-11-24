@@ -133,6 +133,19 @@ button.btn{font-family:inherit;line-height:inherit}
 @media(max-width:860px){.boxes-grid{grid-template-columns:1fr}.boxes-grid>img{position:static;aspect-ratio:16/10}}
 
 /* raspiv */
+.anketa{background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.a-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:48px;align-items:start}
+.a-grid>div:first-child{position:sticky;top:96px}
+.a-btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.a-note{font-size:13.5px;color:var(--brown);margin-top:16px;line-height:1.5}
+.a-list{list-style:none;padding:0;margin:0;background:#fff;border:1px solid var(--line);border-radius:20px;counter-reset:q}
+.a-list>li{counter-increment:q;padding:22px 26px 22px 74px;position:relative;border-bottom:1px solid var(--line)}
+.a-list>li:last-child{border-bottom:0}
+.a-list>li::before{content:counter(q);position:absolute;left:24px;top:20px;width:34px;height:34px;border-radius:50%;background:var(--choc);color:#fff;display:grid;place-items:center;font:600 19px Cormorant,serif;font-variant-numeric:lining-nums}
+.a-list h3{font-size:22px;margin-bottom:6px}
+.a-list p{font-size:14.5px;color:#4a403b;margin:0}
+.a-list ul{margin:6px 0 0;padding-left:18px;font-size:14.5px;color:#4a403b;line-height:1.7}
+@media(max-width:860px){.a-grid{grid-template-columns:1fr;gap:28px}.a-grid>div:first-child{position:static}.a-list>li{padding:20px 18px 20px 62px}.a-list>li::before{left:16px}}
 .raspiv{background:var(--choc);color:#f6ece6}
 .raspiv .kicker{color:var(--rose)}
 .raspiv h2{color:#fff}
@@ -217,6 +230,7 @@ footer a:hover{color:#fff}
     <nav>
       <a href="#advent">Адвенты</a>
       <a href="#boxes">Боксы</a>
+      <a href="#anketa">Анкета</a>
       <a href="#raspiv">Распивы</a>
       <a href="#how">Как заказать</a>
       <a href="#partners">Партнёрам</a>
@@ -239,14 +253,14 @@ footer a:hover{color:#fff}
         <li><a href="#raspiv">Распивы от 2 мл</a></li>
         <li><a href="#raspiv">Оригинальные пробники и миниатюры</a></li>
         <li><a href="#raspiv">Полноразмерные флаконы</a></li>
-        <li><a href="#boxes">Персональные боксы</a></li>
+        <li><a href="#anketa">Персональные боксы</a></li>
         <li><a href="#advent">Адвенты для неё и для него</a></li>
       </ul>
       <p class="lead">Оригинальная парфюмерия от доступной до нишевой. Полноразмерные флаконы продаём по ценам ниже, чем в сетевых магазинах, а персональный бокс соберём по анкете из 5 вопросов.</p>
       <div class="ctas">
-        <button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Расскажите, для кого ищете аромат и что нравится">
+        <a class="btn btn-main" href="#anketa">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.2A8.5 8.5 0 1 1 21 12z" stroke-linejoin="round"/></svg>
-          Подобрать аромат</button>
+          Подобрать аромат</a>
         <a class="btn btn-ghost" href="#advent">Подобрать адвент</a>
         <a class="btn btn-ghost" href="#boxes">Подобрать бокс</a>
       </div>
@@ -430,7 +444,7 @@ footer a:hover{color:#fff}
         <div class="box box-personal">
           <h3>Персональный бокс</h3><div class="price">цена зависит от состава</div>
           <p>Ответьте на 5 вопросов о том, что вам нравится, и мы соберём бокс из ароматов под ваш вкус.</p>
-          <div class="comp"><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Напишите «АНКЕТА», и мы пришлём 5 вопросов">Пройти анкету</button></div>
+          <div class="comp"><a class="btn btn-main" href="#anketa">Пройти анкету</a></div>
         </div>
         <div class="box">
           <h3>«Осень в Петербурге»</h3><div class="price">1 290 ₽<s>1 570 ₽</s></div>
@@ -459,6 +473,28 @@ footer a:hover{color:#fff}
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<section class="anketa" id="anketa">
+  <div class="wrap a-grid">
+    <div>
+      <div class="kicker">Анкета подбора</div>
+      <h2>Пять вопросов, и мы подберём ароматы под вас</h2>
+      <p class="lead">Так мы подбираем ароматы и собираем персональные боксы. Скопируйте вопросы, ответьте на них и отправьте нам туда, где вам удобно: в Instagram, ВКонтакте, Telegram, MAX или на почту. Подбор бесплатный.</p>
+      <div class="a-btns">
+        <button class="btn btn-main" id="copyq" type="button">Скопировать вопросы</button>
+        <button class="btn btn-ghost js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Вставьте вопросы, допишите ответы и отправьте нам">Отправить ответы</button>
+      </div>
+      <p class="a-note">Сайт ничего не сохраняет и не собирает. Ответы вы отправляете нам сами, в обычной переписке.</p>
+    </div>
+    <ol class="a-list" id="qlist">
+      <li><h3>Где вам хорошо?</h3><p>Можно выбрать несколько.</p><ul><li>кофейня с выпечкой и корицей</li><li>лес после дождя</li><li>море, соль, белая рубашка</li><li>вечерний бар, бархат, свечи</li><li>сад с цветами весной</li></ul></li>
+      <li><h3>Какой аромат вы уже любили или любите?</h3><p>Название или просто запомнившийся запах на ком-то.</p></li>
+      <li><h3>Какие запахи точно не ваши?</h3><p>Например: сладкое, пудра, табак, «бабушкины» цветы, резкая свежесть.</p></li>
+      <li><h3>Куда будете носить?</h3><ul><li>каждый день и на работу</li><li>на свидания и вечером</li><li>хочу «свой» аромат на всё</li><li>это подарок: кому и какой это человек?</li></ul></li>
+      <li><h3>Что хочется, чтобы думали о вас, когда вы проходите мимо?</h3><ul><li>«какой чистый и свежий аромат»</li><li>«хочу узнать, кто это»</li><li>«рядом с этим человеком спокойно и уютно»</li><li>«этот человек знает себе цену»</li></ul></li>
+    </ol>
   </div>
 </section>
 
@@ -601,6 +637,7 @@ document.querySelectorAll('.js-contact').forEach(t=>t.addEventListener('click',e
 document.addEventListener('click',e=>{if(!cp.hidden&&!cp.contains(e.target))close()});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
 addEventListener('scroll',()=>{if(cur)place(cur)},{passive:true});addEventListener('resize',()=>{if(cur)place(cur)});
+const cq=document.getElementById('copyq');if(cq){const qt="Анкета подбора «Тут твой аромат»\n\n1. Где вам хорошо? (Можно выбрать несколько.)\n— кофейня с выпечкой и корицей\n— лес после дождя\n— море, соль, белая рубашка\n— вечерний бар, бархат, свечи\n— сад с цветами весной\nОтвет: \n\n2. Какой аромат вы уже любили или любите? (Название или просто запомнившийся запах на ком-то.)\nОтвет: \n\n3. Какие запахи точно не ваши? (Например: сладкое, пудра, табак, «бабушкины» цветы, резкая свежесть.)\nОтвет: \n\n4. Куда будете носить?\n— каждый день и на работу\n— на свидания и вечером\n— хочу «свой» аромат на всё\n— это подарок: кому и какой это человек?\nОтвет: \n\n5. Что хочется, чтобы думали о вас, когда вы проходите мимо?\n— «какой чистый и свежий аромат»\n— «хочу узнать, кто это»\n— «рядом с этим человеком спокойно и уютно»\n— «этот человек знает себе цену»\nОтвет: ";cq.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(qt)}catch(e){const t=document.createElement('textarea');t.value=qt;document.body.appendChild(t);t.select();document.execCommand('copy');t.remove()}const o=cq.textContent;cq.textContent='Скопировано ✓';setTimeout(()=>cq.textContent=o,2200)})}
 </script>
 </body>
 </html>
