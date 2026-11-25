@@ -232,6 +232,8 @@ h1,h2{text-wrap:balance}
 .cat-head:focus-visible{outline:2px solid var(--choc);outline-offset:-2px;border-radius:16px}
 .cat-name{flex:1;font:600 20px/1.15 Cormorant,serif;color:var(--ink)}
 .cat-name small{display:block;font:600 11px Inter,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--brown);margin-bottom:3px}
+#catmore[hidden]{display:none}
+.cat-uni{color:var(--choc);font-weight:600}
 .cat-tag{font-size:13.5px;color:var(--choc);font-weight:600;white-space:nowrap}
 .cat-head i{width:9px;height:9px;border-right:1.6px solid var(--choc);border-bottom:1.6px solid var(--choc);transform:rotate(45deg);transition:transform .2s;margin:-4px 2px 0 4px}
 .cat-head[aria-expanded=true] i{transform:rotate(-135deg);margin-top:4px}
@@ -640,11 +642,11 @@ footer a:hover{color:#fff}
       <button type="button" data-f="fresh" aria-pressed="false">Fresh</button>
       <button type="button" data-f="warm" aria-pressed="false">Warm and sweet</button>
       <button type="button" data-f="floral" aria-pressed="false">Floral and soft</button>
-      <button type="button" data-f="him" aria-pressed="false">For him</button>
+      <button type="button" data-f="him" aria-pressed="false">For him and unisex</button>
     </div>
     <ul class="cat-list" id="catlist">
-      <li class="cat-item" data-g="warm">
-        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Amouage</small>Guidance 46</span><span class="cat-tag">from 1 400 ₽</span><i aria-hidden="true"></i></button>
+      <li class="cat-item" data-g="warm him uni">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Amouage · <span class="cat-uni">unisex</span></small>Guidance 46</span><span class="cat-tag">from 1 400 ₽</span><i aria-hidden="true"></i></button>
         <div class="cat-body" hidden><p>A deep, luxurious niche scent.</p><ul class="cat-prices"><li><span>decant from 2 ml</span><b>from 1 400 ₽</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Send the name of the fragrance and the volume you need: Amouage Guidance 46">Order</button></div>
       </li>
       <li class="cat-item" data-g="floral">
@@ -667,12 +669,12 @@ footer a:hover{color:#fff}
         <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Bybozo</small>Habibi</span><span class="cat-tag">from 590 ₽</span><i aria-hidden="true"></i></button>
         <div class="cat-body" hidden><p>Spicy and warm, with character.</p><ul class="cat-prices"><li><span>decant from 2 ml</span><b>from 590 ₽</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Send the name of the fragrance and the volume you need: Bybozo Habibi">Order</button></div>
       </li>
-      <li class="cat-item" data-g="fresh">
-        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Byredo</small>Mojave Ghost</span><span class="cat-tag">from 1 790 ₽</span><i aria-hidden="true"></i></button>
+      <li class="cat-item" data-g="fresh him uni">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Byredo · <span class="cat-uni">unisex</span></small>Mojave Ghost</span><span class="cat-tag">from 1 790 ₽</span><i aria-hidden="true"></i></button>
         <div class="cat-body" hidden><p>Soft and airy. A quiet, expensive-feeling scent.</p><ul class="cat-prices"><li><span>whole sample, 2 ml</span><b>1 790 ₽</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Send the name of the fragrance and the volume you need: Byredo Mojave Ghost">Order</button></div>
       </li>
-      <li class="cat-item" data-g="warm">
-        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Carine Roitfeld</small>Lawrence</span><span class="cat-tag">from 390 ₽</span><i aria-hidden="true"></i></button>
+      <li class="cat-item" data-g="warm him uni">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Carine Roitfeld · <span class="cat-uni">unisex</span></small>Lawrence</span><span class="cat-tag">from 390 ₽</span><i aria-hidden="true"></i></button>
         <div class="cat-body" hidden><p>Magnetic and intimate, with character.</p><ul class="cat-prices"><li><span>decant from 2 ml</span><b>from 390 ₽</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Send the name of the fragrance and the volume you need: Carine Roitfeld Lawrence">Order</button></div>
       </li>
       <li class="cat-item" data-g="floral">
@@ -699,12 +701,12 @@ footer a:hover{color:#fff}
         <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>DKNY</small>Be Delicious Men</span><span class="cat-tag">from 490 ₽</span><i aria-hidden="true"></i></button>
         <div class="cat-body" hidden><p>A light, fresh men’s scent.</p><ul class="cat-prices"><li><span>decant from 2 ml</span><b>from 490 ₽</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Send the name of the fragrance and the volume you need: DKNY Be Delicious Men">Order</button></div>
       </li>
-      <li class="cat-item" data-g="him">
-        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Essential Parfums</small>Bois Impérial</span><span class="cat-tag">from 573 ₽</span><i aria-hidden="true"></i></button>
+      <li class="cat-item" data-g="him uni">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Essential Parfums · <span class="cat-uni">unisex</span></small>Bois Impérial</span><span class="cat-tag">from 573 ₽</span><i aria-hidden="true"></i></button>
         <div class="cat-body" hidden><p>Noble and woody.</p><ul class="cat-prices"><li><span>decant from 2 ml</span><b>from 573 ₽</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Send the name of the fragrance and the volume you need: Essential Parfums Bois Impérial">Order</button></div>
       </li>
-      <li class="cat-item" data-g="floral">
-        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Ex Nihilo</small>Fleur Narcotique</span><span class="cat-tag">from 490 ₽</span><i aria-hidden="true"></i></button>
+      <li class="cat-item" data-g="floral him uni">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Ex Nihilo · <span class="cat-uni">unisex</span></small>Fleur Narcotique</span><span class="cat-tag">from 490 ₽</span><i aria-hidden="true"></i></button>
         <div class="cat-body" hidden><p>Bright and floral, it makes your head spin.</p><ul class="cat-prices"><li><span>whole sample, 1,4 ml</span><b>490 ₽</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Send the name of the fragrance and the volume you need: Ex Nihilo Fleur Narcotique">Order</button></div>
       </li>
       <li class="cat-item" data-g="him">
@@ -715,28 +717,28 @@ footer a:hover{color:#fff}
         <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>HFC</small>Pink Moon</span><span class="cat-tag">from 590 ₽</span><i aria-hidden="true"></i></button>
         <div class="cat-body" hidden><p>Soft and radiant, with a warm, deep trail.</p><ul class="cat-prices"><li><span>whole sample, 2 ml</span><b>590 ₽</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Send the name of the fragrance and the volume you need: HFC Pink Moon">Order</button></div>
       </li>
-      <li class="cat-item" data-g="fresh">
-        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Jo Malone</small>Wood Sage &amp; Sea Salt</span><span class="cat-tag">from 700 ₽</span><i aria-hidden="true"></i></button>
+      <li class="cat-item" data-g="fresh him uni">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Jo Malone · <span class="cat-uni">unisex</span></small>Wood Sage &amp; Sea Salt</span><span class="cat-tag">from 700 ₽</span><i aria-hidden="true"></i></button>
         <div class="cat-body" hidden><p>Fresh and salty, like a walk by the sea.</p><ul class="cat-prices"><li><span>decant from 2 ml</span><b>from 700 ₽</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Send the name of the fragrance and the volume you need: Jo Malone Wood Sage &amp; Sea Salt">Order</button></div>
       </li>
       <li class="cat-item" data-g="fresh">
         <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Juliette Has a Gun</small>Not a Perfume</span><span class="cat-tag">from 390 ₽</span><i aria-hidden="true"></i></button>
         <div class="cat-body" hidden><p>Almost weightless, like clean skin, only better. For every day.</p><ul class="cat-prices"><li><span>decant from 2 ml</span><b>from 390 ₽</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Send the name of the fragrance and the volume you need: Juliette Has a Gun Not a Perfume">Order</button></div>
       </li>
-      <li class="cat-item" data-g="fresh">
-        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Le Labo</small>Another 13</span><span class="cat-tag">from 1 900 ₽</span><i aria-hidden="true"></i></button>
+      <li class="cat-item" data-g="fresh him uni">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Le Labo · <span class="cat-uni">unisex</span></small>Another 13</span><span class="cat-tag">from 1 900 ₽</span><i aria-hidden="true"></i></button>
         <div class="cat-body" hidden><p>Quiet and very personal, it feels like your own skin.</p><ul class="cat-prices"><li><span>decant from 2 ml</span><b>from 1 900 ₽</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Send the name of the fragrance and the volume you need: Le Labo Another 13">Order</button></div>
       </li>
-      <li class="cat-item" data-g="warm">
-        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Maison Francis Kurkdjian</small>Baccarat Rouge 540</span><span class="cat-tag">from 490 ₽</span><i aria-hidden="true"></i></button>
+      <li class="cat-item" data-g="warm him uni">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Maison Francis Kurkdjian · <span class="cat-uni">unisex</span></small>Baccarat Rouge 540</span><span class="cat-tag">from 490 ₽</span><i aria-hidden="true"></i></button>
         <div class="cat-body" hidden><p>The famous scent everyone around you notices.</p><ul class="cat-prices"><li><span>whole sample, 1,2 ml</span><b>490 ₽</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Send the name of the fragrance and the volume you need: Maison Francis Kurkdjian Baccarat Rouge 540">Order</button></div>
       </li>
-      <li class="cat-item" data-g="warm">
-        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Mancera</small>Aoud Café</span><span class="cat-tag">from 490 ₽</span><i aria-hidden="true"></i></button>
+      <li class="cat-item" data-g="warm him uni">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Mancera · <span class="cat-uni">unisex</span></small>Aoud Café</span><span class="cat-tag">from 490 ₽</span><i aria-hidden="true"></i></button>
         <div class="cat-body" hidden><p>Sweet and cosy, like an evening in your favourite coffee shop.</p><ul class="cat-prices"><li><span>decant from 2 ml</span><b>from 490 ₽</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Send the name of the fragrance and the volume you need: Mancera Aoud Café">Order</button></div>
       </li>
-      <li class="cat-item" data-g="warm">
-        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Mancera</small>Aoud Orchid</span><span class="cat-tag">from 490 ₽</span><i aria-hidden="true"></i></button>
+      <li class="cat-item" data-g="warm him uni">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Mancera · <span class="cat-uni">unisex</span></small>Aoud Orchid</span><span class="cat-tag">from 490 ₽</span><i aria-hidden="true"></i></button>
         <div class="cat-body" hidden><p>Warm, dense and sweet. For cold evenings and anyone who loves a noticeable trail.</p><ul class="cat-prices"><li><span>decant from 2 ml</span><b>from 490 ₽</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Send the name of the fragrance and the volume you need: Mancera Aoud Orchid">Order</button></div>
       </li>
       <li class="cat-item" data-g="floral">
@@ -751,8 +753,8 @@ footer a:hover{color:#fff}
         <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>RudRoss</small>Vanilla Love</span><span class="cat-tag">from 390 ₽</span><i aria-hidden="true"></i></button>
         <div class="cat-body" hidden><p>Sweet and cosy, like a favourite dessert.</p><ul class="cat-prices"><li><span>whole sample, 2 ml</span><b>390 ₽</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Send the name of the fragrance and the volume you need: RudRoss Vanilla Love">Order</button></div>
       </li>
-      <li class="cat-item" data-g="floral">
-        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Tiziana Terenzi</small>Kirkè</span><span class="cat-tag">from 390 ₽</span><i aria-hidden="true"></i></button>
+      <li class="cat-item" data-g="floral him uni">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Tiziana Terenzi · <span class="cat-uni">unisex</span></small>Kirkè</span><span class="cat-tag">from 390 ₽</span><i aria-hidden="true"></i></button>
         <div class="cat-body" hidden><p>Juicy and sunny, bright and joyful.</p><ul class="cat-prices"><li><span>whole sample, 1,4 ml</span><b>390 ₽</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Send the name of the fragrance and the volume you need: Tiziana Terenzi Kirkè">Order</button></div>
       </li>
       <li class="cat-item" data-g="warm">
