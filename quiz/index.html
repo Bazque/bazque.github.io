@@ -39,7 +39,7 @@ main{flex:1;width:100%;max-width:640px;margin:0 auto;padding:28px 20px 48px}
 
 /* intro */
 .intro h1{font-size:clamp(46px,11vw,72px);margin-bottom:18px}
-.intro h1 em{color:var(--choc)}
+.intro h1 em{font-family:inherit;font-style:normal;color:var(--choc)}
 .intro p{font-size:17px;color:#3b3330;margin-bottom:14px}
 .intro ul{list-style:none;margin:22px 0 28px;display:grid;gap:10px}
 .intro li{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:12px 16px;font-size:15px;display:flex;gap:12px;align-items:center}
@@ -73,13 +73,13 @@ main{flex:1;width:100%;max-width:640px;margin:0 auto;padding:28px 20px 48px}
 /* result */
 .res-head{text-align:center;margin-bottom:20px}
 .res-head h1{font-size:clamp(38px,9vw,56px);margin-bottom:8px}
-.res-head p:not(.kicker){font-family:Cormorant,serif;font-style:italic;font-size:22px;color:var(--choc);line-height:1.25}
+.res-head p:not(.kicker){font-size:17px;color:#4a403b;line-height:1.5;max-width:520px;margin:0 auto}
 .card-img{display:block;width:100%;max-width:360px;margin:0 auto 14px;border-radius:18px;box-shadow:0 20px 50px rgba(70,40,20,.22);aspect-ratio:9/16;background:var(--paper)}
 .save-hint{font-size:13px;color:var(--brown);text-align:center;margin-bottom:18px}
 .actions{display:grid;gap:10px;margin-bottom:34px}
 .code-box{background:var(--choc);color:#fff;border-radius:20px;padding:24px 22px;text-align:center;margin-bottom:34px}
 .code-box .kicker{color:var(--rose)}
-.code-box .code{font:600 46px/1 Cormorant,serif;letter-spacing:.06em;margin:6px 0 12px;font-variant-numeric:lining-nums}
+.code-box .code{font:600 40px/1 Inter,sans-serif;letter-spacing:.08em;margin:6px 0 12px;font-variant-numeric:lining-nums}
 .code-box p{color:#ecdcd4;font-size:15px;margin-bottom:18px}
 .code-box .btn-main{background:var(--cream);color:var(--choc)}
 .code-box .btn-ghost{border-color:#f3ebdd;color:#f3ebdd;margin-top:10px}
@@ -91,7 +91,7 @@ main{flex:1;width:100%;max-width:640px;margin:0 auto;padding:28px 20px 48px}
 .sect .item{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px 18px}
 .frag{display:grid;gap:10px}
 .frag div{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:14px 18px}
-.frag b{display:block;font:600 22px/1.15 Cormorant,serif}
+.frag b{display:block;font:600 16px/1.3 Inter,sans-serif;margin-bottom:2px}
 .frag span{font-size:14.5px;color:#4a403b}
 .second{background:var(--paper);border:1px dashed var(--beige);border-radius:16px;padding:16px 18px;font-size:15px;color:#3b3330}
 .second b{color:var(--choc)}
@@ -100,9 +100,25 @@ main{flex:1;width:100%;max-width:640px;margin:0 auto;padding:28px 20px 48px}
 footer{border-top:1px solid var(--line);padding:22px 20px;text-align:center;font-size:13px;color:var(--brown)}
 footer a{color:var(--choc)}
 .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:12px 18px;border-radius:999px;font-size:14px;z-index:50;animation:in .25s}
+/* декор: звёзды и флаконы */
+.deco{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+header,main,footer{position:relative;z-index:1}
+header{z-index:2}
+.deco i{position:absolute;display:block;will-change:transform}
+.deco svg{display:block;width:100%;height:100%}
+.deco .b{color:var(--choc);opacity:.13;animation:drift var(--d) ease-in-out var(--dl) infinite alternate}
+.deco .s{color:var(--choc);animation:twinkle var(--d) ease-in-out var(--dl) infinite}
+.deco .s.r{color:#c98e88}
+@keyframes drift{from{transform:translateY(0) rotate(var(--r0))}to{transform:translateY(-26px) rotate(var(--r1))}}
+@keyframes twinkle{0%,100%{opacity:.08;transform:scale(.6) rotate(0)}50%{opacity:.55;transform:scale(1) rotate(25deg)}}
+.burst svg{display:block;width:100%;height:100%}
+.burst{position:fixed;pointer-events:none;z-index:30;color:var(--choc);animation:burst 1.4s cubic-bezier(.2,.7,.3,1) forwards}
+@keyframes burst{0%{opacity:0;transform:translate(0,0) scale(.3)}15%{opacity:1}100%{opacity:0;transform:translate(var(--x),var(--y)) scale(1) rotate(160deg)}}
+@media(prefers-reduced-motion:reduce){.deco i,.burst{animation:none!important}.burst{display:none}}
 </style>
 </head>
 <body>
+<div class="deco" id="deco" aria-hidden="true"></div>
 <header>
   <div class="bar">
     <a class="logo" href="../" aria-label="Тут твой аромат: на главную">
@@ -377,6 +393,7 @@ async function finish(){
   await wait;
   fillResult(result);
   show('s-res');
+  burst();
 }
 
 function fillResult({T,S,code}){
@@ -436,8 +453,8 @@ function body(x, T, S, k, draw){
   fs += 4; y += fs*1.02;
   x.fillStyle = C.INK; lines.forEach((l,i) => { if (draw) x.fillText(l, mid, y); if (i < lines.length-1) y += fs*0.98; });
   // подзаголовок
-  x.font = f(42,'Cormorant','italic 500 '); x.fillStyle = C.CHOC; y += 66*k;
-  wrap(x, T.tag, 860).forEach(l => { if (draw) x.fillText(l, mid, y); y += 50*k; });
+  x.font = f(33,'Inter','400 '); x.fillStyle = '#4a403b'; y += 70*k;
+  wrap(x, T.tag, 860).forEach(l => { if (draw) x.fillText(l, mid, y); y += 46*k; });
   // бант
   y += 10*k;
   if (draw){
@@ -457,15 +474,15 @@ function body(x, T, S, k, draw){
   if (draw){ x.fillStyle = C.PAPER; rr(x,bx,fy,bw,bh,28); x.fill(); x.strokeStyle = C.LINE; x.lineWidth = 2; x.stroke(); }
   y = fy + 54*k; x.font = f(23,'Inter','600 '); x.fillStyle = C.CHOC; if (draw) spaced(x,'ВАМ СТОИТ ПОСЛУШАТЬ',mid,y,3.5); y += 60*k;
   x.fillStyle = C.INK;
-  T.frag.forEach(([n]) => { let s = 42*k; do { x.font = `600 ${s}px Cormorant`; s -= 2; } while (x.measureText(n).width > bw-60 && s > 26); if (draw) x.fillText(n, mid, y); y += row; });
+  T.frag.forEach(([n]) => { let s = 32*k; do { x.font = `400 ${s}px Inter`; s -= 2; } while (x.measureText(n).width > bw-60 && s > 26); if (draw) x.fillText(n, mid, y); y += row; });
   y = fy + bh + 46*k;
-  x.font = f(34,'Cormorant','italic 500 '); x.fillStyle = C.BROWN;
+  x.font = f(27,'Inter','400 '); x.fillStyle = C.BROWN;
   wrap(x, 'второй портрет: «' + S.title + '»', 860).forEach(l => { if (draw) x.fillText(l, mid, y); y += 40*k; });
   return y;
 }
 
 async function drawCard({T,S,code}){
-  await Promise.all(['600 80px Cormorant','italic 500 40px Cormorant','400 30px Inter','600 30px Inter'].map(f => document.fonts.load(f, 'АаЯя')));
+  await Promise.all(['600 80px Cormorant','400 30px Inter','600 30px Inter'].map(f => document.fonts.load(f, 'АаЯя')));
   const W = 1080, H = 1920, c = document.createElement('canvas'); c.width = W; c.height = H;
   const x = c.getContext('2d'); x.textBaseline = 'alphabetic'; x.textAlign = 'center';
   x.fillStyle = C.CREAM; x.fillRect(0,0,W,H);
@@ -499,6 +516,38 @@ function download(){
   const a = document.createElement('a'); a.href = URL.createObjectURL(cardBlob);
   a.download = 'moy-aromat-' + result.code + '.png'; document.body.appendChild(a); a.click(); a.remove();
   setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+}
+
+
+/* ---------- Декор ---------- */
+const BOTTLE = '<svg viewBox="0 0 22 26" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="7" y="1" width="8" height="5" rx="1.5"/><path d="M11 8 4 5.5v6L11 9l7 2.5v-6z" stroke-linejoin="round"/><rect x="2" y="9" width="18" height="16" rx="4"/></svg>';
+const BOTTLE2 = '<svg viewBox="0 0 22 30" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="8" y="1" width="6" height="6" rx="1"/><path d="M9 7h4v3H9z"/><path d="M6 10h10c2 0 4 2 4 4v11c0 2-2 4-4 4H6c-2 0-4-2-4-4V14c0-2 2-4 4-4z"/><path d="M6 17h10" opacity=".6"/></svg>';
+const STAR = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c.6 6.2 5.8 11.4 12 12-6.2.6-11.4 5.8-12 12-.6-6.2-5.8-11.4-12-12C6.2 11.4 11.4 6.2 12 0z"/></svg>';
+(function(){
+  const box = $('deco'), rnd = (a,b) => a + Math.random()*(b-a);
+  // флаконы держим по краям, чтобы не мешали тексту
+  const spots = [[3,14],[89,9],[1,48],[91,42],[4,82],[88,76]];
+  spots.forEach(([x,y],i) => {
+    const el = document.createElement('i'); el.className = 'b';
+    const w = rnd(34,58); el.style.cssText = `left:${x}%;top:${y}%;width:${w}px;height:${w*1.2}px;--d:${rnd(4,7)}s;--dl:-${rnd(0,5)}s;--r0:${rnd(-14,0)}deg;--r1:${rnd(0,14)}deg`;
+    el.innerHTML = i % 2 ? BOTTLE2 : BOTTLE; box.appendChild(el);
+  });
+  for (let i = 0; i < 16; i++){
+    const el = document.createElement('i'); el.className = 's' + (i % 3 ? '' : ' r');
+    const w = rnd(8,20); el.style.cssText = `left:${rnd(0,98)}%;top:${rnd(0,98)}%;width:${w}px;height:${w}px;--d:${rnd(2.4,5)}s;--dl:-${rnd(0,5)}s`;
+    el.innerHTML = STAR; box.appendChild(el);
+  }
+})();
+function burst(){
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const cx = innerWidth/2, cy = Math.min(innerHeight*0.35, 260);
+  for (let i = 0; i < 18; i++){
+    const el = document.createElement('i'); el.className = 'burst';
+    const a = Math.PI*2*i/18 + Math.random()*.3, d = 90 + Math.random()*120, w = 10 + Math.random()*12;
+    el.style.cssText = `left:${cx}px;top:${cy}px;width:${w}px;height:${w}px;--x:${Math.cos(a)*d}px;--y:${Math.sin(a)*d}px;color:${i%3?'#6B2E2A':'#c98e88'}`;
+    el.innerHTML = i % 6 ? STAR : BOTTLE; document.body.appendChild(el);
+    setTimeout(() => el.remove(), 1500);
+  }
 }
 
 $('start').onclick = () => { step = 0; answers = []; show('s-q'); renderQ(); };
