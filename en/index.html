@@ -188,6 +188,79 @@ button.btn{font-family:inherit;line-height:inherit}
 .path .btn{padding:12px 18px;font-size:14px}
 .a-list{overflow:hidden}
 .raspiv .lead{margin-bottom:8px}
+
+/* ---- decor & mobile ---- */
+.mbr{display:none}
+h1,h2{text-wrap:balance}
+.hero{position:relative;overflow:hidden}
+.deco{position:absolute;pointer-events:none;z-index:0}
+.hero .wrap{position:relative;z-index:1}
+.deco-b{width:120px;height:168px;right:4%;top:28px;background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2040%2056%22%20fill%3D%22none%22%20stroke%3D%22%236B2E2A%22%20stroke-width%3D%221.6%22%20stroke-linejoin%3D%22round%22%3E%3Crect%20x%3D%2215%22%20y%3D%222%22%20width%3D%2210%22%20height%3D%227%22%20rx%3D%221.5%22/%3E%3Cpath%20d%3D%22M17%209v5M23%209v5%22/%3E%3Crect%20x%3D%226%22%20y%3D%2214%22%20width%3D%2228%22%20height%3D%2238%22%20rx%3D%228%22/%3E%3Cpath%20d%3D%22M12%2022c0%206%200%2014%202%2022%22%20stroke-linecap%3D%22round%22%20opacity%3D%22.55%22/%3E%3C/svg%3E") center/contain no-repeat;opacity:.14;animation:floaty 7s ease-in-out infinite}
+.deco-b2{width:64px;height:90px;left:2%;bottom:40px;background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2040%2056%22%20fill%3D%22none%22%20stroke%3D%22%236B2E2A%22%20stroke-width%3D%221.6%22%20stroke-linejoin%3D%22round%22%3E%3Crect%20x%3D%2215%22%20y%3D%222%22%20width%3D%2210%22%20height%3D%227%22%20rx%3D%221.5%22/%3E%3Cpath%20d%3D%22M17%209v5M23%209v5%22/%3E%3Crect%20x%3D%226%22%20y%3D%2214%22%20width%3D%2228%22%20height%3D%2238%22%20rx%3D%228%22/%3E%3Cpath%20d%3D%22M12%2022c0%206%200%2014%202%2022%22%20stroke-linecap%3D%22round%22%20opacity%3D%22.55%22/%3E%3C/svg%3E") center/contain no-repeat;opacity:.1;animation:floaty 9s ease-in-out infinite reverse}
+.spark{position:absolute;width:14px;height:14px;pointer-events:none;color:var(--choc);opacity:.0;animation:twinkle 4.5s ease-in-out infinite}
+.spark svg{width:100%;height:100%;display:block}
+@keyframes floaty{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-12px) rotate(3deg)}}
+@keyframes twinkle{0%,100%{opacity:0;transform:scale(.6)}50%{opacity:.7;transform:scale(1)}}
+.blk::after{content:"";margin-left:auto;align-self:center;width:22px;height:31px;background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2040%2056%22%20fill%3D%22none%22%20stroke%3D%22%236B2E2A%22%20stroke-width%3D%221.6%22%20stroke-linejoin%3D%22round%22%3E%3Crect%20x%3D%2215%22%20y%3D%222%22%20width%3D%2210%22%20height%3D%227%22%20rx%3D%221.5%22/%3E%3Cpath%20d%3D%22M17%209v5M23%209v5%22/%3E%3Crect%20x%3D%226%22%20y%3D%2214%22%20width%3D%2228%22%20height%3D%2238%22%20rx%3D%228%22/%3E%3Cpath%20d%3D%22M12%2022c0%206%200%2014%202%2022%22%20stroke-linecap%3D%22round%22%20opacity%3D%22.55%22/%3E%3C/svg%3E") center/contain no-repeat;opacity:.5;animation:floaty 6s ease-in-out infinite}
+.raspiv .blk::after{filter:brightness(3.2) saturate(.3)}
+.orn{display:flex;align-items:center;justify-content:center;gap:14px;color:var(--choc);opacity:.55;margin:0 auto;padding:0 24px;max-width:1160px}
+.orn::before,.orn::after{content:"";height:1px;flex:1;background:linear-gradient(90deg,transparent,var(--beige))}
+.orn::after{background:linear-gradient(270deg,transparent,var(--beige))}
+.orn svg{width:16px;height:16px}
+.js .rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.js .rv.in{opacity:1;transform:none}
+.hero-pics .p2{animation:floaty 8s ease-in-out infinite}
+@media (prefers-reduced-motion:reduce){.deco-b,.deco-b2,.spark,.blk::after,.hero-pics .p2{animation:none}.js .rv{opacity:1;transform:none;transition:none}}
+/* catalog */
+.catalog{background:var(--paper);border-top:1px solid var(--line);position:relative}
+.cat-filter{display:flex;flex-wrap:wrap;gap:8px;margin:26px 0 22px}
+.cat-filter button{font:500 14px Inter,sans-serif;border:1px solid var(--line);background:#fff;color:var(--ink);padding:9px 16px;border-radius:999px;cursor:pointer}
+.cat-filter button[aria-pressed=true]{background:var(--choc);border-color:var(--choc);color:#fff}
+.cat-list{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:1fr 1fr;gap:10px 18px;align-items:start}
+.cat-item{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;transition:box-shadow .2s}
+.cat-item:hover{box-shadow:0 8px 24px rgba(70,40,20,.08)}
+.cat-item[hidden],.cat-item.cut{display:none}
+.cat-head{all:unset;box-sizing:border-box;display:flex;align-items:center;gap:12px;width:100%;padding:14px 18px;cursor:pointer}
+.cat-head:focus-visible{outline:2px solid var(--choc);outline-offset:-2px;border-radius:16px}
+.cat-name{flex:1;font:600 20px/1.15 Cormorant,serif;color:var(--ink)}
+.cat-name small{display:block;font:600 11px Inter,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--brown);margin-bottom:3px}
+.cat-tag{font-size:13.5px;color:var(--choc);font-weight:600;white-space:nowrap}
+.cat-head i{width:9px;height:9px;border-right:1.6px solid var(--choc);border-bottom:1.6px solid var(--choc);transform:rotate(45deg);transition:transform .2s;margin:-4px 2px 0 4px}
+.cat-head[aria-expanded=true] i{transform:rotate(-135deg);margin-top:4px}
+.cat-body{padding:0 18px 18px;border-top:1px dashed var(--line);animation:catin .3s ease}
+@keyframes catin{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.cat-body p{font-size:15px;color:#4a403b;margin:14px 0 10px}
+.cat-prices{list-style:none;padding:0;margin:0 0 14px;font-size:14.5px}
+.cat-prices li{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px dotted var(--line)}
+.cat-prices b{font-weight:600;white-space:nowrap}
+.cat-prices .cat-bottle{color:var(--brown)}
+.cat-prices .cat-bottle b{font-weight:500}
+.cat-prices .cat-ask{color:var(--brown)}
+.cat-body .btn{padding:11px 22px;font-size:14px}
+.cat-more{text-align:center;margin-top:22px}
+@media(max-width:760px){.cat-list{grid-template-columns:1fr}}
+/* mobile compaction */
+@media(max-width:600px){
+ .mbr{display:inline}.kdot{display:none}.spark{width:12px;height:12px}
+ .hero .wrap>div:first-child{text-align:center}
+ .hero .lead{margin-left:auto;margin-right:auto}
+ .hero h1{font-size:44px}
+ .deco-b{width:40px;height:56px;right:14px;top:16px;opacity:.28}
+ .deco-b2{width:34px;height:48px;left:14px;top:26px;bottom:auto;opacity:.2}
+ .variants,.gallery{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;margin-left:-24px;margin-right:-24px;padding:4px 24px 14px;scrollbar-width:none}
+ .variants::-webkit-scrollbar,.gallery::-webkit-scrollbar{display:none}
+ .variants[hidden]{display:none}
+ .variants>.card{flex:0 0 86%;scroll-snap-align:center}
+ .gallery>figure{flex:0 0 72%;scroll-snap-align:center}
+ .swipe{display:flex!important}
+ .a-wrap.closed .a-list{max-height:430px;-webkit-mask-image:linear-gradient(#000 70%,transparent);mask-image:linear-gradient(#000 70%,transparent)}
+ .a-toggle{display:block!important}
+}
+.swipe{display:none;align-items:center;justify-content:center;gap:8px;font-size:13px;color:var(--brown);margin:2px 0 6px}
+.swipe span{display:inline-block;animation:nudge 1.6s ease-in-out infinite}
+@keyframes nudge{0%,100%{transform:translateX(0)}50%{transform:translateX(6px)}}
+.a-toggle{display:none;margin:14px auto 0}
+.swipe[hidden]{display:none!important}
 /* how */
 .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:36px;counter-reset:s}
 .steps div{counter-increment:s}
@@ -263,7 +336,7 @@ footer a:hover{color:#fff}
       <a href="#advent">Advent calendars</a>
       <a href="#boxes">Gift boxes</a>
       <a href="#anketa">Survey</a>
-      <a href="#raspiv">Decants</a>
+      <a href="#catalog">Catalogue</a>
       <a href="#how">How it works</a>
     </nav>
     <div class="cmenu">
@@ -275,11 +348,11 @@ footer a:hover{color:#fff}
 
 <main id="top">
 
-<section class="hero">
+<section class="hero"><div class="deco deco-b" aria-hidden="true"></div><div class="deco deco-b2" aria-hidden="true"></div><span class="spark" aria-hidden="true" style="left:8%;top:22%;animation-delay:0s"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 0c.6 6.2 5.8 11.4 12 12-6.2.6-11.4 5.8-12 12-.6-6.2-5.8-11.4-12-12 6.2-.6 11.4-5.8 12-12z"/></svg></span><span class="spark" aria-hidden="true" style="right:16%;top:12%;animation-delay:1.2s"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 0c.6 6.2 5.8 11.4 12 12-6.2.6-11.4 5.8-12 12-.6-6.2-5.8-11.4-12-12 6.2-.6 11.4-5.8 12-12z"/></svg></span><span class="spark" aria-hidden="true" style="left:46%;top:8%;animation-delay:2.4s"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 0c.6 6.2 5.8 11.4 12 12-6.2.6-11.4 5.8-12 12-.6-6.2-5.8-11.4-12-12 6.2-.6 11.4-5.8 12-12z"/></svg></span><span class="spark" aria-hidden="true" style="right:7%;bottom:22%;animation-delay:.6s"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 0c.6 6.2 5.8 11.4 12 12-6.2.6-11.4 5.8-12 12-.6-6.2-5.8-11.4-12-12 6.2-.6 11.4-5.8 12-12z"/></svg></span><span class="spark" aria-hidden="true" style="left:22%;bottom:12%;animation-delay:3.1s"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 0c.6 6.2 5.8 11.4 12 12-6.2.6-11.4 5.8-12 12-.6-6.2-5.8-11.4-12-12 6.2-.6 11.4-5.8 12-12z"/></svg></span>
   <div class="wrap">
     <div>
-      <div class="kicker">Fragrance boutique · Delivery across Russia</div>
-      <h1>We help people find a scent that <em>feels like them</em></h1>
+      <div class="kicker">Fragrance boutique<span class="kdot"> · </span><br class="mbr">Delivery across Russia</div>
+      <h1>We help people find a scent<br class="mbr"> that <em>feels like&nbsp;them</em></h1>
       <ul class="assort">
         <li><a href="#raspiv">Decants from 2&nbsp;ml</a></li>
         <li><a href="#raspiv">Samples and miniatures</a></li>
@@ -323,6 +396,7 @@ footer a:hover{color:#fff}
       <div><b>The box</b><span>with a magnetic lid stays with you as a home for your scent wardrobe</span></div>
     </div>
 
+    <p class="swipe" aria-hidden="true">Swipe <span>→</span></p>
     <div class="variants" id="v-neyo">
       <article class="card">
         <div class="pic"><img src="../img/advent-neyo-1.jpg" alt="Advent calendar for her, Fragrance Wardrobe 1" loading="lazy"></div>
@@ -380,6 +454,7 @@ footer a:hover{color:#fff}
       </article>
     </div>
 
+    <p class="swipe sw-nego" hidden aria-hidden="true">Swipe <span>→</span></p>
     <div class="variants" id="v-nego" hidden>
       <article class="card">
         <div class="pic"><img src="../img/advent-nego-1.jpg" alt="Advent calendar for him, Fragrance Wardrobe 1" loading="lazy"></div>
@@ -440,6 +515,7 @@ footer a:hover{color:#fff}
     <p class="adv-note">Prices are in Russian roubles. Want to swap a scent? Write to us and we will find a replacement to your taste.</p>
   <div class="look">
     <h3 class="sub-h">What it looks like in real life</h3>
+    <p class="swipe" aria-hidden="true">Swipe <span>→</span></p>
     <div class="gallery">
       <figure><img src="../img/g-dlya-nego.jpg" alt="Open advent calendar for him" loading="lazy"><figcaption>For him: a magnetic lid and 7 little boxes</figcaption></figure>
       <figure><img src="../img/g-atomaizer.jpg" alt="A 2 ml atomizer next to a bottle of Jo Malone Wood Sage &amp; Sea Salt" loading="lazy"><figcaption>Every box holds 2&nbsp;ml or more of a fragrance</figcaption></figure>
@@ -514,14 +590,14 @@ footer a:hover{color:#fff}
       </div>
       <p class="a-note">This website does not store or collect anything. You send your answers to us yourself, in an ordinary conversation.</p>
     </div>
-    <ol class="a-list" id="qlist">
+    <div class="a-wrap closed"><ol class="a-list" id="qlist">
       <li><h3>Where do you feel good?</h3><p>You can choose several.</p><ul><li>a coffee shop with pastries and cinnamon</li><li>a forest after the rain</li><li>the sea, salt, a white shirt</li><li>an evening bar, velvet, candles</li><li>a garden in bloom in spring</li></ul></li>
       <li><h3>Which fragrance have you loved, or love now?</h3><p>A name, or simply a scent you remember on someone.</p></li>
       <li><h3>Which scents are definitely not for you?</h3><p>For example: sweet, powdery, tobacco, old-fashioned florals, sharp freshness.</p></li>
       <li><h3>Where will you wear it?</h3><ul><li>every day and to work</li><li>on dates and in the evening</li><li>I want one signature scent for everything</li><li>it is a gift: who for, and what are they like?</li></ul></li>
       <li><h3>What would you like people to think when you walk past?</h3><ul><li>“what a clean, fresh scent”</li><li>“I want to know who that is”</li><li>“it feels calm and cosy around them”</li><li>“this person knows their worth”</li></ul></li>
       <li class="a-budget"><h3>Your budget</h3><p>Roughly how much you would like to spend: on decants, a box or a full-size bottle.</p></li>
-    </ol>
+    </ol><button class="btn btn-ghost a-toggle" type="button" aria-expanded="false" data-more="Show all questions" data-less="Collapse">Show all questions</button></div>
   </div>
   <div class="wrap">
     <h3 class="sub-h">Formats and prices</h3>
@@ -533,6 +609,147 @@ footer a:hover{color:#fff}
     </div>
   </div>
 </section>
+
+<!--CAT-->
+<section class="catalog" id="catalog">
+  <div class="wrap">
+    <div class="kicker">Catalogue</div>
+    <h2>Fragrances in stock and on the way</h2>
+    <p class="lead">Tap a fragrance to see its description and prices. We confirm the volume before you order.</p>
+    <div class="cat-filter" role="group">
+      <button type="button" data-f="all" aria-pressed="true">All</button>
+      <button type="button" data-f="fresh" aria-pressed="false">Fresh</button>
+      <button type="button" data-f="warm" aria-pressed="false">Warm and sweet</button>
+      <button type="button" data-f="floral" aria-pressed="false">Floral and soft</button>
+      <button type="button" data-f="him" aria-pressed="false">For him</button>
+    </div>
+    <ul class="cat-list" id="catlist">
+      <li class="cat-item" data-g="warm">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Amouage</small>Guidance 46</span><span class="cat-tag">On its way</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>A deep, luxurious niche scent.</p><ul class="cat-prices"><li class="cat-ask"><span>On its way to us. Message us and we will let you know when it arrives</span></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Tell us which fragrance you are waiting for and we will let you know when it arrives">Notify me</button></div>
+      </li>
+      <li class="cat-item" data-g="floral">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Antonio Banderas</small>Her Secret Temptation</span><span class="cat-tag">from 290 ₽</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>Light and sweet, for every day.</p><ul class="cat-prices"><li><span>2 ml decant</span><b>290 ₽</b></li><li><span>5 ml decant</span><b>390 ₽</b></li><li class="cat-bottle"><span>For comparison: bottle in retail stores</span><b>2 614 ₽ for 80 ml</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Send the name of the fragrance and the volume you need: Antonio Banderas Her Secret Temptation">Order</button></div>
+      </li>
+      <li class="cat-item" data-g="him">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Antonio Banderas</small>The Golden Secret</span><span class="cat-tag">from 290 ₽</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>A fresh men’s scent for every day.</p><ul class="cat-prices"><li><span>2 ml decant</span><b>290 ₽</b></li><li><span>5 ml decant</span><b>490 ₽</b></li><li class="cat-bottle"><span>For comparison: bottle in retail stores</span><b>3 979 ₽ for 100 ml</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Send the name of the fragrance and the volume you need: Antonio Banderas The Golden Secret">Order</button></div>
+      </li>
+      <li class="cat-item" data-g="him">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Armaf</small>Club de Nuit Iconic</span><span class="cat-tag">from 290 ₽</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>A fresh, sharp-suit men’s scent, confident.</p><ul class="cat-prices"><li><span>2 ml decant</span><b>290 ₽</b></li><li><span>5 ml decant</span><b>490 ₽</b></li><li class="cat-bottle"><span>For comparison: bottle in retail stores</span><b>4 441 ₽ for 105 ml</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Send the name of the fragrance and the volume you need: Armaf Club de Nuit Iconic">Order</button></div>
+      </li>
+      <li class="cat-item" data-g="him">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Bvlgari</small>Tygar</span><span class="cat-tag">from 1 490 ₽</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>A fresh, bold men’s scent that wakes you up.</p><ul class="cat-prices"><li><span>2 ml decant</span><b>1 490 ₽</b></li><li class="cat-bottle"><span>For comparison: bottle in retail stores</span><b>30 233 ₽ for 60 ml</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Send the name of the fragrance and the volume you need: Bvlgari Tygar">Order</button></div>
+      </li>
+      <li class="cat-item" data-g="warm">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Bybozo</small>Habibi</span><span class="cat-tag">from 590 ₽</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>Spicy and warm, with character.</p><ul class="cat-prices"><li><span>2 ml decant</span><b>590 ₽</b></li><li class="cat-bottle"><span>For comparison: bottle in retail stores</span><b>11 707 ₽ for 75 ml</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Send the name of the fragrance and the volume you need: Bybozo Habibi">Order</button></div>
+      </li>
+      <li class="cat-item" data-g="fresh">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Byredo</small>Mojave Ghost</span><span class="cat-tag">from 1 790 ₽</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>Soft and airy. A quiet, expensive-feeling scent.</p><ul class="cat-prices"><li><span>whole sample, 2 ml</span><b>1 790 ₽</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Send the name of the fragrance and the volume you need: Byredo Mojave Ghost">Order</button></div>
+      </li>
+      <li class="cat-item" data-g="warm">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Carine Roitfeld</small>Lawrence</span><span class="cat-tag">from 390 ₽</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>Magnetic and intimate, with character.</p><ul class="cat-prices"><li><span>2 ml decant</span><b>390 ₽</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Send the name of the fragrance and the volume you need: Carine Roitfeld Lawrence">Order</button></div>
+      </li>
+      <li class="cat-item" data-g="floral">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Chanel</small>Coco Mademoiselle</span><span class="cat-tag">from 290 ₽</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>A classic: elegant and confident.</p><ul class="cat-prices"><li><span>whole sample, 1,4 ml</span><b>290 ₽</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Send the name of the fragrance and the volume you need: Chanel Coco Mademoiselle">Order</button></div>
+      </li>
+      <li class="cat-item" data-g="warm">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Chanel</small>Coco Noir</span><span class="cat-tag">from 790 ₽</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>Dark and elegant. Evening chic.</p><ul class="cat-prices"><li><span>2 ml decant</span><b>790 ₽</b></li><li><span>5 ml decant</span><b>1 490 ₽</b></li><li class="cat-bottle"><span>For comparison: bottle in retail stores</span><b>20 007 ₽ for 100 ml</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Send the name of the fragrance and the volume you need: Chanel Coco Noir">Order</button></div>
+      </li>
+      <li class="cat-item" data-g="floral">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Chopard</small>Rose Malaki</span><span class="cat-tag">On its way</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>A luxurious rose for special occasions.</p><ul class="cat-prices"><li class="cat-ask"><span>On its way to us. Message us and we will let you know when it arrives</span></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Tell us which fragrance you are waiting for and we will let you know when it arrives">Notify me</button></div>
+      </li>
+      <li class="cat-item" data-g="floral">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Coach</small>Floral</span><span class="cat-tag">On its way</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>Soft and romantic.</p><ul class="cat-prices"><li class="cat-ask"><span>On its way to us. Message us and we will let you know when it arrives</span></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Tell us which fragrance you are waiting for and we will let you know when it arrives">Notify me</button></div>
+      </li>
+      <li class="cat-item" data-g="fresh">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>DKNY</small>Be Delicious</span><span class="cat-tag">from 490 ₽</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>Crisp and fresh, a morning pick-me-up.</p><ul class="cat-prices"><li><span>2 ml decant</span><b>490 ₽</b></li><li><span>5 ml decant</span><b>990 ₽</b></li><li class="cat-bottle"><span>For comparison: bottle in retail stores</span><b>5 878 ₽ for 50 ml</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Send the name of the fragrance and the volume you need: DKNY Be Delicious">Order</button></div>
+      </li>
+      <li class="cat-item" data-g="him">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>DKNY</small>Be Delicious Men</span><span class="cat-tag">from 490 ₽</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>A light, fresh men’s scent.</p><ul class="cat-prices"><li><span>2 ml decant</span><b>490 ₽</b></li><li><span>5 ml decant</span><b>990 ₽</b></li><li class="cat-bottle"><span>For comparison: bottle in retail stores</span><b>5 878 ₽ for 50 ml</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Send the name of the fragrance and the volume you need: DKNY Be Delicious Men">Order</button></div>
+      </li>
+      <li class="cat-item" data-g="him">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Essential Parfums</small>Bois Impérial</span><span class="cat-tag">On its way</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>Noble and woody.</p><ul class="cat-prices"><li class="cat-ask"><span>On its way to us. Message us and we will let you know when it arrives</span></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Tell us which fragrance you are waiting for and we will let you know when it arrives">Notify me</button></div>
+      </li>
+      <li class="cat-item" data-g="floral">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Ex Nihilo</small>Fleur Narcotique</span><span class="cat-tag">from 490 ₽</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>Bright and floral, it makes your head spin.</p><ul class="cat-prices"><li><span>whole sample, 1,4 ml</span><b>490 ₽</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Send the name of the fragrance and the volume you need: Ex Nihilo Fleur Narcotique">Order</button></div>
+      </li>
+      <li class="cat-item" data-g="him">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Guerlain</small>Homme L&#x27;Eau</span><span class="cat-tag">from 390 ₽</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>A fresh, light men’s scent for every day.</p><ul class="cat-prices"><li><span>2 ml decant</span><b>390 ₽</b></li><li class="cat-bottle"><span>For comparison: bottle in retail stores</span><b>7 000 ₽ for 100 ml</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Send the name of the fragrance and the volume you need: Guerlain Homme L&#x27;Eau">Order</button></div>
+      </li>
+      <li class="cat-item" data-g="floral">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>HFC</small>Pink Moon</span><span class="cat-tag">from 590 ₽</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>Soft and radiant, with a warm, deep trail.</p><ul class="cat-prices"><li><span>whole sample, 2 ml</span><b>590 ₽</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Send the name of the fragrance and the volume you need: HFC Pink Moon">Order</button></div>
+      </li>
+      <li class="cat-item" data-g="fresh">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Jo Malone</small>Wood Sage &amp; Sea Salt</span><span class="cat-tag">On its way</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>Fresh and salty, like a walk by the sea.</p><ul class="cat-prices"><li class="cat-ask"><span>On its way to us. Message us and we will let you know when it arrives</span></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Tell us which fragrance you are waiting for and we will let you know when it arrives">Notify me</button></div>
+      </li>
+      <li class="cat-item" data-g="fresh">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Juliette Has a Gun</small>Not a Perfume</span><span class="cat-tag">from 390 ₽</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>Almost weightless, like clean skin, only better. For every day.</p><ul class="cat-prices"><li><span>2 ml decant</span><b>390 ₽</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Send the name of the fragrance and the volume you need: Juliette Has a Gun Not a Perfume">Order</button></div>
+      </li>
+      <li class="cat-item" data-g="fresh">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Le Labo</small>Another 13</span><span class="cat-tag">On its way</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>Quiet and very personal, it feels like your own skin.</p><ul class="cat-prices"><li class="cat-ask"><span>On its way to us. Message us and we will let you know when it arrives</span></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Tell us which fragrance you are waiting for and we will let you know when it arrives">Notify me</button></div>
+      </li>
+      <li class="cat-item" data-g="warm">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Maison Francis Kurkdjian</small>Baccarat Rouge 540</span><span class="cat-tag">from 490 ₽</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>The famous scent everyone around you notices.</p><ul class="cat-prices"><li><span>whole sample, 1,2 ml</span><b>490 ₽</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Send the name of the fragrance and the volume you need: Maison Francis Kurkdjian Baccarat Rouge 540">Order</button></div>
+      </li>
+      <li class="cat-item" data-g="warm">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Mancera</small>Aoud Café</span><span class="cat-tag">from 490 ₽</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>Sweet and cosy, like an evening in your favourite coffee shop.</p><ul class="cat-prices"><li><span>2 ml decant</span><b>490 ₽</b></li><li><span>5 ml decant</span><b>990 ₽</b></li><li class="cat-bottle"><span>For comparison: bottle in retail stores</span><b>7 005 ₽ for 60 ml</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Send the name of the fragrance and the volume you need: Mancera Aoud Café">Order</button></div>
+      </li>
+      <li class="cat-item" data-g="warm">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Mancera</small>Aoud Orchid</span><span class="cat-tag">from 490 ₽</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>Warm, dense and sweet. For cold evenings and anyone who loves a noticeable trail.</p><ul class="cat-prices"><li><span>2 ml decant</span><b>490 ₽</b></li><li><span>5 ml decant</span><b>990 ₽</b></li><li class="cat-bottle"><span>For comparison: bottle in retail stores</span><b>6 778 ₽ for 60 ml</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Send the name of the fragrance and the volume you need: Mancera Aoud Orchid">Order</button></div>
+      </li>
+      <li class="cat-item" data-g="floral">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Montale</small>Roses Musk</span><span class="cat-tag">from 290 ₽</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>Soft, romantic and cosy.</p><ul class="cat-prices"><li><span>whole sample, 1 ml</span><b>290 ₽</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Send the name of the fragrance and the volume you need: Montale Roses Musk">Order</button></div>
+      </li>
+      <li class="cat-item" data-g="fresh">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>RudRoss</small>Montana</span><span class="cat-tag">from 490 ₽</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>Calm and clean. The scent of someone who has it all together.</p><ul class="cat-prices"><li><span>2 ml decant</span><b>490 ₽</b></li><li><span>5 ml decant</span><b>790 ₽</b></li><li class="cat-bottle"><span>For comparison: bottle in retail stores</span><b>8 720 ₽ for 95 ml</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Send the name of the fragrance and the volume you need: RudRoss Montana">Order</button></div>
+      </li>
+      <li class="cat-item" data-g="warm">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>RudRoss</small>Vanilla Love</span><span class="cat-tag">from 390 ₽</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>Sweet and cosy, like a favourite dessert.</p><ul class="cat-prices"><li><span>whole sample, 2 ml</span><b>390 ₽</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Send the name of the fragrance and the volume you need: RudRoss Vanilla Love">Order</button></div>
+      </li>
+      <li class="cat-item" data-g="floral">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Tiziana Terenzi</small>Kirkè</span><span class="cat-tag">from 390 ₽</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>Juicy and sunny, bright and joyful.</p><ul class="cat-prices"><li><span>whole sample, 1,4 ml</span><b>390 ₽</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Send the name of the fragrance and the volume you need: Tiziana Terenzi Kirkè">Order</button></div>
+      </li>
+      <li class="cat-item" data-g="warm">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Yves Saint Laurent</small>Black Opium</span><span class="cat-tag">from 590 ₽</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>Sweet and energising. For evenings and dates.</p><ul class="cat-prices"><li><span>2 ml decant</span><b>590 ₽</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Send the name of the fragrance and the volume you need: Yves Saint Laurent Black Opium">Order</button></div>
+      </li>
+      <li class="cat-item" data-g="floral">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Zielinski &amp; Rozen</small>Powder</span><span class="cat-tag">from 290 ₽</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>Soft and gentle.</p><ul class="cat-prices"><li><span>whole sample, 2 ml</span><b>290 ₽</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Send the name of the fragrance and the volume you need: Zielinski &amp; Rozen Powder">Order</button></div>
+      </li>
+    </ul>
+    <div class="cat-more"><button type="button" class="btn btn-ghost" id="catmore" data-more="Show all fragrances" data-less="Show less">Show all fragrances</button></div>
+  </div>
+</section>
+
+<!--/CAT-->
 
 <section class="partners" id="partners">
   <div class="wrap p-grid">
@@ -625,6 +842,7 @@ document.querySelectorAll('.tabs button').forEach(b=>b.addEventListener('click',
   document.querySelectorAll('.tabs button').forEach(x=>x.setAttribute('aria-selected',x===b));
   document.getElementById('v-neyo').hidden=b.dataset.tab!=='neyo';
   document.getElementById('v-nego').hidden=b.dataset.tab!=='nego';
+  document.querySelectorAll('.swipe').forEach((x,i)=>{if(i<2)x.hidden=(i===0)===(b.dataset.tab==='nego')});
 }));
 document.querySelectorAll('.card.niche').forEach(card=>{
   card.querySelectorAll('.choose button').forEach(b=>b.addEventListener('click',()=>{
@@ -649,6 +867,18 @@ document.addEventListener('click',e=>{if(!cp.hidden&&!cp.contains(e.target))clos
 document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
 addEventListener('scroll',()=>{if(cur)place(cur)},{passive:true});addEventListener('resize',()=>{if(cur)place(cur)});
 const cq=document.getElementById('copyq');if(cq){const qt="Tut Tvoy Aromat scent survey\n\n1. Where do you feel good? (You can choose several.)\n— a coffee shop with pastries and cinnamon\n— a forest after the rain\n— the sea, salt, a white shirt\n— an evening bar, velvet, candles\n— a garden in bloom in spring\nAnswer: \n\n2. Which fragrance have you loved, or love now? (A name, or simply a scent you remember on someone.)\nAnswer: \n\n3. Which scents are definitely not for you? (For example: sweet, powdery, tobacco, old-fashioned florals, sharp freshness.)\nAnswer: \n\n4. Where will you wear it?\n— every day and to work\n— on dates and in the evening\n— I want one signature scent for everything\n— it is a gift: who for, and what are they like?\nAnswer: \n\n5. What would you like people to think when you walk past?\n— “what a clean, fresh scent”\n— “I want to know who that is”\n— “it feels calm and cosy around them”\n— “this person knows their worth”\nAnswer: \n\nYour budget (for decants, a box or a full bottle): ";cq.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(qt)}catch(e){const t=document.createElement('textarea');t.value=qt;document.body.appendChild(t);t.select();document.execCommand('copy');t.remove()}const o=cq.textContent;cq.textContent='Copied ✓';setTimeout(()=>cq.textContent=o,2200)})}
+document.documentElement.classList.add('js');
+(()=>{const sel='.card,.box,.path,.a-list>li,.gallery figure,.steps>div,.trust>div,.c-card,.cat-item,.p-list li,.nums>div,.r-grid>div,.inside>div';
+const els=document.querySelectorAll(sel);if(!('IntersectionObserver' in window)){return}
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{rootMargin:'0px 0px -6% 0px'});
+els.forEach(el=>{const r=el.getBoundingClientRect();if(r.top<innerHeight)return;el.classList.add('rv');io.observe(el)})})();
+document.querySelectorAll('.cat-head').forEach(h=>h.addEventListener('click',()=>{const b=h.nextElementSibling,o=h.getAttribute('aria-expanded')==='true';h.setAttribute('aria-expanded',!o);b.hidden=o}));
+(()=>{const list=document.getElementById('catlist');if(!list)return;const items=[...list.children],more=document.getElementById('catmore');let f='all',open=false;
+const draw=()=>{let n=0;items.forEach(li=>{const ok=f==='all'||li.dataset.g.split(' ').includes(f);li.hidden=!ok;if(ok)n++;li.classList.toggle('cut',f==='all'&&!open&&ok&&n>8)});
+ if(more){more.hidden=f!=='all';more.textContent=open?more.dataset.less:more.dataset.more}};
+document.querySelectorAll('.cat-filter button').forEach(b=>b.addEventListener('click',()=>{f=b.dataset.f;document.querySelectorAll('.cat-filter button').forEach(x=>x.setAttribute('aria-pressed',x===b));draw()}));
+if(more)more.addEventListener('click',()=>{open=!open;draw();if(!open)list.scrollIntoView({block:'start'})});draw()})();
+document.querySelectorAll('.a-toggle').forEach(b=>b.addEventListener('click',()=>{const w=b.closest('.a-wrap'),c=w.classList.toggle('closed');b.setAttribute('aria-expanded',!c);b.textContent=c?b.dataset.more:b.dataset.less;if(c)w.scrollIntoView({block:'start'})}));
 </script>
 </body>
 </html>

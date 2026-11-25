@@ -186,6 +186,79 @@ button.btn{font-family:inherit;line-height:inherit}
 .path .btn{padding:12px 18px;font-size:14px}
 .a-list{overflow:hidden}
 .raspiv .lead{margin-bottom:8px}
+
+/* ---- decor & mobile ---- */
+.mbr{display:none}
+h1,h2{text-wrap:balance}
+.hero{position:relative;overflow:hidden}
+.deco{position:absolute;pointer-events:none;z-index:0}
+.hero .wrap{position:relative;z-index:1}
+.deco-b{width:120px;height:168px;right:4%;top:28px;background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2040%2056%22%20fill%3D%22none%22%20stroke%3D%22%236B2E2A%22%20stroke-width%3D%221.6%22%20stroke-linejoin%3D%22round%22%3E%3Crect%20x%3D%2215%22%20y%3D%222%22%20width%3D%2210%22%20height%3D%227%22%20rx%3D%221.5%22/%3E%3Cpath%20d%3D%22M17%209v5M23%209v5%22/%3E%3Crect%20x%3D%226%22%20y%3D%2214%22%20width%3D%2228%22%20height%3D%2238%22%20rx%3D%228%22/%3E%3Cpath%20d%3D%22M12%2022c0%206%200%2014%202%2022%22%20stroke-linecap%3D%22round%22%20opacity%3D%22.55%22/%3E%3C/svg%3E") center/contain no-repeat;opacity:.14;animation:floaty 7s ease-in-out infinite}
+.deco-b2{width:64px;height:90px;left:2%;bottom:40px;background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2040%2056%22%20fill%3D%22none%22%20stroke%3D%22%236B2E2A%22%20stroke-width%3D%221.6%22%20stroke-linejoin%3D%22round%22%3E%3Crect%20x%3D%2215%22%20y%3D%222%22%20width%3D%2210%22%20height%3D%227%22%20rx%3D%221.5%22/%3E%3Cpath%20d%3D%22M17%209v5M23%209v5%22/%3E%3Crect%20x%3D%226%22%20y%3D%2214%22%20width%3D%2228%22%20height%3D%2238%22%20rx%3D%228%22/%3E%3Cpath%20d%3D%22M12%2022c0%206%200%2014%202%2022%22%20stroke-linecap%3D%22round%22%20opacity%3D%22.55%22/%3E%3C/svg%3E") center/contain no-repeat;opacity:.1;animation:floaty 9s ease-in-out infinite reverse}
+.spark{position:absolute;width:14px;height:14px;pointer-events:none;color:var(--choc);opacity:.0;animation:twinkle 4.5s ease-in-out infinite}
+.spark svg{width:100%;height:100%;display:block}
+@keyframes floaty{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-12px) rotate(3deg)}}
+@keyframes twinkle{0%,100%{opacity:0;transform:scale(.6)}50%{opacity:.7;transform:scale(1)}}
+.blk::after{content:"";margin-left:auto;align-self:center;width:22px;height:31px;background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2040%2056%22%20fill%3D%22none%22%20stroke%3D%22%236B2E2A%22%20stroke-width%3D%221.6%22%20stroke-linejoin%3D%22round%22%3E%3Crect%20x%3D%2215%22%20y%3D%222%22%20width%3D%2210%22%20height%3D%227%22%20rx%3D%221.5%22/%3E%3Cpath%20d%3D%22M17%209v5M23%209v5%22/%3E%3Crect%20x%3D%226%22%20y%3D%2214%22%20width%3D%2228%22%20height%3D%2238%22%20rx%3D%228%22/%3E%3Cpath%20d%3D%22M12%2022c0%206%200%2014%202%2022%22%20stroke-linecap%3D%22round%22%20opacity%3D%22.55%22/%3E%3C/svg%3E") center/contain no-repeat;opacity:.5;animation:floaty 6s ease-in-out infinite}
+.raspiv .blk::after{filter:brightness(3.2) saturate(.3)}
+.orn{display:flex;align-items:center;justify-content:center;gap:14px;color:var(--choc);opacity:.55;margin:0 auto;padding:0 24px;max-width:1160px}
+.orn::before,.orn::after{content:"";height:1px;flex:1;background:linear-gradient(90deg,transparent,var(--beige))}
+.orn::after{background:linear-gradient(270deg,transparent,var(--beige))}
+.orn svg{width:16px;height:16px}
+.js .rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.js .rv.in{opacity:1;transform:none}
+.hero-pics .p2{animation:floaty 8s ease-in-out infinite}
+@media (prefers-reduced-motion:reduce){.deco-b,.deco-b2,.spark,.blk::after,.hero-pics .p2{animation:none}.js .rv{opacity:1;transform:none;transition:none}}
+/* catalog */
+.catalog{background:var(--paper);border-top:1px solid var(--line);position:relative}
+.cat-filter{display:flex;flex-wrap:wrap;gap:8px;margin:26px 0 22px}
+.cat-filter button{font:500 14px Inter,sans-serif;border:1px solid var(--line);background:#fff;color:var(--ink);padding:9px 16px;border-radius:999px;cursor:pointer}
+.cat-filter button[aria-pressed=true]{background:var(--choc);border-color:var(--choc);color:#fff}
+.cat-list{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:1fr 1fr;gap:10px 18px;align-items:start}
+.cat-item{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;transition:box-shadow .2s}
+.cat-item:hover{box-shadow:0 8px 24px rgba(70,40,20,.08)}
+.cat-item[hidden],.cat-item.cut{display:none}
+.cat-head{all:unset;box-sizing:border-box;display:flex;align-items:center;gap:12px;width:100%;padding:14px 18px;cursor:pointer}
+.cat-head:focus-visible{outline:2px solid var(--choc);outline-offset:-2px;border-radius:16px}
+.cat-name{flex:1;font:600 20px/1.15 Cormorant,serif;color:var(--ink)}
+.cat-name small{display:block;font:600 11px Inter,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--brown);margin-bottom:3px}
+.cat-tag{font-size:13.5px;color:var(--choc);font-weight:600;white-space:nowrap}
+.cat-head i{width:9px;height:9px;border-right:1.6px solid var(--choc);border-bottom:1.6px solid var(--choc);transform:rotate(45deg);transition:transform .2s;margin:-4px 2px 0 4px}
+.cat-head[aria-expanded=true] i{transform:rotate(-135deg);margin-top:4px}
+.cat-body{padding:0 18px 18px;border-top:1px dashed var(--line);animation:catin .3s ease}
+@keyframes catin{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.cat-body p{font-size:15px;color:#4a403b;margin:14px 0 10px}
+.cat-prices{list-style:none;padding:0;margin:0 0 14px;font-size:14.5px}
+.cat-prices li{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px dotted var(--line)}
+.cat-prices b{font-weight:600;white-space:nowrap}
+.cat-prices .cat-bottle{color:var(--brown)}
+.cat-prices .cat-bottle b{font-weight:500}
+.cat-prices .cat-ask{color:var(--brown)}
+.cat-body .btn{padding:11px 22px;font-size:14px}
+.cat-more{text-align:center;margin-top:22px}
+@media(max-width:760px){.cat-list{grid-template-columns:1fr}}
+/* mobile compaction */
+@media(max-width:600px){
+ .mbr{display:inline}.kdot{display:none}.spark{width:12px;height:12px}
+ .hero .wrap>div:first-child{text-align:center}
+ .hero .lead{margin-left:auto;margin-right:auto}
+ .hero h1{font-size:44px}
+ .deco-b{width:40px;height:56px;right:14px;top:16px;opacity:.28}
+ .deco-b2{width:34px;height:48px;left:14px;top:26px;bottom:auto;opacity:.2}
+ .variants,.gallery{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;margin-left:-24px;margin-right:-24px;padding:4px 24px 14px;scrollbar-width:none}
+ .variants::-webkit-scrollbar,.gallery::-webkit-scrollbar{display:none}
+ .variants[hidden]{display:none}
+ .variants>.card{flex:0 0 86%;scroll-snap-align:center}
+ .gallery>figure{flex:0 0 72%;scroll-snap-align:center}
+ .swipe{display:flex!important}
+ .a-wrap.closed .a-list{max-height:430px;-webkit-mask-image:linear-gradient(#000 70%,transparent);mask-image:linear-gradient(#000 70%,transparent)}
+ .a-toggle{display:block!important}
+}
+.swipe{display:none;align-items:center;justify-content:center;gap:8px;font-size:13px;color:var(--brown);margin:2px 0 6px}
+.swipe span{display:inline-block;animation:nudge 1.6s ease-in-out infinite}
+@keyframes nudge{0%,100%{transform:translateX(0)}50%{transform:translateX(6px)}}
+.a-toggle{display:none;margin:14px auto 0}
+.swipe[hidden]{display:none!important}
 /* how */
 .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:36px;counter-reset:s}
 .steps div{counter-increment:s}
@@ -260,6 +333,7 @@ footer a:hover{color:#fff}
       <a href="#advent">Адвенты</a>
       <a href="#boxes">Боксы</a>
       <a href="#anketa">Подбор аромата</a>
+      <a href="#catalog">Каталог</a>
       <a href="#partners">Партнёрам</a>
       <a href="#how">Как заказать</a>
     </nav>
@@ -272,11 +346,11 @@ footer a:hover{color:#fff}
 
 <main id="top">
 
-<section class="hero">
+<section class="hero"><div class="deco deco-b" aria-hidden="true"></div><div class="deco deco-b2" aria-hidden="true"></div><span class="spark" aria-hidden="true" style="left:8%;top:22%;animation-delay:0s"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 0c.6 6.2 5.8 11.4 12 12-6.2.6-11.4 5.8-12 12-.6-6.2-5.8-11.4-12-12 6.2-.6 11.4-5.8 12-12z"/></svg></span><span class="spark" aria-hidden="true" style="right:16%;top:12%;animation-delay:1.2s"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 0c.6 6.2 5.8 11.4 12 12-6.2.6-11.4 5.8-12 12-.6-6.2-5.8-11.4-12-12 6.2-.6 11.4-5.8 12-12z"/></svg></span><span class="spark" aria-hidden="true" style="left:46%;top:8%;animation-delay:2.4s"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 0c.6 6.2 5.8 11.4 12 12-6.2.6-11.4 5.8-12 12-.6-6.2-5.8-11.4-12-12 6.2-.6 11.4-5.8 12-12z"/></svg></span><span class="spark" aria-hidden="true" style="right:7%;bottom:22%;animation-delay:.6s"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 0c.6 6.2 5.8 11.4 12 12-6.2.6-11.4 5.8-12 12-.6-6.2-5.8-11.4-12-12 6.2-.6 11.4-5.8 12-12z"/></svg></span><span class="spark" aria-hidden="true" style="left:22%;bottom:12%;animation-delay:3.1s"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 0c.6 6.2 5.8 11.4 12 12-6.2.6-11.4 5.8-12 12-.6-6.2-5.8-11.4-12-12 6.2-.6 11.4-5.8 12-12z"/></svg></span>
   <div class="wrap">
     <div>
-      <div class="kicker">Парфюмерный бутик · Доставка по всей России</div>
-      <h1>Найдём аромат, который <em>звучит как вы</em></h1>
+      <div class="kicker">Парфюмерный бутик<span class="kdot"> · </span><br class="mbr">Доставка по всей России</div>
+      <h1>Найдём аромат,<br class="mbr"> который <em>звучит<br class="mbr"> как&nbsp;вы</em></h1>
       <ul class="assort">
         <li><a href="#raspiv">Распивы от 2 мл</a></li>
         <li><a href="#raspiv">Пробники и миниатюры</a></li>
@@ -323,6 +397,7 @@ footer a:hover{color:#fff}
     </div>
 
     <!-- ДЛЯ НЕЁ -->
+    <p class="swipe" aria-hidden="true">Листайте <span>→</span></p>
     <div class="variants" id="v-neyo">
       <article class="card">
         <div class="pic"><img src="img/advent-neyo-1.jpg" alt="Состав адвента для неё, Парфюмерный гардероб 1" loading="lazy"></div>
@@ -381,6 +456,7 @@ footer a:hover{color:#fff}
     </div>
 
     <!-- ДЛЯ НЕГО -->
+    <p class="swipe sw-nego" hidden aria-hidden="true">Листайте <span>→</span></p>
     <div class="variants" id="v-nego" hidden>
       <article class="card">
         <div class="pic"><img src="img/advent-nego-1.jpg" alt="Состав адвента для него, Парфюмерный гардероб 1" loading="lazy"></div>
@@ -441,6 +517,7 @@ footer a:hover{color:#fff}
     <p class="adv-note">Хотите заменить аромат в составе? Напишите нам, подберём замену под ваш вкус.</p>
   <div class="look">
     <h3 class="sub-h">Как это выглядит вживую</h3>
+    <p class="swipe" aria-hidden="true">Листайте <span>→</span></p>
     <div class="gallery">
       <figure><img src="img/g-dlya-nego.jpg" alt="Открытый адвент для него" loading="lazy"><figcaption>Для него: магнитная крышка и 7 коробочек</figcaption></figure>
       <figure><img src="img/g-atomaizer.jpg" alt="Атомайзер 2 мл рядом с флаконом Jo Malone Wood Sage &amp; Sea Salt" loading="lazy"><figcaption>В каждой коробочке аромат от 2&nbsp;мл</figcaption></figure>
@@ -534,6 +611,147 @@ footer a:hover{color:#fff}
     </div>
   </div>
 </section>
+
+<!--CAT-->
+<section class="catalog" id="catalog">
+  <div class="wrap">
+    <div class="kicker">Каталог</div>
+    <h2>Ароматы в наличии и в пути</h2>
+    <p class="lead">Нажмите на аромат: внутри описание и цены. Объём уточним перед заказом.</p>
+    <div class="cat-filter" role="group">
+      <button type="button" data-f="all" aria-pressed="true">Все</button>
+      <button type="button" data-f="fresh" aria-pressed="false">Свежие</button>
+      <button type="button" data-f="warm" aria-pressed="false">Тёплые и сладкие</button>
+      <button type="button" data-f="floral" aria-pressed="false">Цветочные и нежные</button>
+      <button type="button" data-f="him" aria-pressed="false">Для него</button>
+    </div>
+    <ul class="cat-list" id="catlist">
+      <li class="cat-item" data-g="warm">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Amouage</small>Guidance 46</span><span class="cat-tag">Едет к нам</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>Глубокий и роскошный нишевый аромат.</p><ul class="cat-prices"><li class="cat-ask"><span>Едет к нам. Напишите, и мы сообщим, когда приедет</span></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Напишите, какой аромат ждёте, и мы сообщим, когда он приедет">Сообщить, когда приедет</button></div>
+      </li>
+      <li class="cat-item" data-g="floral">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Antonio Banderas</small>Her Secret Temptation</span><span class="cat-tag">от 290 ₽</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>Лёгкий и милый, на каждый день.</p><ul class="cat-prices"><li><span>распив 2 мл</span><b>290 ₽</b></li><li><span>распив 5 мл</span><b>390 ₽</b></li><li class="cat-bottle"><span>Для сравнения: флакон в магазинах</span><b>2 614 ₽ за 80 мл</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Напишите название аромата и нужный объём: Antonio Banderas Her Secret Temptation">Заказать</button></div>
+      </li>
+      <li class="cat-item" data-g="him">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Antonio Banderas</small>The Golden Secret</span><span class="cat-tag">от 290 ₽</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>Свежий мужской аромат на каждый день.</p><ul class="cat-prices"><li><span>распив 2 мл</span><b>290 ₽</b></li><li><span>распив 5 мл</span><b>490 ₽</b></li><li class="cat-bottle"><span>Для сравнения: флакон в магазинах</span><b>3 979 ₽ за 100 мл</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Напишите название аромата и нужный объём: Antonio Banderas The Golden Secret">Заказать</button></div>
+      </li>
+      <li class="cat-item" data-g="him">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Armaf</small>Club de Nuit Iconic</span><span class="cat-tag">от 290 ₽</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>Свежий «костюмный» мужской аромат, уверенный.</p><ul class="cat-prices"><li><span>распив 2 мл</span><b>290 ₽</b></li><li><span>распив 5 мл</span><b>490 ₽</b></li><li class="cat-bottle"><span>Для сравнения: флакон в магазинах</span><b>4 441 ₽ за 105 мл</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Напишите название аромата и нужный объём: Armaf Club de Nuit Iconic">Заказать</button></div>
+      </li>
+      <li class="cat-item" data-g="him">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Bvlgari</small>Tygar</span><span class="cat-tag">от 1 490 ₽</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>Свежий и дерзкий мужской аромат, бодрит.</p><ul class="cat-prices"><li><span>распив 2 мл</span><b>1 490 ₽</b></li><li class="cat-bottle"><span>Для сравнения: флакон в магазинах</span><b>30 233 ₽ за 60 мл</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Напишите название аромата и нужный объём: Bvlgari Tygar">Заказать</button></div>
+      </li>
+      <li class="cat-item" data-g="warm">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Bybozo</small>Habibi</span><span class="cat-tag">от 590 ₽</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>Пряный и тёплый, с характером.</p><ul class="cat-prices"><li><span>распив 2 мл</span><b>590 ₽</b></li><li class="cat-bottle"><span>Для сравнения: флакон в магазинах</span><b>11 707 ₽ за 75 мл</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Напишите название аромата и нужный объём: Bybozo Habibi">Заказать</button></div>
+      </li>
+      <li class="cat-item" data-g="fresh">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Byredo</small>Mojave Ghost</span><span class="cat-tag">от 1 790 ₽</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>Мягкий и воздушный. Тихий, дорогой аромат.</p><ul class="cat-prices"><li><span>пробник целиком, 2 мл</span><b>1 790 ₽</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Напишите название аромата и нужный объём: Byredo Mojave Ghost">Заказать</button></div>
+      </li>
+      <li class="cat-item" data-g="warm">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Carine Roitfeld</small>Lawrence</span><span class="cat-tag">от 390 ₽</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>Магнетичный и интимный, с характером.</p><ul class="cat-prices"><li><span>распив 2 мл</span><b>390 ₽</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Напишите название аромата и нужный объём: Carine Roitfeld Lawrence">Заказать</button></div>
+      </li>
+      <li class="cat-item" data-g="floral">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Chanel</small>Coco Mademoiselle</span><span class="cat-tag">от 290 ₽</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>Классика: элегантный и уверенный.</p><ul class="cat-prices"><li><span>пробник целиком, 1,4 мл</span><b>290 ₽</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Напишите название аромата и нужный объём: Chanel Coco Mademoiselle">Заказать</button></div>
+      </li>
+      <li class="cat-item" data-g="warm">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Chanel</small>Coco Noir</span><span class="cat-tag">от 790 ₽</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>Тёмный и элегантный. Вечерний шик.</p><ul class="cat-prices"><li><span>распив 2 мл</span><b>790 ₽</b></li><li><span>распив 5 мл</span><b>1 490 ₽</b></li><li class="cat-bottle"><span>Для сравнения: флакон в магазинах</span><b>20 007 ₽ за 100 мл</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Напишите название аромата и нужный объём: Chanel Coco Noir">Заказать</button></div>
+      </li>
+      <li class="cat-item" data-g="floral">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Chopard</small>Rose Malaki</span><span class="cat-tag">Едет к нам</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>Роскошная роза для особого случая.</p><ul class="cat-prices"><li class="cat-ask"><span>Едет к нам. Напишите, и мы сообщим, когда приедет</span></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Напишите, какой аромат ждёте, и мы сообщим, когда он приедет">Сообщить, когда приедет</button></div>
+      </li>
+      <li class="cat-item" data-g="floral">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Coach</small>Floral</span><span class="cat-tag">Едет к нам</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>Нежный и романтичный.</p><ul class="cat-prices"><li class="cat-ask"><span>Едет к нам. Напишите, и мы сообщим, когда приедет</span></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Напишите, какой аромат ждёте, и мы сообщим, когда он приедет">Сообщить, когда приедет</button></div>
+      </li>
+      <li class="cat-item" data-g="fresh">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>DKNY</small>Be Delicious</span><span class="cat-tag">от 490 ₽</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>Хрустящий и свежий, бодрит с утра.</p><ul class="cat-prices"><li><span>распив 2 мл</span><b>490 ₽</b></li><li><span>распив 5 мл</span><b>990 ₽</b></li><li class="cat-bottle"><span>Для сравнения: флакон в магазинах</span><b>5 878 ₽ за 50 мл</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Напишите название аромата и нужный объём: DKNY Be Delicious">Заказать</button></div>
+      </li>
+      <li class="cat-item" data-g="him">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>DKNY</small>Be Delicious Men</span><span class="cat-tag">от 490 ₽</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>Лёгкий и свежий мужской аромат.</p><ul class="cat-prices"><li><span>распив 2 мл</span><b>490 ₽</b></li><li><span>распив 5 мл</span><b>990 ₽</b></li><li class="cat-bottle"><span>Для сравнения: флакон в магазинах</span><b>5 878 ₽ за 50 мл</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Напишите название аромата и нужный объём: DKNY Be Delicious Men">Заказать</button></div>
+      </li>
+      <li class="cat-item" data-g="him">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Essential Parfums</small>Bois Impérial</span><span class="cat-tag">Едет к нам</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>Благородный и древесный.</p><ul class="cat-prices"><li class="cat-ask"><span>Едет к нам. Напишите, и мы сообщим, когда приедет</span></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Напишите, какой аромат ждёте, и мы сообщим, когда он приедет">Сообщить, когда приедет</button></div>
+      </li>
+      <li class="cat-item" data-g="floral">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Ex Nihilo</small>Fleur Narcotique</span><span class="cat-tag">от 490 ₽</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>Светлый и цветочный, кружит голову.</p><ul class="cat-prices"><li><span>пробник целиком, 1,4 мл</span><b>490 ₽</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Напишите название аромата и нужный объём: Ex Nihilo Fleur Narcotique">Заказать</button></div>
+      </li>
+      <li class="cat-item" data-g="him">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Guerlain</small>Homme L&#x27;Eau</span><span class="cat-tag">от 390 ₽</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>Свежий и лёгкий мужской аромат на каждый день.</p><ul class="cat-prices"><li><span>распив 2 мл</span><b>390 ₽</b></li><li class="cat-bottle"><span>Для сравнения: флакон в магазинах</span><b>7 000 ₽ за 100 мл</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Напишите название аромата и нужный объём: Guerlain Homme L&#x27;Eau">Заказать</button></div>
+      </li>
+      <li class="cat-item" data-g="floral">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>HFC</small>Pink Moon</span><span class="cat-tag">от 590 ₽</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>Нежный и сияющий, с тёплым глубоким шлейфом.</p><ul class="cat-prices"><li><span>пробник целиком, 2 мл</span><b>590 ₽</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Напишите название аромата и нужный объём: HFC Pink Moon">Заказать</button></div>
+      </li>
+      <li class="cat-item" data-g="fresh">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Jo Malone</small>Wood Sage &amp; Sea Salt</span><span class="cat-tag">Едет к нам</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>Свежий и солоноватый, как прогулка у моря.</p><ul class="cat-prices"><li class="cat-ask"><span>Едет к нам. Напишите, и мы сообщим, когда приедет</span></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Напишите, какой аромат ждёте, и мы сообщим, когда он приедет">Сообщить, когда приедет</button></div>
+      </li>
+      <li class="cat-item" data-g="fresh">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Juliette Has a Gun</small>Not a Perfume</span><span class="cat-tag">от 390 ₽</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>Почти невесомый, звучит как чистая кожа, только лучше. На каждый день.</p><ul class="cat-prices"><li><span>распив 2 мл</span><b>390 ₽</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Напишите название аромата и нужный объём: Juliette Has a Gun Not a Perfume">Заказать</button></div>
+      </li>
+      <li class="cat-item" data-g="fresh">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Le Labo</small>Another 13</span><span class="cat-tag">Едет к нам</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>Тихий и очень личный, звучит как ваша кожа.</p><ul class="cat-prices"><li class="cat-ask"><span>Едет к нам. Напишите, и мы сообщим, когда приедет</span></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Напишите, какой аромат ждёте, и мы сообщим, когда он приедет">Сообщить, когда приедет</button></div>
+      </li>
+      <li class="cat-item" data-g="warm">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Maison Francis Kurkdjian</small>Baccarat Rouge 540</span><span class="cat-tag">от 490 ₽</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>Тот самый узнаваемый аромат, который замечают все вокруг.</p><ul class="cat-prices"><li><span>пробник целиком, 1,2 мл</span><b>490 ₽</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Напишите название аромата и нужный объём: Maison Francis Kurkdjian Baccarat Rouge 540">Заказать</button></div>
+      </li>
+      <li class="cat-item" data-g="warm">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Mancera</small>Aoud Café</span><span class="cat-tag">от 490 ₽</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>Сладкий и уютный, как вечер в любимой кофейне.</p><ul class="cat-prices"><li><span>распив 2 мл</span><b>490 ₽</b></li><li><span>распив 5 мл</span><b>990 ₽</b></li><li class="cat-bottle"><span>Для сравнения: флакон в магазинах</span><b>7 005 ₽ за 60 мл</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Напишите название аромата и нужный объём: Mancera Aoud Café">Заказать</button></div>
+      </li>
+      <li class="cat-item" data-g="warm">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Mancera</small>Aoud Orchid</span><span class="cat-tag">от 490 ₽</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>Тёплый, плотный и сладкий. Для холодных вечеров и тех, кто любит заметный шлейф.</p><ul class="cat-prices"><li><span>распив 2 мл</span><b>490 ₽</b></li><li><span>распив 5 мл</span><b>990 ₽</b></li><li class="cat-bottle"><span>Для сравнения: флакон в магазинах</span><b>6 778 ₽ за 60 мл</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Напишите название аромата и нужный объём: Mancera Aoud Orchid">Заказать</button></div>
+      </li>
+      <li class="cat-item" data-g="floral">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Montale</small>Roses Musk</span><span class="cat-tag">от 290 ₽</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>Мягкий, романтичный и уютный.</p><ul class="cat-prices"><li><span>пробник целиком, 1 мл</span><b>290 ₽</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Напишите название аромата и нужный объём: Montale Roses Musk">Заказать</button></div>
+      </li>
+      <li class="cat-item" data-g="fresh">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>RudRoss</small>Montana</span><span class="cat-tag">от 490 ₽</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>Спокойный и чистый. Аромат человека, у которого всё в порядке.</p><ul class="cat-prices"><li><span>распив 2 мл</span><b>490 ₽</b></li><li><span>распив 5 мл</span><b>790 ₽</b></li><li class="cat-bottle"><span>Для сравнения: флакон в магазинах</span><b>8 720 ₽ за 95 мл</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Напишите название аромата и нужный объём: RudRoss Montana">Заказать</button></div>
+      </li>
+      <li class="cat-item" data-g="warm">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>RudRoss</small>Vanilla Love</span><span class="cat-tag">от 390 ₽</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>Сладкий и уютный, как любимый десерт.</p><ul class="cat-prices"><li><span>пробник целиком, 2 мл</span><b>390 ₽</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Напишите название аромата и нужный объём: RudRoss Vanilla Love">Заказать</button></div>
+      </li>
+      <li class="cat-item" data-g="floral">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Tiziana Terenzi</small>Kirkè</span><span class="cat-tag">от 390 ₽</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>Сочный и солнечный, яркий и радостный.</p><ul class="cat-prices"><li><span>пробник целиком, 1,4 мл</span><b>390 ₽</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Напишите название аромата и нужный объём: Tiziana Terenzi Kirkè">Заказать</button></div>
+      </li>
+      <li class="cat-item" data-g="warm">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Yves Saint Laurent</small>Black Opium</span><span class="cat-tag">от 590 ₽</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>Сладкий и бодрящий. Для вечера и свиданий.</p><ul class="cat-prices"><li><span>распив 2 мл</span><b>590 ₽</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Напишите название аромата и нужный объём: Yves Saint Laurent Black Opium">Заказать</button></div>
+      </li>
+      <li class="cat-item" data-g="floral">
+        <button type="button" class="cat-head" aria-expanded="false"><span class="cat-name"><small>Zielinski &amp; Rozen</small>Powder</span><span class="cat-tag">от 290 ₽</span><i aria-hidden="true"></i></button>
+        <div class="cat-body" hidden><p>Мягкий и нежный.</p><ul class="cat-prices"><li><span>пробник целиком, 2 мл</span><b>290 ₽</b></li></ul><button class="btn btn-main js-contact" aria-haspopup="true" aria-expanded="false" data-hint="Напишите название аромата и нужный объём: Zielinski &amp; Rozen Powder">Заказать</button></div>
+      </li>
+    </ul>
+    <div class="cat-more"><button type="button" class="btn btn-ghost" id="catmore" data-more="Показать все ароматы" data-less="Свернуть">Показать все ароматы</button></div>
+  </div>
+</section>
+
+<!--/CAT-->
 
 <section class="partners" id="partners">
   <div class="wrap p-grid">
@@ -637,6 +855,7 @@ document.querySelectorAll('.tabs button').forEach(b=>b.addEventListener('click',
   document.querySelectorAll('.tabs button').forEach(x=>x.setAttribute('aria-selected',x===b));
   document.getElementById('v-neyo').hidden=b.dataset.tab!=='neyo';
   document.getElementById('v-nego').hidden=b.dataset.tab!=='nego';
+  document.querySelectorAll('.swipe').forEach((x,i)=>{if(i<2)x.hidden=(i===0)===(b.dataset.tab==='nego')});
 }));
 document.querySelectorAll('.card.niche').forEach(card=>{
   card.querySelectorAll('.choose button').forEach(b=>b.addEventListener('click',()=>{
@@ -661,6 +880,18 @@ document.addEventListener('click',e=>{if(!cp.hidden&&!cp.contains(e.target))clos
 document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
 addEventListener('scroll',()=>{if(cur)place(cur)},{passive:true});addEventListener('resize',()=>{if(cur)place(cur)});
 const cq=document.getElementById('copyq');if(cq){const qt="Анкета подбора «Тут твой аромат»\n\n1. Где вам хорошо? (Можно выбрать несколько.)\n— кофейня с выпечкой и корицей\n— лес после дождя\n— море, соль, белая рубашка\n— вечерний бар, бархат, свечи\n— сад с цветами весной\nОтвет: \n\n2. Какой аромат вы уже любили или любите? (Название или просто запомнившийся запах на ком-то.)\nОтвет: \n\n3. Какие запахи точно не ваши? (Например: сладкое, пудра, табак, «бабушкины» цветы, резкая свежесть.)\nОтвет: \n\n4. Куда будете носить?\n— каждый день и на работу\n— на свидания и вечером\n— хочу «свой» аромат на всё\n— это подарок: кому и какой это человек?\nОтвет: \n\n5. Что хочется, чтобы думали о вас, когда вы проходите мимо?\n— «какой чистый и свежий аромат»\n— «хочу узнать, кто это»\n— «рядом с этим человеком спокойно и уютно»\n— «этот человек знает себе цену»\nОтвет: \n\nВаш бюджет (на распивы, бокс или флакон): ";cq.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(qt)}catch(e){const t=document.createElement('textarea');t.value=qt;document.body.appendChild(t);t.select();document.execCommand('copy');t.remove()}const o=cq.textContent;cq.textContent='Скопировано ✓';setTimeout(()=>cq.textContent=o,2200)})}
+document.documentElement.classList.add('js');
+(()=>{const sel='.card,.box,.path,.a-list>li,.gallery figure,.steps>div,.trust>div,.c-card,.cat-item,.p-list li,.nums>div,.r-grid>div,.inside>div';
+const els=document.querySelectorAll(sel);if(!('IntersectionObserver' in window)){return}
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{rootMargin:'0px 0px -6% 0px'});
+els.forEach(el=>{const r=el.getBoundingClientRect();if(r.top<innerHeight)return;el.classList.add('rv');io.observe(el)})})();
+document.querySelectorAll('.cat-head').forEach(h=>h.addEventListener('click',()=>{const b=h.nextElementSibling,o=h.getAttribute('aria-expanded')==='true';h.setAttribute('aria-expanded',!o);b.hidden=o}));
+(()=>{const list=document.getElementById('catlist');if(!list)return;const items=[...list.children],more=document.getElementById('catmore');let f='all',open=false;
+const draw=()=>{let n=0;items.forEach(li=>{const ok=f==='all'||li.dataset.g.split(' ').includes(f);li.hidden=!ok;if(ok)n++;li.classList.toggle('cut',f==='all'&&!open&&ok&&n>8)});
+ if(more){more.hidden=f!=='all';more.textContent=open?more.dataset.less:more.dataset.more}};
+document.querySelectorAll('.cat-filter button').forEach(b=>b.addEventListener('click',()=>{f=b.dataset.f;document.querySelectorAll('.cat-filter button').forEach(x=>x.setAttribute('aria-pressed',x===b));draw()}));
+if(more)more.addEventListener('click',()=>{open=!open;draw();if(!open)list.scrollIntoView({block:'start'})});draw()})();
+document.querySelectorAll('.a-toggle').forEach(b=>b.addEventListener('click',()=>{const w=b.closest('.a-wrap'),c=w.classList.toggle('closed');b.setAttribute('aria-expanded',!c);b.textContent=c?b.dataset.more:b.dataset.less;if(c)w.scrollIntoView({block:'start'})}));
 </script>
 </body>
 </html>
