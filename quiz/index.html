@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Составьте свой парфюмерный портрет · «Тут твой аромат»</title>
+<meta name="description" content="7 вопросов о привычках, воспоминаниях и настроении. В конце вы получите карточку с разбором вашего парфюмерного портрета и тремя ароматами, которые стоит послушать.">
+<meta property="og:title" content="Составьте свой парфюмерный портрет">
+<meta property="og:description" content="7 вопросов и карточка с вашим парфюмерным портретом. Ответы никуда не отправляются.">
+<meta property="og:image" content="https://bazque.github.io/img/quiz-og.jpg">
+<meta name="theme-color" content="#F3EBDD">
+<style>
+@font-face{font-family:"Cormorant";src:url(../fonts/cormorant-garamond-600.woff2) format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:"Cormorant";src:url(../fonts/cormorant-italic.woff2) format("woff2");font-style:italic;font-weight:400 700;font-display:swap}
+@font-face{font-family:"Inter";src:url(../fonts/Inter-Regular.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Inter";src:url(../fonts/Inter-SemiBold.woff2) format("woff2");font-weight:600;font-display:swap}
+:root{--cream:#F3EBDD;--paper:#FBF7F0;--choc:#6B2E2A;--ink:#1A1A1A;--beige:#D9C7AE;--brown:#8B6A4F;--rose:#E8C4C0;--line:#E2D6C3}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font:400 16px/1.55 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--cream);-webkit-font-smoothing:antialiased;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column}
+a{color:inherit}
+h1,h2,h3{font-family:Cormorant,Georgia,serif;font-weight:600;line-height:1.08;letter-spacing:-.01em;font-variant-numeric:lining-nums}
+em{font-family:Cormorant,Georgia,serif;font-style:italic}
+header{border-bottom:1px solid var(--line);background:rgba(243,235,221,.92)}
+.bar{max-width:640px;margin:0 auto;padding:0 20px;height:58px;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:8px;font:700 15px/1 Georgia,serif;letter-spacing:.14em;text-decoration:none;white-space:nowrap}
+.logo svg{width:20px;height:24px}
+.bar small{font-size:13px;color:var(--brown)}
+main{flex:1;width:100%;max-width:640px;margin:0 auto;padding:28px 20px 48px}
+.kicker{font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--choc);margin-bottom:12px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:15px 26px;border-radius:999px;font:600 15px/1.2 Inter,sans-serif;text-decoration:none;cursor:pointer;border:0;transition:transform .15s,background .15s;text-align:center}
+.btn:active{transform:scale(.98)}
+.btn-main{background:var(--choc);color:#fff}
+.btn-main:hover{background:#561f1c}
+.btn-ghost{border:1.5px solid var(--choc);color:var(--choc);background:transparent}
+.wide{width:100%}
+[hidden]{display:none!important}
+.screen{animation:in .35s ease}
+@keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* intro */
+.intro h1{font-size:clamp(46px,11vw,72px);margin-bottom:18px}
+.intro h1 em{color:var(--choc)}
+.intro p{font-size:17px;color:#3b3330;margin-bottom:14px}
+.intro ul{list-style:none;margin:22px 0 28px;display:grid;gap:10px}
+.intro li{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:12px 16px;font-size:15px;display:flex;gap:12px;align-items:center}
+.intro li b{font:600 26px/1 Cormorant,serif;color:var(--choc);min-width:28px;text-align:center;font-variant-numeric:lining-nums}
+.note{font-size:13px;color:var(--brown);margin-top:16px;text-align:center}
+
+/* question */
+.top{display:flex;align-items:center;gap:14px;margin-bottom:26px}
+.back{border:0;background:none;font:600 14px Inter,sans-serif;color:var(--choc);cursor:pointer;padding:6px 0}
+.back:disabled{opacity:.25;cursor:default}
+.progress{flex:1;height:6px;border-radius:9px;background:var(--line);overflow:hidden}
+.progress i{display:block;height:100%;background:var(--choc);border-radius:9px;transition:width .35s}
+.count{font-size:13px;color:var(--brown);font-variant-numeric:tabular-nums}
+.q h2{font-size:clamp(32px,8vw,44px);margin-bottom:8px}
+.q .hint{color:var(--brown);font-size:15px;margin-bottom:22px}
+.opts{display:grid;gap:10px}
+.opt{display:flex;gap:14px;align-items:center;width:100%;text-align:left;background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:15px 16px;font:400 16px/1.35 Inter,sans-serif;color:var(--ink);cursor:pointer;transition:border-color .15s,background .15s,transform .1s}
+.opt:hover{border-color:var(--beige)}
+.opt .e{font-size:24px;line-height:1;flex:none;width:30px;text-align:center}
+.opt.on{border-color:var(--choc);background:#fbf3f1}
+.opt:active{transform:scale(.99)}
+
+/* loading */
+.loading{text-align:center;padding:80px 0}
+.loading h2{font-size:36px;margin-bottom:10px}
+.dots{display:flex;gap:8px;justify-content:center;margin-top:20px}
+.dots i{width:10px;height:10px;border-radius:50%;background:var(--choc);animation:b 1s infinite}
+.dots i:nth-child(2){animation-delay:.15s}.dots i:nth-child(3){animation-delay:.3s}
+@keyframes b{0%,100%{opacity:.2;transform:translateY(0)}50%{opacity:1;transform:translateY(-6px)}}
+
+/* result */
+.res-head{text-align:center;margin-bottom:20px}
+.res-head h1{font-size:clamp(38px,9vw,56px);margin-bottom:8px}
+.res-head p:not(.kicker){font-family:Cormorant,serif;font-style:italic;font-size:22px;color:var(--choc);line-height:1.25}
+.card-img{display:block;width:100%;max-width:360px;margin:0 auto 14px;border-radius:18px;box-shadow:0 20px 50px rgba(70,40,20,.22);aspect-ratio:9/16;background:var(--paper)}
+.save-hint{font-size:13px;color:var(--brown);text-align:center;margin-bottom:18px}
+.actions{display:grid;gap:10px;margin-bottom:34px}
+.code-box{background:var(--choc);color:#fff;border-radius:20px;padding:24px 22px;text-align:center;margin-bottom:34px}
+.code-box .kicker{color:var(--rose)}
+.code-box .code{font:600 46px/1 Cormorant,serif;letter-spacing:.06em;margin:6px 0 12px;font-variant-numeric:lining-nums}
+.code-box p{color:#ecdcd4;font-size:15px;margin-bottom:18px}
+.code-box .btn-main{background:var(--cream);color:var(--choc)}
+.code-box .btn-ghost{border-color:#f3ebdd;color:#f3ebdd;margin-top:10px}
+.sect{margin-bottom:30px}
+.sect h3{font-size:28px;margin-bottom:12px}
+.sect dl{display:grid;gap:12px}
+.sect dt{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--choc);margin-bottom:2px}
+.sect dd{font-size:16px;color:#3b3330}
+.sect .item{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px 18px}
+.frag{display:grid;gap:10px}
+.frag div{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:14px 18px}
+.frag b{display:block;font:600 22px/1.15 Cormorant,serif}
+.frag span{font-size:14.5px;color:#4a403b}
+.second{background:var(--paper);border:1px dashed var(--beige);border-radius:16px;padding:16px 18px;font-size:15px;color:#3b3330}
+.second b{color:var(--choc)}
+.again{text-align:center;margin-top:10px}
+.again button{background:none;border:0;font:600 15px Inter,sans-serif;color:var(--choc);text-decoration:underline;cursor:pointer;padding:10px}
+footer{border-top:1px solid var(--line);padding:22px 20px;text-align:center;font-size:13px;color:var(--brown)}
+footer a{color:var(--choc)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:12px 18px;border-radius:999px;font-size:14px;z-index:50;animation:in .25s}
+</style>
+</head>
+<body>
+<header>
+  <div class="bar">
+    <a class="logo" href="../" aria-label="Тут твой аромат: на главную">
+      <svg viewBox="0 0 22 26" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="1" width="8" height="5" rx="1.5"/><path d="M11 8 4 5.5v6L11 9l7 2.5v-6z" stroke-linejoin="round"/><rect x="2" y="9" width="18" height="16" rx="4"/></svg>
+      <span>ТУТ ТВОЙ АРОМАТ</span>
+    </a>
+    <small>квиз</small>
+  </div>
+</header>
+
+<main id="app">
+  <section class="screen intro" id="s-intro">
+    <p class="kicker">Квиз · 1 минута</p>
+    <h1>Составьте свой <em>парфюмерный портрет</em></h1>
+    <p>Семь вопросов о ваших привычках, воспоминаниях и о том, что лежит у вас в сумке. Названия духов знать не нужно.</p>
+    <ul>
+      <li><b>1</b>Отвечаете на 7 вопросов, честно и не думая долго</li>
+      <li><b>2</b>Получаете карточку с разбором вашего парфюмерного портрета и тремя ароматами, которые стоит послушать</li>
+      <li><b>3</b>Пишете нам в директ свой код и получаете подборку пробников под него и небольшой подарок к первому заказу</li>
+    </ul>
+    <button class="btn btn-main wide" id="start">Начать</button>
+    <p class="note">Мы ничего не сохраняем и не собираем: ответы остаются в вашем телефоне.</p>
+  </section>
+
+  <section class="screen q" id="s-q" hidden>
+    <div class="top">
+      <button class="back" id="back" aria-label="Предыдущий вопрос">← Назад</button>
+      <div class="progress"><i id="bar"></i></div>
+      <span class="count" id="count"></span>
+    </div>
+    <h2 id="q-title"></h2>
+    <p class="hint" id="q-hint"></p>
+    <div class="opts" id="opts"></div>
+  </section>
+
+  <section class="screen loading" id="s-load" hidden>
+    <h2>Слушаем ваши ответы…</h2>
+    <p style="color:var(--brown)">Собираем ваш парфюмерный портрет</p>
+    <div class="dots"><i></i><i></i><i></i></div>
+  </section>
+
+  <section class="screen" id="s-res" hidden>
+    <div class="res-head">
+      <p class="kicker">Ваш парфюмерный портрет</p>
+      <h1 id="r-title"></h1>
+      <p id="r-tag"></p>
+    </div>
+
+    <img class="card-img" id="r-card" alt="Карточка с результатом квиза для сторис">
+    <p class="save-hint">Карточка сделана в формате сторис. Если кнопка не сработает, нажмите на картинку и удерживайте, чтобы сохранить.</p>
+    <div class="actions">
+      <button class="btn btn-main" id="share">Поделиться в сторис</button>
+      <button class="btn btn-ghost" id="download">Сохранить картинку</button>
+    </div>
+
+    <div class="code-box">
+      <p class="kicker">Ваш код</p>
+      <div class="code" id="r-code"></div>
+      <p>Напишите нам в директ этот код. Мы подберём пробники под ваш портрет, а к первому заказу добавим небольшой подарок.</p>
+      <a class="btn btn-main wide" id="dm" href="https://ig.me/m/tut_tvoy_aromat" target="_blank" rel="noopener">Написать нам в директ</a>
+      <button class="btn btn-ghost wide" id="copy">Скопировать код</button>
+    </div>
+
+    <div class="sect">
+      <h3>Разбор</h3>
+      <dl id="r-about"></dl>
+    </div>
+
+    <div class="sect">
+      <h3>Что послушать в первую очередь</h3>
+      <div class="frag" id="r-frag"></div>
+    </div>
+
+    <div class="sect">
+      <div class="second" id="r-second"></div>
+    </div>
+
+    <div class="again"><button id="again">Пройти ещё раз</button></div>
+  </section>
+</main>
+
+<footer>
+  «Тут твой аромат» · распивы, пробники, флаконы и боксы · <a href="../">на главную</a>
+</footer>
+
+<script>
+/* ---------- Характеры ----------
+   Ароматы взяты из текущего ассортимента сайта (боксы и адвенты).
+   Ноты не называем, пока они не сверены с fragrantica.ru: описываем образ. */
+const TYPES = {
+  CHISTO: {
+    code:'ЧИСТО', n:1,
+    title:'Подозрительно всё в порядке',
+    tag:'Вы пахнете так, будто у вас всегда выглажена рубашка и сдан отчёт.',
+    pass:'«Чем от вас так приятно пахнет? Это духи или вы просто такой человек?»',
+    weak:'Боитесь быть «слишком». Поэтому годами носите один безопасный аромат и никому о нём не говорите.',
+    tip:'Чистые ароматы сидят близко к коже. Нанесите на шею и на шарф: вас услышат только те, кто подошёл близко.',
+    frag:[
+      ['Juliette Has a Gun Not a Perfume Superdose','как ваша кожа, только в свой лучший день'],
+      ['RudRoss Montana','аромат человека, у которого всё в порядке'],
+      ['DKNY Be Delicious','бодрый и хрустящий, как утро без опозданий']
+    ]
+  },
+  BRIZ: {
+    code:'БРИЗ', n:2,
+    title:'Белая рубашка на ветру',
+    tag:'Вы открываете окно зимой «проветрить» и считаете это заботой о себе.',
+    pass:'«Кажется, этот человек только что вернулся с моря. В ноябре. В Петербурге.»',
+    weak:'Всё сладкое кажется вам «слишком». Даже торт на собственный день рождения.',
+    tip:'Свежие ароматы звучат ярко, но уходят быстрее. Возьмите распив с собой и обновите аромат после обеда: 2 мл помещаются в любой карман.',
+    frag:[
+      ['Jo Malone Wood Sage & Sea Salt','прогулка по берегу, когда ветер и хорошо'],
+      ['Guerlain Homme L\'Eau','свежий и собранный, как утро с планом'],
+      ['Bvlgari Le Gemme Tygar','яркий, солнечный и с характером']
+    ]
+  },
+  UYUT: {
+    code:'УЮТ', n:3,
+    title:'Плед, и никуда не надо',
+    tag:'Вы тот человек, у которого всегда есть печенье. И пледа хватит на всех.',
+    pass:'«Хочется обнять и спросить, где вы берёте такое настроение.»',
+    weak:'Вы знаете все кофейни района, и в каждой у вас «как обычно».',
+    tip:'Тёплые ароматы громкие. На улице хватит 2–3 распылений, в помещении 1–2. Иначе обнимать вас захочет весь вагон метро.',
+    frag:[
+      ['Kilian Angels\' Share','как десерт, который вы честно заслужили'],
+      ['Essential Parfums Ambre Latte','большая кружка чего-то тёплого в руках'],
+      ['Mancera Aoud Café','вечер в кофейне, когда за окном мокрый снег']
+    ]
+  },
+  MAGNIT: {
+    code:'МАГНИТ', n:4,
+    title:'Я знаю себе цену',
+    tag:'Вы заходите в комнату, и разговоры на секунду стихают.',
+    pass:'«Хочу узнать, кто это. И что это за аромат.»',
+    weak:'Тёмное, глубокое, вечернее. Лёгкие «офисные» ароматы вы в глубине души считаете водой.',
+    tip:'Тёмным ароматам хватит одного распыления на запястье и одного на шею. Весь секрет в том, чтобы вас хотели услышать поближе.',
+    frag:[
+      ['Chanel Coco Noir','маленькое чёрное платье, только в жидком виде'],
+      ['Carine Roitfeld Lawrence','магнетичный и очень близкий, как шёпот'],
+      ['Bybozo Habibi','пряный, тёплый и немного дерзкий']
+    ]
+  },
+  CVET: {
+    code:'ЦВЕТ', n:5,
+    title:'Романтик с характером',
+    tag:'Вы покупаете себе цветы просто так. И правильно делаете.',
+    pass:'«Как будто в комнате стало светлее.»',
+    weak:'Цветы. Только не «бабушкины», а такие, чтобы с характером.',
+    tip:'Цветочные ароматы звучат на разной коже очень по-разному. Их особенно стоит поносить из распива пару дней, прежде чем брать флакон.',
+    frag:[
+      ['Chopard Rose Malaki','роза, которая знает себе цену'],
+      ['Coach Floral','лёгкий и светлый, как первое тепло'],
+      ['Ex Nihilo Fleur Narcotique','букет, от которого кружится голова']
+    ]
+  },
+  DREVO: {
+    code:'ДРЕВО', n:6,
+    title:'Лес после дождя',
+    tag:'Вы читаете состав на всём, у вас есть любимое дерево и мнение о бумажных книгах.',
+    pass:'«Спокойный человек. С ним хочется помолчать, и это комплимент.»',
+    weak:'Ароматы «как у всех». Вы ищете свой и никуда не торопитесь.',
+    tip:'Древесные ароматы раскрываются медленно. Не судите по первым пяти минутам: дайте аромату полчаса и только потом решайте.',
+    frag:[
+      ['Le Labo Another 13','тихий, но его почему-то замечают все'],
+      ['Essential Parfums Bois Impérial','прогулка по лесу в хорошем пальто'],
+      ['Maison Margiela By the Fireplace','камин на даче, когда за окном ноябрь']
+    ]
+  }
+};
+const ORDER = ['CHISTO','BRIZ','UYUT','MAGNIT','CVET','DREVO'];
+
+/* ---------- Вопросы ----------
+   Каждый ответ даёт 2 балла основному характеру и 1 балл соседнему. */
+const Q = [
+  {t:'Какой у вас идеальный выходной?', h:'Выберите то, что ближе всего', o:[
+    ['☕','Кофейня, плед, книга, и никуда не надо',{UYUT:2,DREVO:1}],
+    ['🌊','Ветер на заливе и кофе с собой',{BRIZ:2,CHISTO:1}],
+    ['🍷','Ужин, бар и домой ближе к утру',{MAGNIT:2,UYUT:1}],
+    ['💐','Цветочный рынок и бранч с подругами',{CVET:2,BRIZ:1}],
+    ['🌲','Электричка, лес и термос',{DREVO:2,BRIZ:1}]
+  ]},
+  {t:'Что точно лежит у вас в сумке?', h:'Честно', o:[
+    ['🧴','Крем для рук и влажные салфетки. Порядок.',{CHISTO:2,BRIZ:1}],
+    ['🍫','Шоколадка «на всякий случай»',{UYUT:2,CVET:1}],
+    ['📓','Наушники и блокнот',{DREVO:2,CHISTO:1}],
+    ['💄','Помада, которую видно с другого конца зала',{MAGNIT:2,CVET:1}]
+  ]},
+  {t:'Запах из детства, от которого теплеет?', h:'Первое, что вспомнилось', o:[
+    ['🥧','Бабушкины пирожки и ваниль',{UYUT:2,CVET:1}],
+    ['🔥','Дача: мокрая трава, костёр, сосны',{DREVO:2,BRIZ:1}],
+    ['🍉','Море, солёная кожа и арбуз',{BRIZ:2,CHISTO:1}],
+    ['🌸','Мамины духи и пионы в вазе',{CVET:2,MAGNIT:1}],
+    ['🧺','Бельё, которое сушили на морозе',{CHISTO:2,DREVO:1}]
+  ]},
+  {t:'Какой комплимент приятнее всего?', h:'Тот, что хочется услышать чаще', o:[
+    ['✨','«Ты всегда так приятно пахнешь»',{CHISTO:2,BRIZ:1}],
+    ['🫶','«С тобой так спокойно»',{UYUT:2,DREVO:1}],
+    ['🔥','«Не могу перестать о тебе думать»',{MAGNIT:2,UYUT:1}],
+    ['🌷','«Ты как весна»',{CVET:2,BRIZ:1}],
+    ['🧠','«С тобой интересно молчать»',{DREVO:2,MAGNIT:1}]
+  ]},
+  {t:'Ваш напиток?', h:'Можно и безалкогольный', o:[
+    ['🥛','Латте с сиропом, и побольше пенки',{UYUT:2,CVET:1}],
+    ['🍋','Вода с лимоном или холодный чай',{BRIZ:2,CHISTO:1}],
+    ['☕','Чёрный кофе без всего',{DREVO:2,MAGNIT:1}],
+    ['🍷','Бокал красного',{MAGNIT:2,UYUT:1}],
+    ['🥂','Розовое игристое',{CVET:2,CHISTO:1}]
+  ]},
+  {t:'Как вы одеваетесь?', h:'Чаще всего', o:[
+    ['👕','Белая футболка и джинсы: база навсегда',{CHISTO:2,BRIZ:1}],
+    ['🧶','Огромный свитер, в котором можно жить',{UYUT:2,DREVO:1}],
+    ['🖤','Чёрное, кожа, каблук или тяжёлые ботинки',{MAGNIT:2,DREVO:1}],
+    ['🍂','Лён, шерсть, всё землистых оттенков',{DREVO:2,UYUT:1}],
+    ['🎀','Платье, бант, что-нибудь в цветочек',{CVET:2,UYUT:1}]
+  ]},
+  {t:'Чего вы боитесь в духах?', h:'Главный страх', o:[
+    ['😷','Что будет «слишком» и коллеги начнут чихать',{CHISTO:2,BRIZ:1}],
+    ['🧊','Что будет холодно и «как освежитель»',{UYUT:2,MAGNIT:1}],
+    ['🎂','Что будет сладко, как торт',{BRIZ:2,DREVO:1}],
+    ['😴','Что будет скучно и «как у всех»',{MAGNIT:2,DREVO:1}],
+    ['👵','Что будет «бабушкино»',{CVET:2,CHISTO:1}]
+  ]}
+];
+
+/* ---------- Логика ---------- */
+const $ = id => document.getElementById(id);
+let step = 0, answers = [], cardBlob = null, result = null;
+
+function show(id){ ['s-intro','s-q','s-load','s-res'].forEach(s => $(s).hidden = s !== id); window.scrollTo(0,0); }
+
+function renderQ(){
+  const q = Q[step];
+  $('q-title').textContent = q.t;
+  $('q-hint').textContent = q.h;
+  $('count').textContent = (step+1) + ' / ' + Q.length;
+  $('bar').style.width = ((step) / Q.length * 100) + '%';
+  $('back').disabled = step === 0;
+  const box = $('opts'); box.innerHTML = '';
+  q.o.forEach((o,i) => {
+    const b = document.createElement('button');
+    b.className = 'opt' + (answers[step] === i ? ' on' : '');
+    b.innerHTML = '<span class="e" aria-hidden="true">'+o[0]+'</span><span></span>';
+    b.lastChild.textContent = o[1];
+    b.onclick = () => {
+      answers[step] = i;
+      [...box.children].forEach(c => c.classList.remove('on'));
+      b.classList.add('on');
+      setTimeout(() => { if (step < Q.length-1){ step++; renderQ(); $('s-q').classList.remove('screen'); void $('s-q').offsetWidth; $('s-q').classList.add('screen'); } else finish(); }, 260);
+    };
+    box.appendChild(b);
+  });
+}
+
+function score(){
+  const s = {}; ORDER.forEach(k => s[k] = 0);
+  answers.forEach((a,i) => { const add = Q[i].o[a][2]; for (const k in add) s[k] += add[k]; });
+  // при равенстве выигрывает тот, кому дали больше «главных» ответов, потом порядок ORDER
+  const main = {}; ORDER.forEach(k => main[k] = 0);
+  answers.forEach((a,i) => { const add = Q[i].o[a][2]; for (const k in add) if (add[k] === 2) main[k]++; });
+  const sorted = ORDER.slice().sort((a,b) => (s[b]-s[a]) || (main[b]-main[a]) || (ORDER.indexOf(a)-ORDER.indexOf(b)));
+  return {first: sorted[0], second: sorted[1]};
+}
+
+async function finish(){
+  $('bar').style.width = '100%';
+  show('s-load');
+  const r = score();
+  const T = TYPES[r.first], S = TYPES[r.second];
+  result = {T, S, code: T.code + '-' + S.n};
+  const wait = new Promise(res => setTimeout(res, 1400));
+  try { await drawCard(result); } catch(e) { console.error(e); }
+  await wait;
+  fillResult(result);
+  show('s-res');
+}
+
+function fillResult({T,S,code}){
+  $('r-title').textContent = T.title;
+  $('r-tag').textContent = T.tag;
+  $('r-code').textContent = code;
+  const dl = $('r-about'); dl.innerHTML = '';
+  [['Когда вы проходите мимо, думают',T.pass],['Ваша парфюмерная слабость',T.weak],['Совет от нас',T.tip]].forEach(([a,b]) => {
+    const d = document.createElement('div'); d.className = 'item';
+    const dt = document.createElement('dt'); dt.textContent = a;
+    const dd = document.createElement('dd'); dd.textContent = b;
+    d.append(dt, dd); dl.appendChild(d);
+  });
+  const fr = $('r-frag'); fr.innerHTML = '';
+  T.frag.forEach(([n,d]) => { const el = document.createElement('div'); el.innerHTML = '<b></b><span></span>'; el.firstChild.textContent = n; el.lastChild.textContent = d; fr.appendChild(el); });
+  $('r-second').innerHTML = 'А ещё в вас есть немного от портрета <b></b>. Для другого настроения попробуйте <b></b>: ';
+  const bs = $('r-second').querySelectorAll('b');
+  bs[0].textContent = '«' + S.title + '»';
+  bs[1].textContent = S.frag[0][0];
+  $('r-second').append(S.frag[0][1] + '.');
+}
+
+/* ---------- Карточка 1080×1920 ----------
+   Верх (до ~220 px) и низ (после ~1720 px) в сторис закрыты интерфейсом Instagram,
+   поэтому всё важное лежит между ними. Если текст длинный, весь блок уменьшается. */
+function wrap(ctx, text, maxW){
+  const words = text.split(' '); const lines = []; let line = '';
+  for (const w of words){ const t = line ? line + ' ' + w : w; if (ctx.measureText(t).width > maxW && line){ lines.push(line); line = w; } else line = t; }
+  if (line) lines.push(line);
+  // короткие предлоги и союзы («с», «и», «в») не оставляем в конце строки
+  for (let i = 0; i < lines.length-1; i++){ const m = lines[i].match(/ (\S{1,2})$/); if (m){ lines[i] = lines[i].slice(0, -m[0].length); lines[i+1] = m[1] + ' ' + lines[i+1]; } }
+  return lines;
+}
+function wrap2(ctx, text, maxW){ // ровные строки: переносим так, чтобы самая длинная была как можно короче
+  const lines = wrap(ctx, text, maxW); if (lines.length !== 2) return lines;
+  const w = text.split(' '); let best = lines, bw = Math.max(...lines.map(l => ctx.measureText(l).width));
+  for (let i = 1; i < w.length; i++){ if (w[i-1].length <= 2) continue; const a = w.slice(0,i).join(' '), b = w.slice(i).join(' '); const m = Math.max(ctx.measureText(a).width, ctx.measureText(b).width); if (m < bw && m <= maxW){ bw = m; best = [a,b]; } }
+  return best;
+}
+function spaced(ctx, text, x, y, sp){ // разрядка, по центру
+  const chars = [...text]; let w = 0; chars.forEach(c => w += ctx.measureText(c).width + sp); w -= sp;
+  let cx = x - w/2; ctx.textAlign = 'left'; chars.forEach(c => { ctx.fillText(c, cx, y); cx += ctx.measureText(c).width + sp; }); ctx.textAlign = 'center';
+}
+function rr(ctx,x,y,w,h,r){ ctx.beginPath(); ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r); ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath(); }
+
+const C = {CREAM:'#F3EBDD', CHOC:'#6B2E2A', INK:'#1A1A1A', BROWN:'#8B6A4F', PAPER:'#FBF7F0', ROSE:'#E8C4C0', LINE:'#E2D6C3'};
+
+// Середина карточки. draw=false только считает высоту.
+function body(x, T, S, k, draw){
+  const W = 1080, mid = W/2, TW = 880; let y = 300;
+  const f = (s, fam, st='') => `${st}${Math.round(s*k)}px ${fam}`;
+  x.textAlign = 'center';
+  x.font = f(26,'Inter','600 '); x.fillStyle = C.CHOC; if (draw) spaced(x,'ВАШ ПАРФЮМЕРНЫЙ ПОРТРЕТ',mid,y,5);
+  // заголовок
+  let fs = 104*k, lines;
+  do { x.font = `600 ${fs}px Cormorant`; lines = wrap2(x, T.title, TW); fs -= 4; } while (lines.length > 2 && fs > 60);
+  fs += 4; y += fs*1.02;
+  x.fillStyle = C.INK; lines.forEach((l,i) => { if (draw) x.fillText(l, mid, y); if (i < lines.length-1) y += fs*0.98; });
+  // подзаголовок
+  x.font = f(42,'Cormorant','italic 500 '); x.fillStyle = C.CHOC; y += 66*k;
+  wrap(x, T.tag, 860).forEach(l => { if (draw) x.fillText(l, mid, y); y += 50*k; });
+  // бант
+  y += 10*k;
+  if (draw){
+    x.strokeStyle = C.CHOC; x.lineWidth = 2; x.beginPath(); x.moveTo(mid-170,y); x.lineTo(mid-30,y); x.moveTo(mid+30,y); x.lineTo(mid+170,y); x.stroke();
+    x.beginPath(); x.moveTo(mid,y); x.lineTo(mid-22,y-12); x.lineTo(mid-22,y+12); x.closePath(); x.moveTo(mid,y); x.lineTo(mid+22,y-12); x.lineTo(mid+22,y+12); x.closePath(); x.fillStyle = C.CHOC; x.fill();
+  }
+  y += 62*k;
+  const block = (label, text) => {
+    x.font = f(23,'Inter','600 '); x.fillStyle = C.CHOC; if (draw) spaced(x, label, mid, y, 3.5); y += 44*k;
+    x.font = f(32,'Inter','400 '); x.fillStyle = C.INK; wrap(x, text, 860).forEach(l => { if (draw) x.fillText(l, mid, y); y += 42*k; });
+    y += 26*k;
+  };
+  block('КОГДА ВЫ ПРОХОДИТЕ МИМО, ДУМАЮТ', T.pass);
+  block('ВАША ПАРФЮМЕРНАЯ СЛАБОСТЬ', T.weak);
+  // ароматы
+  const bx = 110, bw = W-220, fy = y, row = 58*k, bh = 70*k + T.frag.length*row + 18*k;
+  if (draw){ x.fillStyle = C.PAPER; rr(x,bx,fy,bw,bh,28); x.fill(); x.strokeStyle = C.LINE; x.lineWidth = 2; x.stroke(); }
+  y = fy + 54*k; x.font = f(23,'Inter','600 '); x.fillStyle = C.CHOC; if (draw) spaced(x,'ВАМ СТОИТ ПОСЛУШАТЬ',mid,y,3.5); y += 60*k;
+  x.fillStyle = C.INK;
+  T.frag.forEach(([n]) => { let s = 42*k; do { x.font = `600 ${s}px Cormorant`; s -= 2; } while (x.measureText(n).width > bw-60 && s > 26); if (draw) x.fillText(n, mid, y); y += row; });
+  y = fy + bh + 46*k;
+  x.font = f(34,'Cormorant','italic 500 '); x.fillStyle = C.BROWN;
+  wrap(x, 'и ещё немного: «' + S.title + '»', 860).forEach(l => { if (draw) x.fillText(l, mid, y); y += 40*k; });
+  return y;
+}
+
+async function drawCard({T,S,code}){
+  await Promise.all(['600 80px Cormorant','italic 500 40px Cormorant','400 30px Inter','600 30px Inter'].map(f => document.fonts.load(f, 'АаЯя')));
+  const W = 1080, H = 1920, c = document.createElement('canvas'); c.width = W; c.height = H;
+  const x = c.getContext('2d'); x.textBaseline = 'alphabetic'; x.textAlign = 'center';
+  x.fillStyle = C.CREAM; x.fillRect(0,0,W,H);
+  x.strokeStyle = C.CHOC; x.lineWidth = 3; rr(x,44,44,W-88,H-88,36); x.stroke();
+  x.lineWidth = 1.5; rr(x,60,60,W-120,H-120,28); x.stroke();
+
+  x.fillStyle = C.INK; x.font = '700 34px Georgia, serif'; spaced(x,'ТУТ ТВОЙ АРОМАТ',W/2,226,6);
+
+  const LIMIT = 1410; let k = 1;
+  while (body(x,T,S,k,false) > LIMIT && k > 0.7) k -= 0.03;
+  // короткий текст центрируем по вертикали в свободной зоне
+  const shift = Math.max(0, (LIMIT - body(x,T,S,k,false)) / 2);
+  x.save(); x.translate(0, shift); body(x,T,S,k,true); x.restore();
+
+  // код и подпись: фиксированно, выше нижней панели сторис
+  const cy = 1440;
+  x.fillStyle = C.CHOC; rr(x,170,cy,W-340,176,88); x.fill();
+  x.fillStyle = C.ROSE; x.font = '600 22px Inter'; spaced(x,'ВАШ КОД',W/2,cy+56,4);
+  x.fillStyle = '#FFFFFF'; x.font = '600 64px Inter'; spaced(x, code, W/2, cy+134, 6);
+  x.fillStyle = C.INK; x.font = '600 28px Inter'; x.fillText('Составьте свой: bazque.github.io/quiz', W/2, cy+232);
+  x.fillStyle = C.BROWN; x.font = '400 26px Inter'; x.fillText('@tut_tvoy_aromat', W/2, cy+274);
+
+  $('r-card').src = c.toDataURL('image/png');
+  cardBlob = await new Promise(r => c.toBlob(r, 'image/png'));
+}
+
+function toast(t){ const d = document.createElement('div'); d.className = 'toast'; d.textContent = t; document.body.appendChild(d); setTimeout(() => d.remove(), 2200); }
+
+function download(){
+  if (!cardBlob) return;
+  const a = document.createElement('a'); a.href = URL.createObjectURL(cardBlob);
+  a.download = 'moy-aromat-' + result.code + '.png'; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+}
+
+$('start').onclick = () => { step = 0; answers = []; show('s-q'); renderQ(); };
+$('back').onclick = () => { if (step > 0){ step--; renderQ(); } };
+$('again').onclick = () => { step = 0; answers = []; show('s-intro'); };
+$('download').onclick = download;
+$('share').onclick = async () => {
+  if (!cardBlob) return;
+  const file = new File([cardBlob], 'moy-aromat-' + result.code + '.png', {type:'image/png'});
+  if (navigator.canShare && navigator.canShare({files:[file]})){
+    try { await navigator.share({files:[file]}); } catch(e) {}
+  } else { download(); toast('Картинка сохранена. Добавьте её в сторис из галереи'); }
+};
+$('copy').onclick = async () => {
+  const t = result.code;
+  try { await navigator.clipboard.writeText(t); } catch(e) { const a = document.createElement('textarea'); a.value = t; document.body.appendChild(a); a.select(); document.execCommand('copy'); a.remove(); }
+  toast('Код ' + t + ' скопирован');
+};
+</script>
+</body>
+</html>
