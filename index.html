@@ -268,6 +268,13 @@ h1,h2{text-wrap:balance}
 .a-toggle{display:none;margin:14px auto 0}
 .swipe[hidden]{display:none!important}
 .swipe{justify-content:flex-end!important;padding-right:4px}
+/* stars-all */
+.has-sp{position:relative}
+.has-sp>.wrap{position:relative;z-index:1}
+.spark.sp-l{width:var(--sz,14px);height:var(--sz,14px)}
+.raspiv .spark,footer .spark{color:var(--rose)}
+footer.has-sp{overflow:hidden}
+/* /stars-all */
 /* how */
 .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:36px;counter-reset:s}
 .steps div{counter-increment:s}
@@ -901,6 +908,12 @@ const draw=()=>{let n=0;items.forEach(li=>{const ok=f==='all'||li.dataset.g.spli
 document.querySelectorAll('.cat-filter button').forEach(b=>b.addEventListener('click',()=>{f=b.dataset.f;document.querySelectorAll('.cat-filter button').forEach(x=>x.setAttribute('aria-pressed',x===b));draw()}));
 if(more)more.addEventListener('click',()=>{open=!open;draw();if(!open)list.scrollIntoView({block:'start'})});draw()})();
 document.querySelectorAll('.a-toggle').forEach(b=>b.addEventListener('click',()=>{const w=b.closest('.a-wrap'),c=w.classList.toggle('closed');b.setAttribute('aria-expanded',!c);b.textContent=c?b.dataset.more:b.dataset.less;if(c)w.scrollIntoView({block:'start'})}));
+(()=>{const st='<svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 0c.6 6.2 5.8 11.4 12 12-6.2.6-11.4 5.8-12 12-.6-6.2-5.8-11.4-12-12 6.2-.6 11.4-5.8 12-12z"/></svg>';
+const m=innerWidth<600;[...document.querySelectorAll('section:not(.hero),footer')].filter(x=>!x.parentElement.closest('section')).forEach((sec,si)=>{sec.classList.add('has-sp');const n=m?4:7;
+for(let i=0;i<n;i++){const e=document.createElement('span');e.className='spark sp-l';e.setAttribute('aria-hidden','true');e.innerHTML=st;
+const side=(i+si)%2,x=(m?.5:1.5)+((si*37+i*53)%(m?3:5)),y=6+((i*83+si*29)%86),sz=10+((i*7+si*5)%9);
+e.style.cssText=(side?'right:':'left:')+x+'%;top:'+y+'%;--sz:'+sz+'px;animation-delay:'+(((i*1.3+si*.7)%4.5).toFixed(1))+'s';sec.appendChild(e)}})
+const h=document.querySelector('.hero');if(h)[[30,'left:4%;top:55%',13],[31,'right:5%;top:48%',16],[32,'left:30%;top:4%',10],[33,'right:30%;bottom:6%',12]].forEach(([k,pos,sz])=>{const e=document.createElement('span');e.className='spark sp-l';e.setAttribute('aria-hidden','true');e.innerHTML=st;e.style.cssText=pos+';--sz:'+sz+'px;animation-delay:'+(k%5*.9)+'s';h.appendChild(e)})})();
 </script>
 </body>
 </html>
