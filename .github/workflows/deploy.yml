@@ -44,8 +44,17 @@ jobs:
           set -euo pipefail
           PORT="${PORT:-22}"
           mkdir -p ~/.ssh && chmod 700 ~/.ssh
-          printf '%s\n' "$SSH_KEY" | tr -d '\r' > ~/.ssh/deploy_key
+          # При копировании из PowerShell ключ часто портится: лишние пробелы,
+          # склеенные строки. Собираем его заново из букв между BEGIN и END.
+          body="$(printf '%s' "$SSH_KEY" | tr -d '\r' \
+            | sed -e 's/-----BEGIN OPENSSH PRIVATE KEY-----//' -e 's/-----END OPENSSH PRIVATE KEY-----//' \
+            | tr -d ' \t\n')"
+          { echo '-----BEGIN OPENSSH PRIVATE KEY-----'; printf '%s\n' "$body" | fold -w 70; echo '-----END OPENSSH PRIVATE KEY-----'; } > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
+          if ! ssh-keygen -y -f ~/.ssh/deploy_key >/dev/null 2>&1; then
+            echo "::error::Секрет SERVER_SSH_KEY скопирован не полностью. Создай ключ заново на сервере и вставь его в секрет ещё раз."
+            exit 1
+          fi
           if [ "$PORT" = 22 ]; then KH="$HOST"; else KH="[$HOST]:$PORT"; fi
           echo "$KH $(printf '%s' "$HOST_KEY" | tr -d '\r')" > ~/.ssh/known_hosts
           rsync -rlz --delete --chmod=D755,F644 \
