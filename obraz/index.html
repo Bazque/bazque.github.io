@@ -661,7 +661,8 @@ function itemSVG(it, g){
 /* ======================================================================
    ПОДБОР
    Шесть портретов те же, что в квизе. Вещь даёт баллы портретам,
-   место даёт вдвое больше. Ароматы берём из каталога сайта,
+   место только подсказывает при равенстве. Два аромата берём из портрета образа,
+   третий — из портрета места («под место»). Ароматы берём из каталога сайта,
    описываем образами (ноты не называем, пока не сверены с fragrantica.ru).
    ====================================================================== */
 const TYPES = {
@@ -702,7 +703,7 @@ const PLACES = [
 function score(worn, place){
   const s = {}; ORDER.forEach(k => s[k] = 0);
   new Set(Object.values(worn)).forEach(id => { const w = ITEMS.find(i => i.id === id).w; for (const k in w) s[k] += w[k]; });
-  for (const k in place.w) s[k] += place.w[k] * 2;
+  for (const k in place.w) s[k] += place.w[k] * .5; // место решает только при близком счёте
   const pw = place.w;
   return ORDER.slice().sort((a,b) => (s[b]-s[a]) || ((pw[b]||0)-(pw[a]||0)) || (ORDER.indexOf(a)-ORDER.indexOf(b)))[0];
 }
@@ -713,7 +714,7 @@ function comment(g, worn, place, T){
   const n = new Set(Object.values(worn)).size;
   const he = g === 'm', swimName = he ? 'плавках' : 'купальнике';
   if (has('swim') && place.id === 'theatre') return `В ${swimName} в театр? Смело. Буфет запомнит этот вечер, а мы подобрали аромат с таким же характером.`;
-  if (has('swim') && !['sea','gym'].includes(place.id) && n <= 2) return `В ${swimName} ${place.to}, и это в ноябре. Уважаем. Аромат подобрали тёплый к образу, а вот куртку всё-таки советуем.`;
+  if (has('swim') && !['sea','gym'].includes(place.id)) return `В ${swimName} ${place.to}? Смелый выбор, особенно в ноябре. Образ у персонажа летний, поэтому два аромата свежие, а третий подобрали под место.`;
   if (has('tux') && place.id === 'dacha') return 'Смокинг на даче. Соседи запомнят этот день надолго, а мы позаботились, чтобы запомнили и аромат.';
   if (has('tux') && place.id === 'gym') return 'Смокинг в спортзал: тренер пока не понял, но точно оценил. Аромат подобрали такой же уверенный.';
   if (has('heels') && place.id === 'dacha') return 'Каблуки на даче: грядки пусть подождут. Аромат подобрали под настроение, а не под рельеф.';
@@ -887,7 +888,14 @@ function renderPlaces(){
 async function go(){
   show('s-load');
   const k = score(worn, place), T = TYPES[k];
-  result = {T, k, code: T.code + '-' + (G === 'm' ? 'М' : 'Ж') + place.n, frag: T[G], text: comment(G, worn, place, T)};
+  // третий аромат — под место: из главного портрета места, если он другой
+  const pk = ORDER.slice().sort((a,b) => (place.w[b]||0) - (place.w[a]||0))[0];
+  let frag = T[G].map(f => f.concat(['']));
+  if (pk !== k){
+    const extra = TYPES[pk][G].find(f => !T[G].some(t => t[0] === f[0]));
+    if (extra) frag = [frag[0], frag[1], extra.concat(['под место: ' + place.to])];
+  }
+  result = {T, k, code: T.code + '-' + (G === 'm' ? 'М' : 'Ж') + place.n, frag, text: comment(G, worn, place, T)};
   const wait = new Promise(r => setTimeout(r, 1400));
   try { await drawCard(result); } catch(e){ console.error(e); }
   await wait;
@@ -899,7 +907,7 @@ function fill(r){
   $('r-tag').textContent = r.text;
   $('r-code').textContent = r.code;
   const fr = $('r-frag'); fr.innerHTML = '';
-  r.frag.forEach(([n,d]) => { const el = document.createElement('div'); el.innerHTML = '<b></b><span></span>'; el.firstChild.textContent = n; el.lastChild.textContent = d; fr.appendChild(el); });
+  r.frag.forEach(([n,d,tag]) => { const el = document.createElement('div'); el.innerHTML = '<b></b><span></span>'; el.firstChild.textContent = n; el.lastChild.textContent = tag ? d + ' · ' + tag : d; fr.appendChild(el); });
   const items = [...new Set(Object.values(worn))].map(id => itemName(ITEMS.find(i => i.id === id), G).toLowerCase());
   $('r-why').innerHTML = '<b>Образ:</b> ';
   $('r-why').append(items.join(', ') + '. ');
