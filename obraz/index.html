@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Соберите образ персонажу, а мы подберём ему аромат · «Тут твой аромат»</title>
+<meta name="description" content="Игра: соберите образ из гардероба, выберите, куда пойдёт персонаж, и получите три аромата, которые стоит послушать.">
+<meta property="og:title" content="Соберите образ персонажу, а мы подберём ему аромат">
+<meta property="og:description" content="Соберите образ, отправьте персонажа на свидание или в театр и узнайте, какой аромат ему подходит.">
+<meta name="theme-color" content="#F3EBDD">
+<style>
+@font-face{font-family:"Cormorant";src:url(../fonts/cormorant-garamond-600.woff2) format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:"Cormorant";src:url(../fonts/cormorant-italic.woff2) format("woff2");font-style:italic;font-weight:400 700;font-display:swap}
+@font-face{font-family:"Inter";src:url(../fonts/Inter-Regular.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Inter";src:url(../fonts/Inter-SemiBold.woff2) format("woff2");font-weight:600;font-display:swap}
+:root{--cream:#F3EBDD;--paper:#FBF7F0;--choc:#6B2E2A;--ink:#1A1A1A;--beige:#D9C7AE;--brown:#8B6A4F;--rose:#E8C4C0;--line:#E2D6C3}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-tap-highlight-color:transparent}
+body{font:400 16px/1.55 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--cream);-webkit-font-smoothing:antialiased;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column}
+a{color:inherit}
+h1,h2,h3{font-family:Cormorant,Georgia,serif;font-weight:600;line-height:1.08;letter-spacing:-.01em;font-variant-numeric:lining-nums}
+header{border-bottom:1px solid var(--line);background:rgba(243,235,221,.92);position:relative;z-index:2}
+.bar{max-width:980px;margin:0 auto;padding:0 20px;height:58px;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:8px;font:700 15px/1 Georgia,serif;letter-spacing:.14em;text-decoration:none;white-space:nowrap}
+.logo svg{width:20px;height:24px}
+.bar small{font-size:13px;color:var(--brown)}
+main{flex:1;width:100%;max-width:640px;margin:0 auto;padding:28px 20px 48px;position:relative;z-index:1}
+main.wide-main{max-width:980px}
+.kicker{font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--choc);margin-bottom:12px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:15px 26px;border-radius:999px;font:600 15px/1.2 Inter,sans-serif;text-decoration:none;cursor:pointer;border:0;transition:transform .15s,background .15s,opacity .15s;text-align:center}
+.btn:active{transform:scale(.98)}
+.btn-main{background:var(--choc);color:#fff}
+.btn-main:hover{background:#561f1c}
+.btn-main:disabled{opacity:.4;cursor:default;transform:none}
+.btn-ghost{border:1.5px solid var(--choc);color:var(--choc);background:transparent}
+.wide{width:100%}
+[hidden]{display:none!important}
+.screen{animation:in .35s ease}
+@keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+footer{border-top:1px solid var(--line);padding:22px 20px;text-align:center;font-size:13px;color:var(--brown);position:relative;z-index:1}
+footer a{color:var(--choc)}
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:12px 18px;border-radius:999px;font-size:14px;z-index:60;animation:in .25s;white-space:nowrap}
+
+/* ---------- персонаж ---------- */
+.fig{display:block;width:100%;height:100%;overflow:visible}
+.fig .sway{transform-box:view-box;transform-origin:100px 440px;animation:sway 5s ease-in-out infinite alternate}
+.fig .breath{transform-box:view-box;transform-origin:100px 250px;animation:breath 3.6s ease-in-out infinite}
+.fig .headg{transform-box:view-box;transform-origin:100px 80px;animation:tilt 7s ease-in-out infinite alternate}
+.fig .eye{transform-box:fill-box;transform-origin:center;animation:blink 5s infinite}
+.fig.hop .sway{animation:hop .5s cubic-bezier(.3,.7,.4,1)}
+.fig.hop .headg{animation:nod .5s ease}
+@keyframes sway{from{transform:rotate(-1.2deg)}to{transform:rotate(1.2deg)}}
+@keyframes breath{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.008)}}
+@keyframes tilt{0%{transform:rotate(-3deg)}100%{transform:rotate(3deg)}}
+@keyframes blink{0%,44%,50%,100%{transform:scaleY(1)}47%{transform:scaleY(.1)}}
+@keyframes hop{0%{transform:translateY(0)}35%{transform:translateY(-14px) rotate(-1deg)}70%{transform:translateY(2px)}100%{transform:translateY(0)}}
+@keyframes nod{0%{transform:rotate(0)}40%{transform:rotate(-7deg)}100%{transform:rotate(0)}}
+@media(prefers-reduced-motion:reduce){.fig *{animation:none!important}}
+
+/* ---------- старт ---------- */
+.intro h1{font-size:clamp(42px,10vw,66px);margin-bottom:16px}
+.intro h1 em{font-family:inherit;font-style:normal;color:var(--choc)}
+.intro p{font-size:17px;color:#3b3330;margin-bottom:14px}
+.who{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:24px 0 18px}
+.who button{background:#fff;border:1.5px solid var(--line);border-radius:22px;padding:14px 10px 16px;cursor:pointer;font:600 17px/1.2 Inter,sans-serif;color:var(--ink);display:flex;flex-direction:column;align-items:center;gap:8px;transition:border-color .15s,transform .1s}
+.who button:hover{border-color:var(--beige)}
+.who button:active{transform:scale(.98)}
+.who .pv{width:100%;height:230px}
+.who small{font:400 13px/1.3 Inter,sans-serif;color:var(--brown)}
+.note{font-size:13px;color:var(--brown);margin-top:14px;text-align:center}
+
+/* ---------- гардероб ---------- */
+.dress{display:grid;gap:14px}
+.wardrobe{display:grid;gap:14px}
+.top{display:flex;align-items:center;gap:14px;margin-bottom:4px}
+.back{border:0;background:none;font:600 14px Inter,sans-serif;color:var(--choc);cursor:pointer;padding:6px 0}
+.step{font-size:13px;color:var(--brown)}
+.stage-wrap{position:sticky;top:0;z-index:5;background:var(--cream);padding:4px 0 6px;margin:0 -20px;padding-left:20px;padding-right:20px}
+.stage{position:relative;height:min(40vh,430px);min-height:250px;border-radius:24px;background:linear-gradient(#fbf7f0,#f6eee2);border:1.5px solid var(--line);transition:border-color .2s,background-color .2s;touch-action:pan-y}
+.stage .fig{position:absolute;inset:6px 0 4px}
+.stage.over{border-color:var(--choc);border-style:dashed}
+.stage .drop{position:absolute;left:50%;top:12px;transform:translateX(-50%);background:var(--choc);color:#fff;font-size:13px;font-weight:600;padding:6px 14px;border-radius:999px;opacity:0;transition:opacity .2s;pointer-events:none;white-space:nowrap}
+.stage.dragging .drop{opacity:.85}
+.stage .tools{position:absolute;right:10px;bottom:10px;display:flex;gap:6px}
+.stage .tools button{border:1px solid var(--line);background:rgba(255,255,255,.85);border-radius:999px;font:600 12.5px/1 Inter,sans-serif;color:var(--choc);padding:8px 12px;cursor:pointer}
+.stage .count{position:absolute;left:12px;bottom:12px;font-size:12.5px;color:var(--brown)}
+.hint{font-size:13px;color:var(--brown);text-align:center}
+.tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;margin:0 -20px;padding-left:20px;padding-right:20px;scroll-snap-type:x proximity;scroll-padding:0 20px;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 20px,#000 calc(100% - 44px),transparent);mask-image:linear-gradient(90deg,transparent 0,#000 20px,#000 calc(100% - 44px),transparent)}
+.tabs::after{content:"";flex:none;width:24px}
+.tabs button{scroll-snap-align:start}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{flex:none;border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:9px 15px;font:600 14px/1 Inter,sans-serif;color:var(--ink);cursor:pointer}
+.tabs button.on{background:var(--choc);border-color:var(--choc);color:#fff}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+.item{position:relative;background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:8px 4px 7px;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;transition:border-color .15s,transform .12s,opacity .15s}
+.item:hover{border-color:var(--beige)}
+.item svg{width:100%;height:50px;pointer-events:none}
+.item span{font-size:11px;line-height:1.2;text-align:center;color:#3b3330;pointer-events:none}
+.item.on{border-color:var(--choc);background:#fbf3f1}
+.item.on::after{content:"✓";position:absolute;top:5px;right:7px;font:600 12px/1 Inter,sans-serif;color:var(--choc)}
+.item.lift{opacity:.35;transform:scale(.95)}
+.ghost{position:fixed;left:0;top:0;width:92px;height:92px;pointer-events:none;z-index:70;background:#fff;border:1.5px solid var(--choc);border-radius:18px;box-shadow:0 14px 30px rgba(70,40,20,.25);padding:8px;will-change:transform}
+.ghost svg{width:100%;height:100%}
+.ghost.back{transition:transform .25s ease,opacity .25s;opacity:0}
+.cta{position:sticky;bottom:0;z-index:6;background:linear-gradient(rgba(243,235,221,0),var(--cream) 30%);padding:18px 0 calc(10px + env(safe-area-inset-bottom))}
+@media(min-width:820px){
+  .dress{grid-template-columns:minmax(320px,420px) 1fr;align-items:start;column-gap:28px}
+  .dress .top{grid-column:1/-1}
+  .stage-wrap{top:12px;margin:0;padding:0}
+  .stage{height:min(76vh,640px)}
+  .tabs{margin:0;padding:0;flex-wrap:wrap;-webkit-mask-image:none;mask-image:none}
+  .tabs::after{display:none}
+  .grid{grid-template-columns:repeat(auto-fill,minmax(100px,1fr))}
+  .item svg{height:72px}
+}
+
+/* ---------- куда идём ---------- */
+.place h2{font-size:clamp(32px,8vw,44px);margin-bottom:8px}
+.place .sub{color:var(--brown);font-size:15px;margin-bottom:20px}
+.places{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.places button{display:flex;flex-direction:column;align-items:flex-start;gap:6px;text-align:left;background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:14px;font:600 15px/1.25 Inter,sans-serif;color:var(--ink);cursor:pointer;transition:border-color .15s,transform .1s}
+.places button:hover{border-color:var(--beige)}
+.places button:active{transform:scale(.98)}
+.places button.on{border-color:var(--choc);background:#fbf3f1}
+.places .e{font-size:26px;line-height:1}
+.places small{font:400 13px/1.3 Inter,sans-serif;color:var(--brown)}
+
+/* ---------- загрузка ---------- */
+.loading{text-align:center;padding:80px 0}
+.loading h2{font-size:36px;margin-bottom:10px}
+.dots{display:flex;gap:8px;justify-content:center;margin-top:20px}
+.dots i{width:10px;height:10px;border-radius:50%;background:var(--choc);animation:b 1s infinite}
+.dots i:nth-child(2){animation-delay:.15s}.dots i:nth-child(3){animation-delay:.3s}
+@keyframes b{0%,100%{opacity:.2;transform:translateY(0)}50%{opacity:1;transform:translateY(-6px)}}
+
+/* ---------- результат ---------- */
+.res-head{text-align:center;margin-bottom:20px}
+.res-head h1{font-size:clamp(38px,9vw,56px);margin-bottom:8px}
+.res-head p:not(.kicker){font-size:17px;color:#4a403b;line-height:1.5;max-width:520px;margin:0 auto}
+.card-img{display:block;width:100%;max-width:360px;margin:0 auto 14px;border-radius:18px;box-shadow:0 20px 50px rgba(70,40,20,.22);aspect-ratio:9/16;background:var(--paper)}
+.save-hint{font-size:13px;color:var(--brown);text-align:center;margin-bottom:18px}
+.actions{display:grid;gap:10px;margin-bottom:34px}
+.code-box{background:var(--choc);color:#fff;border-radius:20px;padding:24px 22px;text-align:center;margin-bottom:34px}
+.code-box .kicker{color:var(--rose)}
+.code-box .code{font:600 38px/1 Inter,sans-serif;letter-spacing:.06em;margin:6px 0 12px;font-variant-numeric:lining-nums}
+.code-box p{color:#ecdcd4;font-size:15px;margin-bottom:18px}
+.code-box .btn-main{background:var(--cream);color:var(--choc)}
+.code-box .btn-ghost{border-color:#f3ebdd;color:#f3ebdd;margin-top:10px}
+.sect{margin-bottom:30px}
+.sect h3{font-size:28px;margin-bottom:12px}
+.frag{display:grid;gap:10px}
+.frag div{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:14px 18px}
+.frag b{display:block;font:600 16px/1.3 Inter,sans-serif;margin-bottom:2px}
+.frag span{font-size:14.5px;color:#4a403b}
+.why{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px 18px;font-size:15px;color:#3b3330}
+.why b{color:var(--choc)}
+.again{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin-top:10px}
+.again button{background:none;border:0;font:600 15px Inter,sans-serif;color:var(--choc);text-decoration:underline;cursor:pointer;padding:10px}
+
+/* ---------- декор ---------- */
+.deco{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.deco i{position:absolute;display:block}
+.deco svg{display:block;width:100%;height:100%}
+.deco .b{color:var(--choc);opacity:.13;animation:drift var(--d) ease-in-out var(--dl) infinite alternate}
+.deco .s{color:var(--choc);animation:twinkle var(--d) ease-in-out var(--dl) infinite}
+@keyframes drift{from{transform:translateY(0) rotate(var(--r0))}to{transform:translateY(-26px) rotate(var(--r1))}}
+.stage .st{position:absolute;pointer-events:none;color:var(--choc);animation:twinkle var(--d) ease-in-out var(--dl) infinite}
+.stage .st.r{color:#c98e88}
+.stage .st svg{display:block;width:100%;height:100%}
+.deco .s.r{color:#c98e88}
+@keyframes twinkle{0%,100%{opacity:.08;transform:scale(.6) rotate(0)}50%{opacity:.5;transform:scale(1) rotate(25deg)}}
+.burst{position:fixed;pointer-events:none;z-index:65;color:var(--choc);animation:burst 1.1s cubic-bezier(.2,.7,.3,1) forwards}
+.burst svg{display:block;width:100%;height:100%}
+@keyframes burst{0%{opacity:0;transform:translate(0,0) scale(.3)}15%{opacity:1}100%{opacity:0;transform:translate(var(--x),var(--y)) scale(1) rotate(160deg)}}
+@media(prefers-reduced-motion:reduce){.deco i,.burst,.stage .st{animation:none!important}.burst{display:none}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" id="defs"></svg>
+<div class="deco" id="deco" aria-hidden="true"></div>
+<header>
+  <div class="bar">
+    <a class="logo" href="../" aria-label="Тут твой аромат: на главную">
+      <svg viewBox="0 0 22 26" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="1" width="8" height="5" rx="1.5"/><path d="M11 8 4 5.5v6L11 9l7 2.5v-6z" stroke-linejoin="round"/><rect x="2" y="9" width="18" height="16" rx="4"/></svg>
+      <span>ТУТ ТВОЙ АРОМАТ</span>
+    </a>
+    <small>игра</small>
+  </div>
+</header>
+
+<main id="app">
+  <!-- 1. выбор персонажа -->
+  <section class="screen intro" id="s-intro">
+    <p class="kicker">Игра · 2 минуты</p>
+    <h1>Соберите образ персонажу, а&nbsp;мы подберём ему <em>аромат</em></h1>
+    <p>Соберите образ из нашего гардероба, отправьте персонажа на свидание, в театр или на дачу, а мы скажем, какой аромат ему подойдёт.</p>
+    <div class="who">
+      <button id="pick-f" aria-label="Одеть её"><svg class="fig pv" id="pv-f" viewBox="0 0 200 450" aria-hidden="true"></svg>Она</button>
+      <button id="pick-m" aria-label="Одеть его"><svg class="fig pv" id="pv-m" viewBox="0 0 200 450" aria-hidden="true"></svg>Он</button>
+    </div>
+    <p class="note">Мы ничего не сохраняем и не собираем: всё остаётся в вашем телефоне.</p>
+  </section>
+
+  <!-- 2. гардероб -->
+  <section class="screen dress" id="s-dress" hidden>
+    <div class="top">
+      <button class="back" id="back1">← Назад</button>
+      <span class="step">Шаг 1 из 2 · соберите образ</span>
+    </div>
+    <div class="stage-wrap">
+      <div class="stage" id="stage">
+        <svg class="fig" id="fig" viewBox="0 0 200 450" role="img" aria-label="Персонаж"></svg>
+        <span class="drop">Отпустите, чтобы надеть</span>
+        <span class="count" id="worn-count"></span>
+        <div class="tools"><button id="undress">Снять всё</button></div>
+      </div>
+    </div>
+    <div class="wardrobe">
+    <p class="hint">Перетащите вещь на персонажа или нажмите на неё. Ещё одно нажатие снимает вещь.</p>
+    <div class="tabs" id="tabs" role="tablist"></div>
+    <div class="grid" id="grid"></div>
+    <div class="cta"><button class="btn btn-main wide" id="next" disabled>Наденьте хотя бы одну вещь</button></div>
+    </div>
+  </section>
+
+  <!-- 3. куда идём -->
+  <section class="screen place" id="s-place" hidden>
+    <div class="top">
+      <button class="back" id="back2">← К гардеробу</button>
+      <span class="step">Шаг 2 из 2</span>
+    </div>
+    <h2>Куда идёт ваш персонаж?</h2>
+    <p class="sub">От этого аромат зависит даже больше, чем от галстука</p>
+    <div class="places" id="places"></div>
+  </section>
+
+  <section class="screen loading" id="s-load" hidden>
+    <h2>Слушаем ваш образ…</h2>
+    <p style="color:var(--brown)">Подбираем аромат под наряд и место</p>
+    <div class="dots"><i></i><i></i><i></i></div>
+  </section>
+
+  <!-- 4. результат -->
+  <section class="screen" id="s-res" hidden>
+    <div class="res-head">
+      <p class="kicker" id="r-kicker"></p>
+      <h1 id="r-title"></h1>
+      <p id="r-tag"></p>
+    </div>
+    <img class="card-img" id="r-card" alt="Карточка с образом персонажа и ароматами">
+    <p class="save-hint">Карточка уже в формате сторис. Если кнопка не сработает, нажмите на картинку и подержите, чтобы сохранить.</p>
+    <div class="actions">
+      <button class="btn btn-main" id="share">Поделиться в сторис</button>
+      <button class="btn btn-ghost" id="download">Сохранить картинку</button>
+    </div>
+    <div class="code-box">
+      <p class="kicker">Код вашего образа</p>
+      <div class="code" id="r-code"></div>
+      <p>Напишите нам в директ этот код. Мы подберём пробники под образ вашего персонажа, и вы сможете послушать ароматы на себе.</p>
+      <a class="btn btn-main wide" href="https://ig.me/m/tut_tvoy_aromat" target="_blank" rel="noopener">Написать нам в директ</a>
+      <button class="btn btn-ghost wide" id="copy">Скопировать код</button>
+    </div>
+    <div class="sect">
+      <h3>Что послушать</h3>
+      <div class="frag" id="r-frag"></div>
+    </div>
+    <div class="sect"><div class="why" id="r-why"></div></div>
+    <div class="again">
+      <button id="redress">Переодеть</button>
+      <button id="restart">Сменить персонажа</button>
+    </div>
+  </section>
+</main>
+
+<footer>
+  «Тут твой аромат» · распивы, пробники, флаконы и боксы · <a href="../">на главную</a>
+</footer>
+
+<script>
+/* ======================================================================
+   РИСУНОК
+   Персонаж и вся одежда рисуются кодом в одной системе координат
+   (viewBox 0 0 200 450), поэтому любая вещь садится на любую фигуру.
+   ====================================================================== */
+const CX = 100;
+const Y = {headCy:47, neckTop:66, shY:96, chestY:130, waistY:198, hipY:240, crotchY:258, kneeY:338, ankleY:414, footY:430};
+const BODY = {
+  m:{sh:37, chest:34, waist:30, hip:32, neck:8,   legOff:16, knee:11,   ankle:6.5, arm:[8.5,7,5.6], hand:7.5, flare:0},
+  f:{sh:31, chest:31, waist:24, hip:35, neck:6.5, legOff:17, knee:10.5, ankle:6,   arm:[7.4,6,4.8], hand:6.6, flare:0}
+};
+const INK = '#6B2E2A', SKIN = '#F0D3BA', SW = 1.7;
+const f1 = n => Math.round(n*10)/10;
+const lerp = (a,b,t) => a + (b-a)*t;
+const ease = t => (1 - Math.cos(Math.PI*t)) / 2;
+function interp(pts, y){ // плавная интерполяция по точкам [y, value]
+  if (y <= pts[0][0]) return pts[0][1];
+  for (let i = 1; i < pts.length; i++) if (y <= pts[i][0]) { const [y0,v0] = pts[i-1], [y1,v1] = pts[i]; return lerp(v0, v1, ease((y-y0)/(y1-y0))); }
+  const [ya,va] = pts[pts.length-2], [yb,vb] = pts[pts.length-1];
+  return vb + (y-yb) * (vb-va)/(yb-ya) * 0; // ниже последней точки держим ширину
+}
+const half = (B,y) => interp([[Y.shY+3,B.sh],[Y.chestY,B.chest],[Y.waistY,B.waist],[Y.hipY,B.hip],[Y.crotchY,B.hip-.5],[Y.kneeY+40,B.hip-.5]], y);
+const mirror = p => [200 - p[0], p[1]];
+const path = (pts, close=true) => 'M' + pts.map(p => f1(p[0]) + ' ' + f1(p[1])).join('L') + (close ? 'Z' : '');
+const shape = (d, fill, extra='') => `<path d="${d}" fill="${fill}" stroke="${INK}" stroke-width="${SW}" stroke-linejoin="round" stroke-linecap="round" ${extra}/>`;
+const line = (d, w=1.2, col=INK, extra='') => `<path d="${d}" fill="none" stroke="${col}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round" ${extra}/>`;
+const range = (a,b,step) => { const r = []; for (let v = a; v < b; v += step) r.push(v); r.push(b); return r; };
+
+/* Корпус: левая половина от шеи до низа, правая зеркально.
+   o: hem (низ), ex (запас ширины), neck: crew|high|v|open, vy (глубина выреза), gap (полуширина распаха), flare (расклёш ниже бёдер) */
+function torsoSide(B, o){
+  const nh = B.neck + (o.nex ?? 2), ex = o.ex || 0, top = Y.shY - 10;
+  const pts = [];
+  // плечо: квадратичная кривая от шеи к плечу
+  const P0 = [CX-nh, top - ex*.25], C = [CX-B.sh-ex+5, top - ex*.4], P2 = [CX-B.sh-ex, Y.shY+3];
+  for (let t = 0; t <= 1.001; t += .2) pts.push([lerp(lerp(P0[0],C[0],t),lerp(C[0],P2[0],t),t), lerp(lerp(P0[1],C[1],t),lerp(C[1],P2[1],t),t)]);
+  range(Y.shY+7, o.hem, 6).forEach(y => { const fl = y > Y.hipY ? (y-Y.hipY) * (o.flare || 0) : 0; pts.push([CX - half(B,y) - ex - fl, y]); });
+  return pts;
+}
+function topShape(B, o){
+  const L = torsoSide(B, o), nh = B.neck + (o.nex ?? 2), topY = Y.shY - 10;
+  const hemL = L[L.length-1];
+  if (o.neck === 'open'){ // распахнутая куртка: две полы
+    const g = o.gap ?? 6, vy = o.vy ?? Y.shY+40;
+    const left = [...L, [CX-g, o.hem], [CX-g, vy], [CX-nh+2, topY+6]];
+    return [path(left), path(left.map(mirror))];
+  }
+  const pts = [...L, [CX, o.hem + (o.hemDip || 0)]];
+  const R = L.slice().reverse().map(mirror);
+  let neck;
+  if (o.neck === 'v') neck = [[CX+nh-1, topY+3], [CX, o.vy], [CX-nh+1, topY+3]];
+  else if (o.neck === 'high') neck = [[CX+nh, topY-1], [CX, topY+1], [CX-nh, topY-1]];
+  else if (o.neck === 'scoop') neck = range(0,1,.125).map(t => [CX+nh - 2*nh*t, topY + Math.sin(Math.PI*t)*(o.vy - topY)]);
+  else neck = range(0,1,.125).map(t => [CX+nh - 2*nh*t, topY + Math.sin(Math.PI*t)*9]);
+  return [path([...pts, ...R, ...neck])];
+}
+/* Рука: ломаная плечо → локоть → запястье, t0..t1 — какую часть закрыть */
+function armPts(B){ return [[CX-B.sh+4, Y.shY+7], [CX-B.sh-6, 170], [CX-B.sh-12, 240]]; }
+function armAt(B, t){
+  const A = armPts(B), seg = t < .5 ? 0 : 1, u = t < .5 ? t*2 : (t-.5)*2;
+  const p = [lerp(A[seg][0], A[seg+1][0], u), lerp(A[seg][1], A[seg+1][1], u)];
+  const d = [A[seg+1][0]-A[seg][0], A[seg+1][1]-A[seg][1]], l = Math.hypot(d[0], d[1]);
+  const w = t < .5 ? lerp(B.arm[0], B.arm[1], u) : lerp(B.arm[1], B.arm[2], u);
+  return {p, n:[-d[1]/l, d[0]/l], w};
+}
+function sleeve(B, t0, t1, ex=0, cuffFlare=0){
+  const a = [], b = [];
+  range(t0, t1, .08).forEach(t => { const {p,n,w} = armAt(B,t); const e = w + ex + (t > .85 ? cuffFlare*(t-.85)/.15 : 0); a.push([p[0]+n[0]*e, p[1]+n[1]*e]); b.push([p[0]-n[0]*e, p[1]-n[1]*e]); });
+  if (t0 === 0){ const {p} = armAt(B,0); a.unshift([p[0]+2, p[1]-10-ex]); }
+  const left = [...a, ...b.reverse()];
+  return [path(left), path(left.map(mirror))];
+}
+const sleeves = (B, t1, ex, fill, extra='', cuff=0) => sleeve(B, 0, t1, ex, cuff).map(d => shape(d, fill, extra)).join('');
+function cuffLines(B, t, ex, col=INK){ const {p,n,w} = armAt(B,t); const e = w+ex; const a = [p[0]+n[0]*e, p[1]+n[1]*e], b = [p[0]-n[0]*e, p[1]-n[1]*e]; return line(path([a,b],false),1.1,col) + line(path([mirror(a),mirror(b)],false),1.1,col); }
+function handPos(B){ const {p} = armAt(B,1); return [p[0]-1, p[1]+9]; }
+
+/* Ноги и брюки */
+const outerX = (B,y) => y <= Y.hipY ? CX - half(B,y) : CX - interp([[Y.hipY,B.hip],[Y.crotchY+12,B.hip-1.5],[Y.kneeY,B.legOff+B.knee],[Y.ankleY,B.legOff+B.ankle]], y);
+const innerX = (B,y) => CX - interp([[Y.crotchY,1],[Y.kneeY,B.legOff-B.knee],[Y.ankleY,B.legOff-B.ankle]], y);
+function pants(B, o){ // o: y0 (пояс), y1 (низ), ex, flare (расклёш от колена)
+  const ex = o.ex || 0, fl = y => y > Y.kneeY ? (o.flare||0) * (y-Y.kneeY)/(Y.ankleY-Y.kneeY) : 0;
+  const outer = range(o.y0, o.y1, 6).map(y => [outerX(B,y) - ex - fl(y), y]);
+  const inner = range(Y.crotchY + 1, o.y1, 6).map(y => [Math.min(CX-.6, innerX(B,y) + ex + fl(y)), y]).reverse();
+  const left = [...outer, ...inner];
+  const cy = Math.min(o.y1, Y.crotchY + 1);
+  const pts = [...left, [CX, cy - 1], ...left.slice().reverse().map(mirror)];
+  return path(pts);
+}
+function skirt(B, o){ // трапеция от талии
+  const pts = [];
+  range(o.y0, o.y1, 6).forEach(y => { const h = y < Y.hipY ? half(B,y) + (o.ex||0) : B.hip + (o.ex||0) + (y-Y.hipY)*(o.flare||.12); pts.push([CX-h, y]); });
+  const hem = range(0,1,.25).map(t => [lerp(pts[pts.length-1][0], CX, t), o.y1 + Math.sin(Math.PI*t/2)*2]);
+  const left = [...pts, ...hem.slice(1)];
+  return path([...left, ...left.slice(0,-1).reverse().map(mirror)]);
+}
+function shoe(B, o){ // o: top (высота голенища), toe (длина носка), pointy
+  const tY = o.top, oX = outerX(B, tY) - 1.8, iX = innerX(B, tY) + 1.8;
+  const heelX = CX - B.legOff + B.ankle + 2.5, toeX = CX - B.legOff - 13 - (o.toe||0);
+  const pts = [[oX, tY], [iX, tY], [heelX, Y.footY + 1], [toeX + 3, Y.footY + 1]];
+  const toeTop = o.pointy ? [[toeX - 3, Y.footY - 1], [toeX + 6, Y.footY - 6]] : [[toeX - 1, Y.footY - 3], [toeX + 2, Y.footY - 8]];
+  const left = [...pts, ...toeTop, [CX - B.legOff - B.ankle - 1.5, Math.max(tY + 2, Y.ankleY + 3)]];
+  return [path(left), path(left.map(mirror))];
+}
+
+/* Узоры (повторяются в каждой SVG, чтобы миниатюры и карточка рисовались одинаково) */
+const DEFS = `<defs>
+<pattern id="p-check" width="14" height="14" patternUnits="userSpaceOnUse"><rect width="14" height="14" fill="#B5523F"/><rect width="6" height="14" fill="#8E3A2C" opacity=".55"/><rect width="14" height="6" fill="#8E3A2C" opacity=".55"/><path d="M0 10h14M10 0v14" stroke="#F3EBDD" stroke-width="1" opacity=".7"/></pattern>
+<pattern id="p-breton" width="10" height="10" patternUnits="userSpaceOnUse"><rect width="10" height="10" fill="#FBF7F0"/><rect y="6" width="10" height="3.2" fill="#2E3550"/></pattern>
+<pattern id="p-flowers" width="22" height="22" patternUnits="userSpaceOnUse"><rect width="22" height="22" fill="#E8C4C0"/><g fill="#FBF7F0"><circle cx="5" cy="5" r="1.6"/><circle cx="7.6" cy="5" r="1.6"/><circle cx="6.3" cy="2.8" r="1.6"/><circle cx="6.3" cy="7.2" r="1.6"/></g><circle cx="6.3" cy="5" r="1" fill="#C98E88"/><g fill="#C98E88"><circle cx="16" cy="15" r="1.5"/><circle cx="18.4" cy="15" r="1.5"/><circle cx="17.2" cy="13" r="1.5"/><circle cx="17.2" cy="17" r="1.5"/></g><circle cx="17.2" cy="15" r=".9" fill="#FBF7F0"/></pattern>
+<pattern id="p-knit" width="8" height="8" patternUnits="userSpaceOnUse"><rect width="8" height="8" fill="#E6D6B8"/><path d="M1 0l3 4 3-4M1 4l3 4 3-4" fill="none" stroke="#CDB894" stroke-width="1"/></pattern>
+<linearGradient id="g-leather" x1="0" x2="1"><stop offset="0" stop-color="#1A1A1A"/><stop offset=".45" stop-color="#3a3434"/><stop offset=".55" stop-color="#1A1A1A"/><stop offset="1" stop-color="#2a2626"/></linearGradient>
+<linearGradient id="g-denim" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5E7FA8"/><stop offset="1" stop-color="#4A6A93"/></linearGradient>
+</defs>`;
+
+/* ---------- База: кожа, лицо, волосы, бельё ---------- */
+function base(B, g){
+  const hp = handPos(B);
+  let back = '', s = '';
+  if (g === 'f') back = shape(`M${CX-23} 44 C${CX-31} 80 ${CX-36} 122 ${CX-31} 150 Q${CX} 160 ${CX+31} 150 C${CX+36} 122 ${CX+31} 80 ${CX+23} 44 C${CX+22} 14 ${CX-22} 14 ${CX-23} 44Z`, '#5A3425');
+  // ноги и ступни
+  s += shape(pants(B, {y0:Y.hipY-8, y1:Y.ankleY+2}), SKIN);
+  [0,1].forEach(i => { const L = [[CX-B.legOff-B.ankle, Y.ankleY], [CX-B.legOff+B.ankle, Y.ankleY], [CX-B.legOff+B.ankle+1, Y.footY], [CX-B.legOff-11, Y.footY], [CX-B.legOff-12, Y.footY-5]]; s += shape(path(i ? L.map(mirror) : L), SKIN); });
+  // руки
+  s += sleeve(B, 0, 1, 0).map(d => shape(d, SKIN)).join('');
+  [hp, mirror(hp)].forEach(p => s += `<ellipse cx="${f1(p[0])}" cy="${f1(p[1])}" rx="${B.hand*.85}" ry="${B.hand*1.1}" fill="${SKIN}" stroke="${INK}" stroke-width="${SW}"/>`);
+  // шея и корпус
+  s += shape(`M${CX-B.neck} ${Y.neckTop} L${CX-B.neck} ${Y.shY-4} L${CX+B.neck} ${Y.shY-4} L${CX+B.neck} ${Y.neckTop}Z`, SKIN);
+  s += topShape(B, {hem:Y.crotchY-2, ex:0, nex:0, neck:'high'}).map(d => shape(d, SKIN)).join('');
+  // бельё
+  const UW = '#E9DCC8';
+  s += shape(pants(B, {y0:Y.hipY-14, y1:Y.crotchY+8, ex:.6}), UW);
+  if (g === 'f') s += shape(path([[CX-B.chest+1,118],[CX+B.chest-1,118],[CX+B.chest-2,140],[CX-B.chest+2,140]]), UW) + line(`M${CX-14} 118 L${CX-B.neck-3} ${Y.shY-6} M${CX+14} 118 L${CX+B.neck+3} ${Y.shY-6}`, 1.4);
+  return {back, body:s};
+}
+function head(B, g){
+  let s = '';
+  s += `<ellipse cx="${CX-21}" cy="${Y.headCy+4}" rx="4" ry="6" fill="${SKIN}" stroke="${INK}" stroke-width="${SW}"/><ellipse cx="${CX+21}" cy="${Y.headCy+4}" rx="4" ry="6" fill="${SKIN}" stroke="${INK}" stroke-width="${SW}"/>`;
+  s += `<ellipse cx="${CX}" cy="${Y.headCy}" rx="21" ry="25" fill="${SKIN}" stroke="${INK}" stroke-width="${SW}"/>`;
+  s += `<circle cx="${CX-12}" cy="${Y.headCy+11}" r="4.2" fill="#E8A9A0" opacity=".55"/><circle cx="${CX+12}" cy="${Y.headCy+11}" r="4.2" fill="#E8A9A0" opacity=".55"/>`;
+  s += `<ellipse class="eye" cx="${CX-8}" cy="${Y.headCy+3}" rx="2.2" ry="2.7" fill="${INK}"/><ellipse class="eye" cx="${CX+8}" cy="${Y.headCy+3}" rx="2.2" ry="2.7" fill="${INK}"/>`;
+  s += line(`M${CX-11} ${Y.headCy-4} q3 -2.4 6 -.6 M${CX+11} ${Y.headCy-4} q-3 -2.4 -6 -.6`, 1.3);
+  s += line(`M${CX-5} ${Y.headCy+13} Q${CX} ${Y.headCy+17.5} ${CX+5} ${Y.headCy+13}`, 1.5);
+  if (g === 'f'){
+    s += line(`M${CX-10.5} ${Y.headCy+1.2} l-2 -1.6 M${CX+10.5} ${Y.headCy+1.2} l2 -1.6`, 1.1);
+    s += shape(`M${CX-22} ${Y.headCy+6} C${CX-25} ${Y.headCy-22} ${CX+25} ${Y.headCy-22} ${CX+22} ${Y.headCy+6} C${CX+19} ${Y.headCy-8} ${CX+9} ${Y.headCy-14} ${CX-2} ${Y.headCy-11} C${CX-9} ${Y.headCy-9} ${CX-17} ${Y.headCy-3} ${CX-22} ${Y.headCy+6}Z`, '#5A3425');
+  } else {
+    s += shape(`M${CX-21} ${Y.headCy} C${CX-24} ${Y.headCy-24} ${CX-10} ${Y.headCy-30} ${CX+2} ${Y.headCy-28} C${CX+18} ${Y.headCy-28} ${CX+25} ${Y.headCy-18} ${CX+21} ${Y.headCy} C${CX+18} ${Y.headCy-10} ${CX+12} ${Y.headCy-14} ${CX+3} ${Y.headCy-13} C${CX-7} ${Y.headCy-14} ${CX-16} ${Y.headCy-9} ${CX-21} ${Y.headCy}Z`, '#5A3425');
+  }
+  return s;
+}
+
+/* ---------- Гардероб ----------
+   slot: куда надевается вещь (в слоте одна вещь). Вещь может занимать несколько слотов (костюм, платье).
+   w: баллы портретам. over: брюки поверх обуви. */
+const P = {CHISTO:'CHISTO', BRIZ:'BRIZ', UYUT:'UYUT', MAGNIT:'MAGNIT', CVET:'CVET', DREVO:'DREVO'};
+const ITEMS = [
+  // ВЕРХ
+  {id:'shirt', cat:'top', name:'Рубашка классическая', w:{CHISTO:2,MAGNIT:1}, parts:{top:(B)=>{
+    const c = '#DCE6F0';
+    let s = sleeves(B, .97, 2.4, c) + cuffLines(B, .9, 2.4);
+    s += topShape(B, {hem:Y.hipY+4, ex:2.4, neck:'crew'}).map(d => shape(d, c)).join('');
+    s += line(`M${CX} ${Y.shY-1} L${CX} ${Y.hipY+4}`, 1.1);
+    [Y.shY+14, Y.shY+38, Y.shY+62, Y.shY+86, Y.shY+110].forEach(y => s += `<circle cx="${CX+2.6}" cy="${y}" r="1.3" fill="${INK}"/>`);
+    s += shape(`M${CX-B.neck-3} ${Y.shY-12} L${CX-1} ${Y.shY+3} L${CX-B.neck-8} ${Y.shY+2}Z`, c) + shape(`M${CX+B.neck+3} ${Y.shY-12} L${CX+1} ${Y.shY+3} L${CX+B.neck+8} ${Y.shY+2}Z`, c);
+    return s; }}},
+  {id:'check', cat:'top', name:'Рубашка в клетку', w:{DREVO:2,UYUT:1}, parts:{top:(B)=>{
+    const c = 'url(#p-check)';
+    let s = sleeves(B, .97, 3, c) + cuffLines(B, .9, 3, '#F3EBDD');
+    s += topShape(B, {hem:Y.hipY+6, ex:3, neck:'crew'}).map(d => shape(d, c)).join('');
+    s += line(`M${CX} ${Y.shY-1} L${CX} ${Y.hipY+6}`, 1.1, '#F3EBDD');
+    s += shape(`M${CX-B.neck-3} ${Y.shY-12} L${CX-1} ${Y.shY+3} L${CX-B.neck-8} ${Y.shY+2}Z`, '#8E3A2C') + shape(`M${CX+B.neck+3} ${Y.shY-12} L${CX+1} ${Y.shY+3} L${CX+B.neck+8} ${Y.shY+2}Z`, '#8E3A2C');
+    s += shape(`M${CX-24} 120 h12 v11 h-12Z`, '#8E3A2C', 'stroke-width="1.1"');
+    return s; }}},
+  {id:'tee', cat:'top', name:'Футболка', w:{BRIZ:2,CHISTO:1}, parts:{top:(B)=>{
+    const c = '#FBFAF6';
+    return sleeve(B, 0, .34, 3.2).map(d => shape(d, c)).join('') + topShape(B, {hem:Y.hipY-2, ex:2, neck:'crew'}).map(d => shape(d, c)).join('') + line(`M${CX-B.neck-1} ${Y.shY-8} Q${CX} ${Y.shY+5} ${CX+B.neck+1} ${Y.shY-8}`, 1.1); }}},
+  {id:'longsleeve', cat:'top', name:'Лонгслив', w:{CHISTO:1,DREVO:1,BRIZ:1}, parts:{top:(B)=>{
+    const c = 'url(#p-breton)';
+    return sleeves(B, .96, 1.6, c) + topShape(B, {hem:Y.hipY, ex:1.6, neck:'crew'}).map(d => shape(d, c)).join(''); }}},
+  {id:'turtle', cat:'top', name:'Водолазка', w:{DREVO:2,MAGNIT:1}, parts:{top:(B)=>{
+    const c = '#2A2626';
+    let s = sleeves(B, .97, 1.2, c) + topShape(B, {hem:Y.hipY, ex:1.2, neck:'high'}).map(d => shape(d, c)).join('');
+    s += shape(`M${CX-B.neck-2.5} ${Y.neckTop+4} L${CX-B.neck-2.5} ${Y.shY-8} Q${CX} ${Y.shY-4} ${CX+B.neck+2.5} ${Y.shY-8} L${CX+B.neck+2.5} ${Y.neckTop+4} Q${CX} ${Y.neckTop+7} ${CX-B.neck-2.5} ${Y.neckTop+4}Z`, c);
+    for (let x = -B.neck; x <= B.neck; x += 3.4) s += line(`M${CX+x} ${Y.neckTop+8} L${CX+x} ${Y.shY-8}`, .8, '#555');
+    return s; }}},
+  {id:'sweater', cat:'top', name:'Свитер с горлом', slot:'knit', w:{UYUT:3,DREVO:1}, parts:{knit:(B)=>{
+    const c = 'url(#p-knit)';
+    let s = sleeves(B, .95, 4.5, c, '', 1) + cuffLines(B, .86, 4.6);
+    s += topShape(B, {hem:Y.hipY+8, ex:5, neck:'high', nex:4}).map(d => shape(d, c)).join('');
+    s += line(`M${CX-B.waist-4} ${Y.hipY} L${CX+B.waist+4} ${Y.hipY}`, 1.1);
+    s += line(`M${CX-7} ${Y.shY+4} C${CX-11} ${Y.shY+40} ${CX-3} ${Y.shY+70} ${CX-7} ${Y.hipY} M${CX+7} ${Y.shY+4} C${CX+11} ${Y.shY+40} ${CX+3} ${Y.shY+70} ${CX+7} ${Y.hipY}`, 1.4, '#B9A27A');
+    s += `<rect x="${CX-B.neck-6}" y="${Y.neckTop+2}" width="${(B.neck+6)*2}" height="${Y.shY-Y.neckTop-4}" rx="7" fill="#E6D6B8" stroke="${INK}" stroke-width="${SW}"/>`;
+    s += line(`M${CX-B.neck-4} ${Y.neckTop+11} Q${CX} ${Y.neckTop+15} ${CX+B.neck+4} ${Y.neckTop+11} M${CX-B.neck-4} ${Y.neckTop+18} Q${CX} ${Y.neckTop+22} ${CX+B.neck+4} ${Y.neckTop+18}`, 1, '#B9A27A');
+    return s; }}},
+  {id:'hoodie', cat:'top', name:'Худи', slot:'knit', w:{UYUT:2,BRIZ:1}, parts:{knit:(B)=>{
+    const c = '#B9B4AC';
+    let s = sleeves(B, .95, 4, c, '', 1) + cuffLines(B, .87, 4.1);
+    s += shape(`M${CX-B.neck-14} ${Y.shY-6} Q${CX-B.neck-10} ${Y.neckTop-2} ${CX} ${Y.neckTop+6} Q${CX+B.neck+10} ${Y.neckTop-2} ${CX+B.neck+14} ${Y.shY-6}Z`, '#A6A199');
+    s += topShape(B, {hem:Y.hipY+6, ex:4.5, neck:'crew'}).map(d => shape(d, c)).join('');
+    s += line(`M${CX-B.waist-4} ${Y.hipY} L${CX+B.waist+4} ${Y.hipY}`, 1.1);
+    s += shape(`M${CX-20} ${Y.waistY} L${CX+20} ${Y.waistY} L${CX+25} ${Y.hipY-6} L${CX-25} ${Y.hipY-6}Z`, '#ADA8A0', 'stroke-width="1.2"');
+    s += line(`M${CX-4} ${Y.shY-3} L${CX-5} ${Y.shY+24} M${CX+4} ${Y.shY-3} L${CX+5} ${Y.shY+24}`, 1.3, '#F3EBDD');
+    return s; }}},
+  {id:'dress', cat:'top', name:'Платье в цветочек', only:'f', w:{CVET:3,BRIZ:1}, parts:{top:(B)=>{
+    const c = 'url(#p-flowers)';
+    let s = sleeve(B, 0, .22, 4.5).map(d => shape(d, c)).join('');
+    const L = [...torsoSide(B, {hem:Y.waistY, ex:1.5}), ...range(Y.waistY+6, Y.kneeY+18, 8).map(y => [CX - B.waist - 1.5 - (y-Y.waistY)*.15, y]), [CX, Y.kneeY+21]];
+    const R = L.slice(0,-1).reverse().map(mirror);
+    s += shape(path([...L, ...R, [CX+B.neck+2, Y.shY-10], [CX, Y.shY+8], [CX-B.neck-2, Y.shY-10]]), c);
+    s += line(`M${CX-B.waist-1.5} ${Y.waistY} Q${CX} ${Y.waistY+4} ${CX+B.waist+1.5} ${Y.waistY}`, 1.4);
+    return s; }, bottom:null}},
+  {id:'lbd', cat:'top', name:'Маленькое чёрное платье', only:'f', w:{MAGNIT:3,CHISTO:1}, parts:{top:(B)=>{
+    const c = '#1E1C1C';
+    const L = [[CX-12, Y.shY+14], [CX-B.chest-1.5, 118], ...range(124, Y.hipY, 8).map(y => [CX - half(B,y) - 1.5, y]), ...range(Y.hipY+8, Y.kneeY-6, 8).map(y => [CX - B.hip - 1.5 - (y-Y.hipY)*.05, y]), [CX, Y.kneeY-5]];
+    const R = L.slice(0,-1).reverse().map(mirror);
+    let s = shape(path([...L, ...R, [CX+8, Y.shY+20], [CX, Y.shY+28], [CX-8, Y.shY+20]]), c);
+    s += line(`M${CX-12} ${Y.shY+14} L${CX-B.neck-3} ${Y.shY-7} M${CX+12} ${Y.shY+14} L${CX+B.neck+3} ${Y.shY-7}`, 1.8, c);
+    return s; }, bottom:null}},
+
+  // НИЗ
+  {id:'trousers', cat:'bottom', name:'Брюки классические', over:true, w:{CHISTO:2,MAGNIT:1}, parts:{bottom:(B)=>{
+    const c = '#3E3A3A';
+    return shape(pants(B, {y0:Y.waistY+2, y1:Y.ankleY+4, ex:3}), c) + line(`M${CX-B.legOff} ${Y.hipY+4} L${CX-B.legOff} ${Y.ankleY+2} M${CX+B.legOff} ${Y.hipY+4} L${CX+B.legOff} ${Y.ankleY+2}`, .9, '#6d6767') + line(`M${CX-half(B,Y.waistY+8)-3} ${Y.waistY+8} L${CX+half(B,Y.waistY+8)+3} ${Y.waistY+8}`, 1); }}},
+  {id:'chinos', cat:'bottom', name:'Чинос', over:true, w:{BRIZ:2,CHISTO:1}, parts:{bottom:(B)=>{
+    const c = '#C8A97E';
+    return shape(pants(B, {y0:Y.waistY+4, y1:Y.ankleY, ex:2.4}), c) + line(`M${CX-half(B,Y.waistY+11)-2} ${Y.waistY+11} L${CX+half(B,Y.waistY+11)+2} ${Y.waistY+11}`, 1) + line(`M${CX-B.legOff-B.ankle-4} ${Y.ankleY-6} L${CX-B.legOff+B.ankle+3} ${Y.ankleY-6} M${CX+B.legOff-B.ankle-3} ${Y.ankleY-6} L${CX+B.legOff+B.ankle+4} ${Y.ankleY-6}`, 1); }}},
+  {id:'leather', cat:'bottom', name:'Кожаные в обтяжку', w:{MAGNIT:3}, parts:{bottom:(B)=>
+    shape(pants(B, {y0:Y.waistY+4, y1:Y.ankleY+1, ex:.5}), 'url(#g-leather)') + line(`M${CX-B.legOff+3} ${Y.kneeY-30} q-2 14 0 26 M${CX+B.legOff-3} ${Y.kneeY-30} q2 14 0 26`, 1.2, '#6a6262') }},
+  {id:'skinny', cat:'bottom', name:'Джинсы скинни', w:{MAGNIT:1,CHISTO:1,BRIZ:1}, parts:{bottom:(B)=>
+    shape(pants(B, {y0:Y.waistY+4, y1:Y.ankleY, ex:.8}), 'url(#g-denim)') + line(`M${CX-half(B,Y.waistY+11)-1} ${Y.waistY+11} L${CX+half(B,Y.waistY+11)+1} ${Y.waistY+11} M${CX-20} ${Y.waistY+11} q4 14 14 16 M${CX+20} ${Y.waistY+11} q-4 14 -14 16`, 1, '#E8C99A') }},
+  {id:'flare', cat:'bottom', name:'Джинсы трубы', over:true, w:{CVET:2,UYUT:1,BRIZ:1}, parts:{bottom:(B)=>
+    shape(pants(B, {y0:Y.waistY+4, y1:Y.ankleY+10, ex:2, flare:13}), '#7C9CC2') + line(`M${CX-half(B,Y.waistY+11)-2} ${Y.waistY+11} L${CX+half(B,Y.waistY+11)+2} ${Y.waistY+11}`, 1, '#E8C99A') + line(`M${CX-B.legOff} ${Y.hipY+10} L${CX-B.legOff-2} ${Y.ankleY+8} M${CX+B.legOff} ${Y.hipY+10} L${CX+B.legOff+2} ${Y.ankleY+8}`, .9, '#E8C99A', 'stroke-dasharray="3 3"') }},
+  {id:'skirt', cat:'bottom', name:'Юбка миди', only:'f', w:{CVET:2,CHISTO:1}, parts:{bottom:(B)=>{
+    let s = shape(skirt(B, {y0:Y.waistY+2, y1:Y.kneeY+30, ex:1.5, flare:.2}), '#A85A4E');
+    [-22,-11,0,11,22].forEach(x => s += line(`M${CX+x*.5} ${Y.hipY-10} L${CX+x} ${Y.kneeY+28}`, .9, '#7f3f36'));
+    return s; }}},
+  {id:'swim', cat:'bottom', name:'Плавки', nameF:'Купальник', w:{BRIZ:3,CVET:1}, parts:{bottom:(B)=>
+    shape(pants(B, {y0:Y.hipY-14, y1:Y.crotchY+16, ex:1.6}), '#D9776B') + line(`M${CX-B.hip-1} ${Y.hipY-6} L${CX-B.hip+1} ${Y.crotchY+10} M${CX+B.hip+1} ${Y.hipY-6} L${CX+B.hip-1} ${Y.crotchY+10}`, 2.2, '#FBF7F0') + line(`M${CX-2} ${Y.hipY-10} l-3 10 M${CX+2} ${Y.hipY-10} l3 10`, 1.1, '#FBF7F0') },
+    partsF:{top:(B)=>{
+      const c = '#D9776B';
+      const L = [[CX-11, Y.shY+14], [CX-B.chest, 116], ...range(122, Y.hipY-4, 8).map(y => [CX - half(B,y) - .8, y]), [CX-B.hip+3, Y.hipY+2], [CX-6, Y.crotchY+3]];
+      const R = L.slice().reverse().map(mirror);
+      return shape(path([...L, ...R, [CX+6, Y.shY+22], [CX, Y.shY+30], [CX-6, Y.shY+22]]), c) + line(`M${CX-11} ${Y.shY+14} L${CX-B.neck-3} ${Y.shY-7} M${CX+11} ${Y.shY+14} L${CX+B.neck+3} ${Y.shY-7}`, 2, c) + line(`M${CX-B.waist} ${Y.waistY-6} Q${CX} ${Y.waistY+2} ${CX+B.waist} ${Y.waistY-6}`, 2.2, '#FBF7F0');
+    }, bottom:null}},
+
+  // ВЕРХНЯЯ ОДЕЖДА
+  {id:'blazer', cat:'outer', name:'Пиджак', w:{CHISTO:1,MAGNIT:1,DREVO:1}, parts:{outer:(B)=>{
+    const c = '#B98B5E';
+    let s = sleeves(B, .93, 4.6, c) + cuffLines(B, .93, 4.6);
+    s += topShape(B, {hem:Y.hipY+16, ex:5, neck:'v', vy:Y.shY+74, nex:3, hemDip:4}).map(d => shape(d, c)).join('');
+    s += shape(`M${CX-B.neck-3} ${Y.shY-9} L${CX-B.chest+8} ${Y.shY+22} L${CX-9} ${Y.shY+44} L${CX-1} ${Y.shY+73}Z`, '#A47648') + shape(`M${CX+B.neck+3} ${Y.shY-9} L${CX+B.chest-8} ${Y.shY+22} L${CX+9} ${Y.shY+44} L${CX+1} ${Y.shY+73}Z`, '#A47648');
+    s += `<circle cx="${CX}" cy="${Y.shY+86}" r="2" fill="${INK}"/>` + line(`M${CX} ${Y.shY+74} L${CX} ${Y.hipY+18}`, 1.1);
+    s += line(`M${CX-B.waist-2} ${Y.hipY-8} h16 M${CX+B.waist+2} ${Y.hipY-8} h-16`, 1.2);
+    return s; }}},
+  {id:'denim', cat:'outer', name:'Джинсовая куртка', w:{BRIZ:2,DREVO:1}, parts:{outer:(B)=>{
+    const c = '#5B7DA6';
+    let s = sleeves(B, .94, 4.2, c) + cuffLines(B, .88, 4.2, '#E8C99A');
+    s += topShape(B, {hem:Y.waistY+14, ex:4.5, neck:'open', gap:9, vy:Y.shY+18, nex:3}).map(d => shape(d, c)).join('');
+    s += shape(`M${CX-B.neck-3} ${Y.shY-9} L${CX-B.neck-14} ${Y.shY+4} L${CX-9} ${Y.shY+18}Z`, '#4C6C93') + shape(`M${CX+B.neck+3} ${Y.shY-9} L${CX+B.neck+14} ${Y.shY+4} L${CX+9} ${Y.shY+18}Z`, '#4C6C93');
+    s += line(`M${CX-B.chest+3} 128 h20 v12 h-20Z M${CX+B.chest-3} 128 h-20 v12 h20Z`, 1.1, '#E8C99A');
+    s += line(`M${CX-half(B,Y.waistY)-4} ${Y.waistY+3} L${CX-9} ${Y.waistY+3} M${CX+half(B,Y.waistY)+4} ${Y.waistY+3} L${CX+9} ${Y.waistY+3}`, 1.1, '#E8C99A');
+    return s; }}},
+  {id:'tux', cat:'outer', name:'Смокинг', w:{MAGNIT:3,CHISTO:1}, parts:{outer:(B)=>{
+    const c = '#1E1C1C';
+    let s = sleeves(B, .93, 4.4, c) + cuffLines(B, .9, 4.4, '#FBF7F0');
+    s += shape(`M${CX-B.neck-3} ${Y.shY-11} L${CX+B.neck+3} ${Y.shY-11} L${CX} ${Y.shY+86}Z`, '#FFFFFF');
+    [18,34,50].forEach(d => s += `<circle cx="${CX}" cy="${Y.shY+d}" r="1.2" fill="${INK}"/>`);
+    s += topShape(B, {hem:Y.hipY+14, ex:4.8, neck:'v', vy:Y.shY+84, nex:3, hemDip:5}).map(d => shape(d, c)).join('');
+    s += shape(`M${CX-B.neck-3} ${Y.shY-9} Q${CX-B.chest+6} ${Y.shY+30} ${CX-1} ${Y.shY+82} L${CX-7} ${Y.shY+56}Z`, '#3B3636') + shape(`M${CX+B.neck+3} ${Y.shY-9} Q${CX+B.chest-6} ${Y.shY+30} ${CX+1} ${Y.shY+82} L${CX+7} ${Y.shY+56}Z`, '#3B3636');
+    s += `<circle cx="${CX}" cy="${Y.shY+94}" r="2" fill="#3B3636" stroke="#777" stroke-width=".8"/>`;
+    return s; }, bottom:(B)=> shape(pants(B, {y0:Y.waistY+2, y1:Y.ankleY+4, ex:2.6}), '#1E1C1C') + line(`M${outerX(B,Y.hipY+4)-1.6} ${Y.hipY+4} L${outerX(B,Y.ankleY)-1.6} ${Y.ankleY+2} M${200-outerX(B,Y.hipY+4)+1.6} ${Y.hipY+4} L${200-outerX(B,Y.ankleY)+1.6} ${Y.ankleY+2}`, 1.6, '#4a4444')
+  }, over:true},
+  {id:'puffer', cat:'outer', name:'Жилетка дутая', w:{DREVO:2,BRIZ:1}, parts:{outer:(B)=>{
+    const c = '#77754A';
+    let s = topShape(B, {hem:Y.hipY+4, ex:7.5, neck:'high', nex:5}).map(d => shape(d, c)).join('');
+    for (let y = Y.shY+14; y < Y.hipY; y += 18) s += line(`M${CX-half(B,y)-7} ${y} Q${CX-half(B,y)/2} ${y+3} ${CX} ${y} Q${CX+half(B,y)/2} ${y+3} ${CX+half(B,y)+7} ${y}`, 1.1, '#56542f');
+    s += `<rect x="${CX-B.neck-5}" y="${Y.neckTop+8}" width="${(B.neck+5)*2}" height="${Y.shY-Y.neckTop-10}" rx="4" fill="${c}" stroke="${INK}" stroke-width="${SW}"/>`;
+    s += line(`M${CX} ${Y.neckTop+8} L${CX} ${Y.hipY+4}`, 1.3, '#C9C49A');
+    return s; }}},
+  {id:'coat', cat:'outer', name:'Пальто', w:{DREVO:1,UYUT:1,CHISTO:1}, parts:{outer:(B)=>{
+    const c = '#8C8580';
+    let s = sleeves(B, .92, 5.6, c) + cuffLines(B, .82, 5.8);
+    s += topShape(B, {hem:Y.kneeY+14, ex:6, neck:'open', gap:3, vy:Y.shY+56, nex:4, flare:.08}).map(d => shape(d, c)).join('');
+    s += shape(`M${CX-B.neck-4} ${Y.shY-10} L${CX-B.chest+6} ${Y.shY+20} L${CX-10} ${Y.shY+30} L${CX-3} ${Y.shY+56}Z`, '#77706B') + shape(`M${CX+B.neck+4} ${Y.shY-10} L${CX+B.chest-6} ${Y.shY+20} L${CX+10} ${Y.shY+30} L${CX+3} ${Y.shY+56}Z`, '#77706B');
+    [Y.shY+76, Y.shY+104].forEach(y => s += `<circle cx="${CX-9}" cy="${y}" r="2.1" fill="${INK}"/><circle cx="${CX+9}" cy="${y}" r="2.1" fill="${INK}"/>`);
+    return s; }}},
+  {id:'track', cat:'outer', name:'Тренировочный костюм', w:{BRIZ:2,CHISTO:1}, parts:{top:(B)=>{
+    const c = '#2F3B5C';
+    let s = sleeves(B, .96, 3.2, c) + cuffLines(B, .9, 3.2, '#FBF7F0');
+    [0,1].forEach(i => { const pts = range(.08,.88,.1).map(t => { const {p,n,w} = armAt(B,t); return [p[0]+n[0]*(w+1.5), p[1]+n[1]*(w+1.5)]; }); s += line(path(i ? pts.map(mirror) : pts, false), 2, '#FBF7F0'); });
+    s += topShape(B, {hem:Y.hipY+2, ex:3.2, neck:'high', nex:3.5}).map(d => shape(d, c)).join('');
+    s += `<rect x="${CX-B.neck-4}" y="${Y.neckTop+10}" width="${(B.neck+4)*2}" height="${Y.shY-Y.neckTop-12}" rx="3" fill="${c}" stroke="${INK}" stroke-width="${SW}"/>`;
+    s += line(`M${CX} ${Y.neckTop+10} L${CX} ${Y.hipY+2}`, 1.4, '#FBF7F0');
+    return s; }, bottom:(B)=>{
+    let s = shape(pants(B, {y0:Y.waistY+4, y1:Y.ankleY+2, ex:3.2}), '#2F3B5C');
+    s += line(path(range(Y.hipY-10, Y.ankleY-4, 8).map(y => [outerX(B,y)-1.4, y]), false), 2, '#FBF7F0') + line(path(range(Y.hipY-10, Y.ankleY-4, 8).map(y => [200-outerX(B,y)+1.4, y]), false), 2, '#FBF7F0');
+    return s; }}, over:true},
+
+  // ОБУВЬ
+  {id:'boots', cat:'shoes', name:'Ботинки', w:{DREVO:2,MAGNIT:1}, parts:{shoes:(B)=>{
+    let s = shoe(B, {top:Y.ankleY-24, toe:2}).map(d => shape(d, '#4B2E20')).join('');
+    s += line(`M${CX-B.legOff-14} ${Y.footY+1} L${CX-B.legOff+B.ankle+2.5} ${Y.footY+1} M${CX+B.legOff+14} ${Y.footY+1} L${CX+B.legOff-B.ankle-2.5} ${Y.footY+1}`, 3, '#2a1a12');
+    s += line(`M${CX-B.legOff-3} ${Y.ankleY-18} l4 2 M${CX-B.legOff-3} ${Y.ankleY-11} l4 2 M${CX+B.legOff+3} ${Y.ankleY-18} l-4 2 M${CX+B.legOff+3} ${Y.ankleY-11} l-4 2`, 1, '#C9A47A');
+    return s; }}},
+  {id:'sneakers', cat:'shoes', name:'Кроссовки', w:{BRIZ:1,CHISTO:1}, parts:{shoes:(B)=>{
+    let s = shoe(B, {top:Y.ankleY-4, toe:2}).map(d => shape(d, '#FFFFFF')).join('');
+    s += line(`M${CX-B.legOff-15} ${Y.footY} L${CX-B.legOff+B.ankle+2.5} ${Y.footY} M${CX+B.legOff+15} ${Y.footY} L${CX+B.legOff-B.ankle-2.5} ${Y.footY}`, 3, '#C98E88');
+    s += line(`M${CX-B.legOff-6} ${Y.ankleY+5} l5 -2 M${CX-B.legOff-9} ${Y.ankleY+9} l5 -2 M${CX+B.legOff+6} ${Y.ankleY+5} l-5 -2 M${CX+B.legOff+9} ${Y.ankleY+9} l-5 -2`, 1.1);
+    return s; }}},
+  {id:'loafers', cat:'shoes', name:'Лоферы', w:{CHISTO:1,DREVO:1,MAGNIT:1}, parts:{shoes:(B)=>{
+    let s = shoe(B, {top:Y.ankleY+7, toe:1}).map(d => shape(d, '#5A2E22')).join('');
+    s += line(`M${CX-B.legOff-9} ${Y.ankleY+10} l6 0 M${CX+B.legOff+9} ${Y.ankleY+10} l-6 0`, 1.4, '#C9A47A');
+    return s; }}},
+  {id:'heels', cat:'shoes', name:'Туфли на каблуке', only:'f', w:{MAGNIT:2,CVET:1}, parts:{shoes:(B)=>{
+    let s = shoe(B, {top:Y.ankleY+8, toe:3, pointy:true}).map(d => shape(d, '#8E2F2A')).join('');
+    const hx = CX - B.legOff + B.ankle + 1;
+    s += shape(`M${hx-2.5} ${Y.footY} L${hx+1.5} ${Y.footY} L${hx+.5} ${Y.footY+9} L${hx-1} ${Y.footY+9}Z`, '#8E2F2A') + shape(`M${200-hx+2.5} ${Y.footY} L${200-hx-1.5} ${Y.footY} L${200-hx-.5} ${Y.footY+9} L${200-hx+1} ${Y.footY+9}Z`, '#8E2F2A');
+    return s; }}},
+
+  // ДЕТАЛИ
+  {id:'hat', cat:'acc', name:'Шляпа', slot:'head', w:{DREVO:1,MAGNIT:1,CVET:1}, parts:{head:()=>{
+    const c = '#6B2E2A', t = Y.headCy - 18;
+    return shape(`M${CX-20} ${t} L${CX-17} ${t-20} Q${CX-6} ${t-27} ${CX} ${t-21} Q${CX+6} ${t-27} ${CX+17} ${t-20} L${CX+20} ${t}Z`, c) + `<rect x="${CX-20}" y="${t-7}" width="40" height="6" fill="#1A1A1A"/>` + shape(`M${CX-38} ${t+2} Q${CX} ${t-12} ${CX+38} ${t+2} Q${CX} ${t+8} ${CX-38} ${t+2}Z`, c); }}},
+  {id:'glasses', cat:'acc', name:'Солнцезащитные очки', slot:'eyes', w:{BRIZ:1,MAGNIT:1}, parts:{eyes:()=>{
+    const y = Y.headCy - 1;
+    return `<rect x="${CX-18}" y="${y-1}" width="15" height="10" rx="4" fill="#1A1A1A" stroke="${INK}" stroke-width="1.2"/><rect x="${CX+3}" y="${y-1}" width="15" height="10" rx="4" fill="#1A1A1A" stroke="${INK}" stroke-width="1.2"/>` + line(`M${CX-3} ${y+2} q3 -2 6 0 M${CX-18} ${y+1} L${CX-21} ${y} M${CX+18} ${y+1} L${CX+21} ${y}`, 1.4, '#1A1A1A') + line(`M${CX-15} ${y+2} l4 -1.5 M${CX+6} ${y+2} l4 -1.5`, 1.2, '#888'); }}},
+  {id:'tie', cat:'acc', name:'Галстук', slot:'neck', w:{CHISTO:2,MAGNIT:1}, parts:{neck:()=>{
+    const c = '#8E2F2A', y = Y.shY;
+    let s = shape(`M${CX-3} ${y-1} L${CX+3} ${y-1} L${CX+7} 186 L${CX} 195 L${CX-7} 186Z`, c) + shape(`M${CX-4.5} ${y-9} L${CX+4.5} ${y-9} L${CX+3} ${y-1} L${CX-3} ${y-1}Z`, c);
+    [116,136,156,176].forEach(v => s += line(`M${CX-4} ${v} l8 -6`, 1.1, '#C98E88'));
+    return s; }}},
+  {id:'bow', cat:'acc', name:'Бабочка', slot:'neck', w:{MAGNIT:1,CVET:1,CHISTO:1}, parts:{neck:()=>{
+    const y = Y.shY - 7;
+    return shape(`M${CX} ${y} L${CX-13} ${y-7} L${CX-13} ${y+7}Z`, '#1A1A1A') + shape(`M${CX} ${y} L${CX+13} ${y-7} L${CX+13} ${y+7}Z`, '#1A1A1A') + `<rect x="${CX-3}" y="${y-3.5}" width="6" height="7" rx="1.5" fill="#1A1A1A" stroke="${INK}" stroke-width="1"/>`; }}},
+  {id:'scarf', cat:'acc', name:'Шарф', slot:'scarf', w:{UYUT:2,DREVO:1}, parts:{scarf:(B)=>{
+    const c = '#A8443A';
+    let s = shape(`M${CX-B.neck-7} ${Y.neckTop+12} Q${CX} ${Y.neckTop+18} ${CX+B.neck+7} ${Y.neckTop+12} L${CX+B.neck+9} ${Y.shY+2} Q${CX} ${Y.shY+10} ${CX-B.neck-9} ${Y.shY+2}Z`, c);
+    s += shape(`M${CX-8} ${Y.shY+2} L${CX+4} ${Y.shY+4} L${CX+1} ${Y.shY+70} L${CX-12} ${Y.shY+68}Z`, c);
+    s += line(`M${CX-11} ${Y.shY+70} l-1 6 M${CX-7} ${Y.shY+70} l-.5 6 M${CX-3} ${Y.shY+70} l0 6 M${CX+1} ${Y.shY+70} l.5 6`, 1.2, c);
+    s += line(`M${CX-9} ${Y.shY+20} L${CX+3} ${Y.shY+22} M${CX-10} ${Y.shY+50} L${CX+2} ${Y.shY+52}`, 2, '#F3EBDD');
+    return s; }}}
+];
+const CATS = [['top','Верх'],['bottom','Низ'],['outer','Куртки и костюмы'],['shoes','Обувь'],['acc','Детали']];
+const BODY_ORDER = ['bottomUnder','shoes','bottomOver','top','neck','knit','outer','scarf'];
+const HEAD_ORDER = ['eyes','head'];
+
+function itemParts(it, g){ return (g === 'f' && it.partsF) ? it.partsF : it.parts; }
+function itemName(it, g){ return (g === 'f' && it.nameF) ? it.nameF : it.name; }
+function partLayer(it, slot){ return slot === 'bottom' ? (it.over ? 'bottomOver' : 'bottomUnder') : slot; }
+
+/* Полный SVG персонажа. worn: {slot: itemId} */
+function figureSVG(g, worn, opts={}){
+  const B = BODY[g], b = base(B, g), layers = {};
+  const seen = new Set();
+  Object.values(worn).forEach(id => {
+    if (seen.has(id)) return; seen.add(id);
+    const it = ITEMS.find(i => i.id === id), parts = itemParts(it, g);
+    for (const slot in parts) if (parts[slot]) (layers[partLayer(it, slot)] = layers[partLayer(it, slot)] || []).push(parts[slot](B));
+  });
+  const L = k => (layers[k] || []).join('');
+  const bodyG = b.body + BODY_ORDER.map(L).join('');
+  const headG = head(B, g) + HEAD_ORDER.map(L).join('');
+  return `<g class="sway"><ellipse cx="100" cy="${Y.footY+4}" rx="62" ry="7" fill="#6B2E2A" opacity=".08"/>${b.back}<g class="breath">${bodyG}</g><g class="headg">${headG}</g></g>`;
+}
+
+/* Миниатюра вещи: рисуем только её части и подгоняем viewBox по содержимому */
+document.getElementById('defs').innerHTML = DEFS;
+const measure = document.createElementNS('http://www.w3.org/2000/svg','svg');
+measure.setAttribute('style','position:absolute;left:-9999px;top:0;width:200px;height:450px;visibility:hidden');
+measure.setAttribute('viewBox','0 0 200 450');
+document.body.appendChild(measure);
+function itemSVG(it, g){
+  const B = BODY[g], parts = itemParts(it, g);
+  const inner = Object.keys(parts).filter(k => parts[k]).sort((a,b) => (a==='bottom') - (b==='bottom')).reverse().map(k => parts[k](B)).join('');
+  measure.innerHTML = '<g>' + inner + '</g>';
+  const bb = measure.lastChild.getBBox(), pad = 4;
+  const side = Math.max(bb.width, bb.height) + pad*2;
+  const vx = bb.x + bb.width/2 - side/2, vy = bb.y + bb.height/2 - side/2;
+  return `<svg viewBox="${f1(vx)} ${f1(vy)} ${f1(side)} ${f1(side)}" aria-hidden="true">${inner}</svg>`;
+}
+
+/* ======================================================================
+   ПОДБОР
+   Шесть портретов те же, что в квизе. Вещь даёт баллы портретам,
+   место даёт вдвое больше. Ароматы берём из каталога сайта,
+   описываем образами (ноты не называем, пока не сверены с fragrantica.ru).
+   ====================================================================== */
+const TYPES = {
+  CHISTO:{code:'ЧИСТО', title:'Подозрительно всё в порядке', line:'аккуратно, собранно и без лишнего шума',
+    m:[['Juliette Has a Gun Not a Perfume Superdose','усиленная «чистая кожа»: лёгкий, но заметнее и дольше'],['RudRoss Montana','спокойный и чистый, аромат человека, у которого всё в порядке'],['DKNY Be Delicious Men','лёгкий и свежий, на каждый день']],
+    f:[['Juliette Has a Gun Not a Perfume','почти невесомый, звучит как чистая кожа, только лучше'],['RudRoss Montana','спокойный и чистый, аромат человека, у которого всё в порядке'],['DKNY Be Delicious','хрустящее и свежее яблоко']]},
+  BRIZ:{code:'БРИЗ', title:'Белая рубашка на ветру', line:'свежо, легко и с ветром в голове',
+    m:[['Jo Malone Wood Sage & Sea Salt','свежий, как прогулка у моря'],['Guerlain Homme L\'Eau','свежий и лёгкий, на каждый день'],['Bvlgari Tygar','свежий и дерзкий']],
+    f:[['Jo Malone Wood Sage & Sea Salt','свежий, как прогулка у моря'],['DKNY Be Delicious','хрустящее и свежее яблоко'],['Tiziana Terenzi Kirkè','сочный и солнечный']]},
+  UYUT:{code:'УЮТ', title:'Плед, и никуда не надо', line:'тепло, мягко и хочется обнять',
+    m:[['Mancera Aoud Café','сладкий и уютный, как вечер в любимой кофейне'],['Giorgio Armani Stronger With You','тёплый, мягкий и обаятельный'],['Maison Margiela Replica By the Fireplace','как вечер у огня в загородном доме']],
+    f:[['Kilian Angels\' Share','тёплый и праздничный, как десерт зимним вечером в гостях'],['Essential Parfums Ambre Latte','как плед и горячая кружка какао'],['RudRoss Vanilla Love','сладкий и уютный, как любимый десерт']]},
+  MAGNIT:{code:'МАГНИТ', title:'Я знаю себе цену', line:'вечер, характер и взгляды вслед',
+    m:[['Carine Roitfeld Lawrence','интимный и привлекающий внимание, с характером'],['Nasomatto Black Afgano','тёмный, густой и смелый'],['Bybozo Habibi','пряный, с ноткой свежести и магнетизма']],
+    f:[['Chanel Coco Noir','тёмный и элегантный, вечерний шик'],['Yves Saint Laurent Black Opium','сладкий и бодрящий, для вечера и свиданий'],['Maison Francis Kurkdjian Baccarat Rouge 540','тот самый аромат, который замечают все вокруг']]},
+  CVET:{code:'ЦВЕТ', title:'Романтик с характером', line:'светло, нежно и немного кружит голову',
+    m:[['Ex Nihilo Fleur Narcotique','светлый и цветочный, кружит голову'],['Filippo Sorcinelli Quando Rapita in Estasi','нежный и чувственный, как момент восторга'],['Byredo Mojave Ghost','мягкий и воздушный, близкий к коже']],
+    f:[['Chopard Rose Malaki','роскошная роза для особого случая'],['Coach Floral','нежный и романтичный'],['HFC Pink Moon','нежный и сияющий, с тёплым глубоким шлейфом']]},
+  DREVO:{code:'ДРЕВО', title:'Лес после дождя', line:'спокойно, глубоко и со вкусом',
+    m:[['Le Labo Another 13','тихий и очень личный, звучит как ваша кожа'],['Essential Parfums Bois Impérial','благородный и древесный'],['Amouage Guidance 46','глубокий и роскошный нишевый аромат']],
+    f:[['Le Labo Another 13','тихий и очень личный, звучит как ваша кожа'],['Byredo Mojave Ghost','мягкий и воздушный, близкий к коже'],['Essential Parfums Bois Impérial','благородный и древесный']]}
+};
+const ORDER = ['CHISTO','BRIZ','UYUT','MAGNIT','CVET','DREVO'];
+/* n — цифра в коде, её не меняем, даже если места переставить */
+const PLACES = [
+  {n:1, id:'office', e:'💼', name:'В офис', to:'в офис', sub:'планёрка в 10:00', w:{CHISTO:3,BRIZ:1}},
+  {n:2, id:'date', e:'🌹', name:'На свидание', to:'на свидание', sub:'первое или сотое', w:{MAGNIT:2,CVET:2,UYUT:1}},
+  {n:3, id:'brunch', e:'🥐', name:'На бранч', to:'на бранч с друзьями', sub:'обсуждать новые сплетни', w:{CVET:2,BRIZ:2}},
+  {n:4, id:'bar', e:'🍸', name:'В бар', to:'в бар', sub:'и домой ближе к утру', w:{MAGNIT:3,UYUT:1}},
+  {n:5, id:'theatre', e:'🎭', name:'В театр', to:'в театр', sub:'антракт и буфет', w:{MAGNIT:2,CVET:1,DREVO:1}},
+  {n:6, id:'walk', e:'🌉', name:'Гулять по Петербургу', to:'гулять по Петербургу', sub:'набережные и мосты', w:{DREVO:2,BRIZ:1,UYUT:1}},
+  {n:7, id:'dacha', e:'🌲', name:'На дачу', to:'на дачу', sub:'лес, костёр и термос', w:{DREVO:3,UYUT:1}},
+  {n:8, id:'rink', e:'⛸️', name:'На каток', to:'на каток', sub:'и глинтвейн после', w:{UYUT:3,CVET:1}},
+  {n:9, id:'sea', e:'🏖️', name:'На море', to:'на море', sub:'наконец-то отпуск', w:{BRIZ:3,CVET:1}},
+  {n:0, id:'gym', e:'🏋️', name:'В спортзал', to:'в спортзал', sub:'по плану ноги и спина', w:{BRIZ:2,CHISTO:2}}
+];
+
+function score(worn, place){
+  const s = {}; ORDER.forEach(k => s[k] = 0);
+  new Set(Object.values(worn)).forEach(id => { const w = ITEMS.find(i => i.id === id).w; for (const k in w) s[k] += w[k]; });
+  for (const k in place.w) s[k] += place.w[k] * 2;
+  const pw = place.w;
+  return ORDER.slice().sort((a,b) => (s[b]-s[a]) || ((pw[b]||0)-(pw[a]||0)) || (ORDER.indexOf(a)-ORDER.indexOf(b)))[0];
+}
+
+/* Комментарий стилиста: немного юмора про сочетания */
+function comment(g, worn, place, T){
+  const has = id => Object.values(worn).includes(id);
+  const n = new Set(Object.values(worn)).size;
+  const he = g === 'm', swimName = he ? 'плавках' : 'купальнике';
+  if (has('swim') && place.id === 'theatre') return `В ${swimName} в театр? Смело. Буфет запомнит этот вечер, а мы подобрали аромат с таким же характером.`;
+  if (has('swim') && !['sea','gym'].includes(place.id) && n <= 2) return `В ${swimName} ${place.to}, и это в ноябре. Уважаем. Аромат подобрали тёплый к образу, а вот куртку всё-таки советуем.`;
+  if (has('tux') && place.id === 'dacha') return 'Смокинг на даче. Соседи запомнят этот день надолго, а мы позаботились, чтобы запомнили и аромат.';
+  if (has('tux') && place.id === 'gym') return 'Смокинг в спортзал: тренер пока не понял, но точно оценил. Аромат подобрали такой же уверенный.';
+  if (has('heels') && place.id === 'dacha') return 'Каблуки на даче: грядки пусть подождут. Аромат подобрали под настроение, а не под рельеф.';
+  if ((has('tie') || has('bow')) && !worn.top && !worn.knit && !worn.outer) return `${has('tie') ? 'Галстук' : 'Бабочка'} без рубашки: вы точно знаете толк в дресс-коде. Почти. Аромат подберём серьёзнее.`;
+  if (!worn.bottom && !worn.top && n <= 2) return 'Кажется, кто-то собирался в спешке. Ничего страшного: хороший аромат отвлечёт внимание от чего угодно.';
+  if (has('puffer') && has('tux')) return 'Смокинг и дутая жилетка: петербургский дресс-код «вечер, но ветрено». Аромат подобрали под оба настроения.';
+  if (n >= 8) return 'Многослойный образ. Как и хороший аромат, он раскрывается постепенно, и мы подобрали такой же.';
+  return `Образ звучит так: ${T.line}. Под него и подобрали ароматы.`;
+}
+
+/* ======================================================================
+   ИГРА
+   ====================================================================== */
+const $ = id => document.getElementById(id);
+let G = 'f', worn = {}, cat = 'top', place = null, result = null, cardBlob = null;
+
+function show(id){
+  ['s-intro','s-dress','s-place','s-load','s-res'].forEach(s => $(s).hidden = s !== id);
+  $('app').classList.toggle('wide-main', id === 's-dress');
+  window.scrollTo(0,0);
+}
+function drawFig(hop){
+  const fig = $('fig'); fig.innerHTML = figureSVG(G, worn);
+  if (hop){ fig.classList.remove('hop'); void fig.getBoundingClientRect(); fig.classList.add('hop'); }
+  const n = new Set(Object.values(worn)).size;
+  $('worn-count').textContent = n ? 'Надето: ' + n : '';
+  $('next').disabled = !n;
+  $('next').textContent = n ? 'Дальше: куда идёт персонаж →' : 'Наденьте хотя бы одну вещь';
+}
+function itemsFor(g){ return ITEMS.filter(it => !it.only || it.only === g); }
+function isOn(id){ return Object.values(worn).includes(id); }
+function wear(id){
+  const it = ITEMS.find(i => i.id === id);
+  if (isOn(id)){ for (const k in worn) if (worn[k] === id) delete worn[k]; drawFig(false); renderGrid(); return false; }
+  const slots = Object.keys(itemParts(it, G));
+  // вещь, которая занимала любой из этих слотов, снимаем целиком (например, платье при выборе брюк)
+  slots.forEach(sl => { const old = worn[sl]; if (old) for (const k in worn) if (worn[k] === old) delete worn[k]; });
+  slots.forEach(sl => worn[sl] = id);
+  drawFig(true); renderGrid();
+  return true;
+}
+function renderTabs(){
+  const box = $('tabs'); box.innerHTML = '';
+  CATS.forEach(([k, label]) => {
+    const b = document.createElement('button'); b.textContent = label; b.setAttribute('role','tab');
+    b.className = k === cat ? 'on' : ''; b.setAttribute('aria-selected', k === cat);
+    b.onclick = () => { cat = k; renderTabs(); renderGrid(); };
+    if (k === cat) requestAnimationFrame(() => box.scrollTo({left: Math.max(0, b.offsetLeft - box.offsetLeft - 20 - (box.clientWidth - b.offsetWidth)/2 + 20), behavior:'smooth'}));
+    box.appendChild(b);
+  });
+}
+const thumbCache = {};
+function thumb(it){ const key = G + it.id; return thumbCache[key] || (thumbCache[key] = itemSVG(it, G)); }
+function renderGrid(){
+  const box = $('grid'); box.innerHTML = '';
+  itemsFor(G).filter(it => it.cat === cat).forEach(it => {
+    const el = document.createElement('div');
+    el.className = 'item' + (isOn(it.id) ? ' on' : '');
+    el.setAttribute('role','button'); el.tabIndex = 0; el.dataset.id = it.id;
+    el.setAttribute('aria-label', (isOn(it.id) ? 'Снять: ' : 'Надеть: ') + itemName(it, G));
+    el.innerHTML = thumb(it) + '<span></span>';
+    el.lastChild.textContent = itemName(it, G);
+    el.addEventListener('pointerdown', e => startPointer(e, el, it));
+    el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); wear(it.id); } });
+    box.appendChild(el);
+  });
+}
+
+/* Перетаскивание: палец и мышь. Начинаем тянуть, если сдвинули на 6 px или держат 280 мс.
+   Простое нажатие надевает или снимает вещь. */
+let drag = null;
+function startPointer(e, el, it){
+  if (e.button !== undefined && e.button !== 0) return;
+  e.preventDefault();
+  const d = {el, it, id:e.pointerId, x0:e.clientX, y0:e.clientY, x:e.clientX, y:e.clientY, on:false, ghost:null};
+  d.timer = setTimeout(() => begin(d), 280);
+  drag = d;
+  try { el.setPointerCapture(e.pointerId); } catch(_) {}
+  el.addEventListener('pointermove', move);
+  el.addEventListener('pointerup', end);
+  el.addEventListener('pointercancel', cancel);
+}
+function begin(d){
+  if (d.on) return; d.on = true; clearTimeout(d.timer);
+  if (navigator.vibrate) try { navigator.vibrate(8); } catch(_) {}
+  const g = document.createElement('div'); g.className = 'ghost'; g.innerHTML = thumb(d.it);
+  document.body.appendChild(g); d.ghost = g;
+  d.el.classList.add('lift'); $('stage').classList.add('dragging');
+  place_ghost(d);
+}
+function place_ghost(d){ d.ghost.style.transform = `translate(${d.x - 46}px, ${d.y - 70}px) scale(1.08)`; }
+function overStage(x, y){ const r = $('stage').getBoundingClientRect(); return x >= r.left && x <= r.right && y >= r.top && y <= r.bottom; }
+function move(e){
+  const d = drag; if (!d || e.pointerId !== d.id) return;
+  d.x = e.clientX; d.y = e.clientY;
+  if (!d.on && Math.hypot(d.x - d.x0, d.y - d.y0) > 6) begin(d);
+  if (d.on){ place_ghost(d); $('stage').classList.toggle('over', overStage(d.x, d.y - 24)); }
+}
+function finish(d){
+  clearTimeout(d.timer);
+  d.el.removeEventListener('pointermove', move); d.el.removeEventListener('pointerup', end); d.el.removeEventListener('pointercancel', cancel);
+  $('stage').classList.remove('dragging','over');
+  d.el.classList.remove('lift');
+  drag = null;
+}
+function end(e){
+  const d = drag; if (!d || e.pointerId !== d.id) return;
+  finish(d);
+  if (!d.on){ const on = wear(d.it.id); if (on) sparkle(); return; }
+  if (overStage(d.x, d.y - 24)){
+    d.ghost.remove();
+    if (!isOn(d.it.id)) wear(d.it.id); else { drawFig(true); }
+    sparkle(d.x, d.y - 40);
+  } else flyBack(d);
+}
+function cancel(e){ const d = drag; if (!d) return; finish(d); if (d.ghost) flyBack(d); }
+function flyBack(d){
+  const r = d.el.getBoundingClientRect(), g = d.ghost; if (!g) return;
+  g.classList.add('back'); g.style.transform = `translate(${r.left + r.width/2 - 46}px, ${r.top + r.height/2 - 46}px) scale(.7)`;
+  setTimeout(() => g.remove(), 260);
+}
+
+/* ---------- Блёстки ---------- */
+const STAR = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c.6 6.2 5.8 11.4 12 12-6.2.6-11.4 5.8-12 12-.6-6.2-5.8-11.4-12-12C6.2 11.4 11.4 6.2 12 0z"/></svg>';
+function sparkle(x, y, n=14){
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (x === undefined){ const r = $('stage').getBoundingClientRect(); x = r.left + r.width/2; y = r.top + r.height*.4; }
+  for (let i = 0; i < n; i++){
+    const el = document.createElement('i'); el.className = 'burst';
+    const a = Math.PI*2*i/n + Math.random()*.4, dist = 50 + Math.random()*70, w = 8 + Math.random()*10;
+    el.style.cssText = `left:${x}px;top:${y}px;width:${w}px;height:${w}px;--x:${Math.cos(a)*dist}px;--y:${Math.sin(a)*dist}px;color:${i%3?'#6B2E2A':'#c98e88'}`;
+    el.innerHTML = STAR; document.body.appendChild(el);
+    setTimeout(() => el.remove(), 1200);
+  }
+}
+const BOTTLE = '<svg viewBox="0 0 22 26" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="7" y="1" width="8" height="5" rx="1.5"/><path d="M11 8 4 5.5v6L11 9l7 2.5v-6z" stroke-linejoin="round"/><rect x="2" y="9" width="18" height="16" rx="4"/></svg>';
+const BOTTLE2 = '<svg viewBox="0 0 22 30" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="8" y="1" width="6" height="6" rx="1"/><path d="M9 7h4v3H9z"/><path d="M6 10h10c2 0 4 2 4 4v11c0 2-2 4-4 4H6c-2 0-4-2-4-4V14c0-2 2-4 4-4z"/><path d="M6 17h10" opacity=".6"/></svg>';
+(function(){
+  const box = $('deco'), rnd = (a,b) => a + Math.random()*(b-a);
+  [[3,14],[89,9],[1,48],[91,42],[4,82],[88,76]].forEach(([x,y],i) => {
+    const el = document.createElement('i'); el.className = 'b'; const w = rnd(34,58);
+    el.style.cssText = `left:${x}%;top:${y}%;width:${w}px;height:${w*1.2}px;--d:${rnd(4,7)}s;--dl:-${rnd(0,5)}s;--r0:${rnd(-14,0)}deg;--r1:${rnd(0,14)}deg`;
+    el.innerHTML = i % 2 ? BOTTLE2 : BOTTLE; box.appendChild(el);
+  });
+  // звёздочки внутри сцены с персонажем
+  const st = $('stage');
+  [[8,12],[86,18],[14,46],[82,52],[10,78],[88,80],[24,26],[74,34],[20,64],[78,66]].forEach(([x,y],i) => {
+    const el = document.createElement('i'); el.className = 'st' + (i % 3 ? '' : ' r'); const w = rnd(9,17);
+    el.style.cssText = `left:${x}%;top:${y}%;width:${w}px;height:${w}px;--d:${rnd(2.2,4.5)}s;--dl:-${rnd(0,4)}s`;
+    el.innerHTML = STAR; st.insertBefore(el, st.firstChild);
+  });
+  for (let i = 0; i < 30; i++){
+    const el = document.createElement('i'); el.className = 's' + (i % 3 ? '' : ' r');
+    const w = rnd(8,22); el.style.cssText = `left:${rnd(0,98)}%;top:${rnd(0,98)}%;width:${w}px;height:${w}px;--d:${rnd(2.4,5)}s;--dl:-${rnd(0,5)}s`;
+    el.innerHTML = STAR; box.appendChild(el);
+  }
+})();
+
+/* ---------- Места ---------- */
+function renderPlaces(){
+  const box = $('places'); box.innerHTML = '';
+  PLACES.forEach(p => {
+    const b = document.createElement('button');
+    b.innerHTML = `<span class="e" aria-hidden="true">${p.e}</span><span></span><small></small>`;
+    b.children[1].textContent = p.name; b.children[2].textContent = p.sub;
+    b.onclick = () => { place = p; [...box.children].forEach(c => c.classList.remove('on')); b.classList.add('on'); setTimeout(go, 220); };
+    box.appendChild(b);
+  });
+}
+
+async function go(){
+  show('s-load');
+  const k = score(worn, place), T = TYPES[k];
+  result = {T, k, code: T.code + '-' + (G === 'm' ? 'М' : 'Ж') + place.n, frag: T[G], text: comment(G, worn, place, T)};
+  const wait = new Promise(r => setTimeout(r, 1400));
+  try { await drawCard(result); } catch(e){ console.error(e); }
+  await wait;
+  fill(result); show('s-res'); sparkle(innerWidth/2, Math.min(innerHeight*.3, 240), 24); setTimeout(() => sparkle(innerWidth*.25, 380, 12), 350); setTimeout(() => sparkle(innerWidth*.75, 420, 12), 650);
+}
+function fill(r){
+  $('r-kicker').textContent = (G === 'm' ? 'Ваш персонаж идёт ' : 'Ваша героиня идёт ') + place.to;
+  $('r-title').textContent = r.T.title;
+  $('r-tag').textContent = r.text;
+  $('r-code').textContent = r.code;
+  const fr = $('r-frag'); fr.innerHTML = '';
+  r.frag.forEach(([n,d]) => { const el = document.createElement('div'); el.innerHTML = '<b></b><span></span>'; el.firstChild.textContent = n; el.lastChild.textContent = d; fr.appendChild(el); });
+  const items = [...new Set(Object.values(worn))].map(id => itemName(ITEMS.find(i => i.id === id), G).toLowerCase());
+  $('r-why').innerHTML = '<b>Образ:</b> ';
+  $('r-why').append(items.join(', ') + '. ');
+  const b = document.createElement('b'); b.textContent = 'Куда: '; $('r-why').append(b, place.to + '.');
+}
+
+/* ---------- Карточка 1080×1920 для сторис ----------
+   Верх (до ~220 px) и низ (после ~1720 px) в сторис закрыты интерфейсом, всё важное между ними. */
+function wrap(ctx, text, maxW){
+  const words = text.split(' '), lines = []; let l = '';
+  for (const w of words){ const t = l ? l + ' ' + w : w; if (ctx.measureText(t).width > maxW && l){ lines.push(l); l = w; } else l = t; }
+  if (l) lines.push(l); return lines;
+}
+function spaced(ctx, text, x, y, sp){
+  const ch = [...text]; let w = 0; ch.forEach(c => w += ctx.measureText(c).width + sp); w -= sp;
+  let cx = x - w/2; ctx.textAlign = 'left'; ch.forEach(c => { ctx.fillText(c, cx, y); cx += ctx.measureText(c).width + sp; }); ctx.textAlign = 'center';
+}
+function rr(ctx,x,y,w,h,r){ ctx.beginPath(); ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r); ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath(); }
+function figImage(){
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 450" width="400" height="900">${DEFS}${figureSVG(G, worn)}</svg>`;
+  return new Promise((res, rej) => { const im = new Image(); im.onload = () => res(im); im.onerror = rej; im.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg); });
+}
+async function drawCard(r){
+  await Promise.all(['600 80px Cormorant','400 30px Inter','600 30px Inter'].map(f => document.fonts.load(f, 'АаЯя')));
+  const W = 1080, H = 1920, c = document.createElement('canvas'); c.width = W; c.height = H;
+  const x = c.getContext('2d'); x.textAlign = 'center';
+  x.fillStyle = '#F3EBDD'; x.fillRect(0,0,W,H);
+  x.strokeStyle = '#6B2E2A'; x.lineWidth = 3; rr(x,44,44,W-88,H-88,36); x.stroke();
+  x.lineWidth = 1.5; rr(x,60,60,W-120,H-120,28); x.stroke();
+  x.fillStyle = '#1A1A1A'; x.font = '700 34px Georgia, serif'; spaced(x,'ТУТ ТВОЙ АРОМАТ',W/2,226,6);
+  x.fillStyle = '#6B2E2A'; x.font = '600 25px Inter'; spaced(x, ((G === 'm' ? 'ИДЁТ ' : 'ИДЁТ ') + place.to).toUpperCase(), W/2, 292, 4);
+  // подиум и персонаж
+  x.fillStyle = '#FBF7F0'; rr(x,250,324,580,690,40); x.fill(); x.strokeStyle = '#E2D6C3'; x.lineWidth = 2; x.stroke();
+  try { const im = await figImage(); const fh = 650, fw = fh*200/450; x.drawImage(im, W/2 - fw/2, 342, fw, fh); } catch(e){ console.error(e); }
+  // заголовок
+  let fs = 84, lines;
+  do { x.font = `600 ${fs}px Cormorant`; lines = wrap(x, r.T.title, 880); fs -= 4; } while (lines.length > 2 && fs > 56);
+  fs += 4; let y = 1050 + fs*.9;
+  x.fillStyle = '#1A1A1A'; lines.forEach(l => { x.fillText(l, W/2, y); y += fs*.98; });
+  y += 18;
+  x.font = '600 23px Inter'; x.fillStyle = '#6B2E2A'; spaced(x, 'СТОИТ ПОСЛУШАТЬ', W/2, y, 3.5); y += 50;
+  x.fillStyle = '#1A1A1A';
+  r.frag.forEach(([n]) => { let s = 31; do { x.font = `400 ${s}px Inter`; s -= 1; } while (x.measureText(n).width > 860 && s > 22); x.fillText(n, W/2, y); y += 46; });
+  // код
+  const cy = 1440;
+  x.fillStyle = '#6B2E2A'; rr(x,170,cy,W-340,176,88); x.fill();
+  x.fillStyle = '#E8C4C0'; x.font = '600 22px Inter'; spaced(x,'КОД ОБРАЗА',W/2,cy+56,4);
+  let cs = 60; x.font = `600 ${cs}px Inter`; while (x.measureText(r.code).width > 640 && cs > 40){ cs -= 2; x.font = `600 ${cs}px Inter`; }
+  x.fillStyle = '#FFFFFF'; spaced(x, r.code, W/2, cy+132, 5);
+  x.fillStyle = '#1A1A1A'; x.font = '600 28px Inter'; x.fillText('Оденьте своего: bazque.github.io/obraz', W/2, cy+232);
+  x.fillStyle = '#8B6A4F'; x.font = '400 26px Inter'; x.fillText('@tut_tvoy_aromat', W/2, cy+274);
+  $('r-card').src = c.toDataURL('image/png');
+  cardBlob = await new Promise(res => c.toBlob(res, 'image/png'));
+}
+function toast(t){ const d = document.createElement('div'); d.className = 'toast'; d.textContent = t; document.body.appendChild(d); setTimeout(() => d.remove(), 2200); }
+function download(){
+  if (!cardBlob) return;
+  const a = document.createElement('a'); a.href = URL.createObjectURL(cardBlob); a.download = 'moy-obraz-' + result.code + '.png';
+  document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+}
+
+/* ---------- Кнопки ---------- */
+function startGame(g){ G = g; worn = {}; cat = 'top'; show('s-dress'); renderTabs(); renderGrid(); drawFig(false); }
+$('pv-f').innerHTML = figureSVG('f', {top:'dress', bottom:'dress', shoes:'heels'});
+$('pv-m').innerHTML = figureSVG('m', {outer:'tux', bottom:'tux', shoes:'loafers', neck:'bow', top:'shirt'});
+setInterval(() => {
+  if ($('s-intro').hidden || document.hidden) return;
+  const id = Math.random() < .5 ? 'pv-f' : 'pv-m', f = $(id);
+  f.classList.remove('hop'); void f.getBoundingClientRect(); f.classList.add('hop');
+  const r = f.getBoundingClientRect(); sparkle(r.left + r.width/2, r.top + r.height*.35, 8);
+}, 2600);
+$('pick-f').onclick = () => startGame('f');
+$('pick-m').onclick = () => startGame('m');
+$('back1').onclick = () => show('s-intro');
+$('undress').onclick = () => { worn = {}; drawFig(true); renderGrid(); };
+$('next').onclick = () => { place = null; renderPlaces(); show('s-place'); };
+$('back2').onclick = () => { show('s-dress'); drawFig(false); };
+$('redress').onclick = () => { show('s-dress'); drawFig(false); renderGrid(); };
+$('restart').onclick = () => show('s-intro');
+$('download').onclick = download;
+$('share').onclick = async () => {
+  if (!cardBlob) return;
+  const file = new File([cardBlob], 'moy-obraz-' + result.code + '.png', {type:'image/png'});
+  if (navigator.canShare && navigator.canShare({files:[file]})){ try { await navigator.share({files:[file]}); } catch(e){} }
+  else { download(); toast('Картинка сохранена. Добавьте её в сторис из галереи'); }
+};
+$('copy').onclick = async () => {
+  const t = result.code;
+  try { await navigator.clipboard.writeText(t); } catch(e){ const a = document.createElement('textarea'); a.value = t; document.body.appendChild(a); a.select(); document.execCommand('copy'); a.remove(); }
+  toast('Код ' + t + ' скопирован');
+};
+</script>
+</body>
+</html>
