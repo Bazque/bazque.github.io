@@ -1,0 +1,57 @@
+# Выкладывает сайт на сервер Timeweb после каждого изменения в main.
+# Секреты (Settings → Secrets and variables → Actions) печатает deploy/setup-server.sh:
+# SERVER_HOST, SERVER_PORT, SERVER_HOST_KEY, SERVER_SSH_KEY.
+# Пока секретов нет, выкладка просто пропускается.
+name: Выкладка на сервер
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-server
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Есть ли секреты
+        id: check
+        env:
+          HOST: ${{ secrets.SERVER_HOST }}
+        run: |
+          if [ -z "$HOST" ]; then
+            echo "::notice::Секреты сервера ещё не добавлены, выкладку пропускаю."
+            echo "ready=no" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=yes" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/checkout@v4
+        if: steps.check.outputs.ready == 'yes'
+
+      - name: Отправка файлов на сервер
+        if: steps.check.outputs.ready == 'yes'
+        env:
+          HOST: ${{ secrets.SERVER_HOST }}
+          PORT: ${{ secrets.SERVER_PORT }}
+          HOST_KEY: ${{ secrets.SERVER_HOST_KEY }}
+          SSH_KEY: ${{ secrets.SERVER_SSH_KEY }}
+        run: |
+          set -euo pipefail
+          PORT="${PORT:-22}"
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          printf '%s\n' "$SSH_KEY" | tr -d '\r' > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          if [ "$PORT" = 22 ]; then KH="$HOST"; else KH="[$HOST]:$PORT"; fi
+          echo "$KH $(printf '%s' "$HOST_KEY" | tr -d '\r')" > ~/.ssh/known_hosts
+          rsync -rlz --delete --chmod=D755,F644 \
+            --exclude='.git/' --exclude='.github/' --exclude='deploy/' \
+            --exclude='.nojekyll' --exclude='*.md' --exclude='CNAME' \
+            -e "ssh -i $HOME/.ssh/deploy_key -p $PORT -o StrictHostKeyChecking=yes -o UserKnownHostsFile=$HOME/.ssh/known_hosts" \
+            ./ "sitedeploy@$HOST:/var/www/tut-tvoy-aromat/"
+          echo "::notice::Сайт обновлён на сервере."
+
