@@ -301,7 +301,7 @@ function interp(pts, y){ // плавная интерполяция по точ�
 const half = (B,y) => interp([[Y.shY+3,B.sh],[Y.chestY,B.chest],[Y.waistY,B.waist],[Y.hipY,B.hip],[Y.crotchY,B.hip-.5],[Y.kneeY+40,B.hip-.5]], y);
 const mirror = p => [200 - p[0], p[1]];
 const path = (pts, close=true) => 'M' + pts.map(p => f1(p[0]) + ' ' + f1(p[1])).join('L') + (close ? 'Z' : '');
-const shape = (d, fill, extra='') => `<path d="${d}" fill="${fill}" stroke="${INK}" stroke-width="${SW}" stroke-linejoin="round" stroke-linecap="round" ${extra}/>`;
+const shape = (d, fill, extra='') => `<path d="${d}" fill="${fill}" stroke="${INK}"${/stroke-width/.test(extra) ? '' : ` stroke-width="${SW}"`} stroke-linejoin="round" stroke-linecap="round" ${extra}/>`;
 const line = (d, w=1.2, col=INK, extra='') => `<path d="${d}" fill="none" stroke="${col}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round" ${extra}/>`;
 const range = (a,b,step) => { const r = []; for (let v = a; v < b; v += step) r.push(v); r.push(b); return r; };
 
