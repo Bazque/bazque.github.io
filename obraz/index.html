@@ -1026,9 +1026,9 @@ async function drawCard(r){
   x.fillStyle = '#1A1A1A'; x.fillText(head, W/2, y);
   y += 50; x.font = 'italic 600 36px Cormorant'; x.fillStyle = '#6B2E2A'; x.fillText('«' + r.T.title + '»', W/2, y);
   y += 58;
-  x.font = '600 23px Inter'; x.fillStyle = '#6B2E2A'; spaced(x, 'СТОИТ ПОСЛУШАТЬ', W/2, y, 3.5); y += 46;
+  x.font = '600 23px Inter'; x.fillStyle = '#6B2E2A'; spaced(x, 'СТОИТ ПОСЛУШАТЬ', W/2, y, 3.5); y += 54;
   x.fillStyle = '#1A1A1A';
-  r.frag.forEach(([n,,tag]) => { let s = 30; do { x.font = `400 ${s}px Inter`; s -= 1; } while (x.measureText(n).width > 860 && s > 22); x.fillStyle = '#1A1A1A'; x.fillText(n, W/2, y); y += 30; x.font = 'italic 600 27px Cormorant'; x.fillStyle = '#8B6A4F'; x.fillText(tag || '', W/2, y); y += 40; });
+  r.frag.forEach(([n]) => { let s = 31; do { x.font = `400 ${s}px Inter`; s -= 1; } while (x.measureText(n).width > 860 && s > 22); x.fillStyle = '#1A1A1A'; x.fillText(n, W/2, y); y += 48; });
   // код
   const cy = 1440;
   x.fillStyle = '#6B2E2A'; rr(x,170,cy,W-340,176,88); x.fill();
