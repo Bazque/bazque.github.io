@@ -951,17 +951,20 @@ function adjective(k, worn, place){
   if ((ids.has('swim') || ids.has('flops')) && !['sea','gym'].includes(place.id)) return A('Смелый','Смелое');
   if (st === 'casual' && FORMAL_PLACES.includes(place.id)) return A('Игривый','Игривое');
   if (st === 'formal' && CASUAL_PLACES.includes(place.id)) return A('Неожиданный','Неожиданное');
-  // 2. чистый стиль, и место ему под стать
+  // 2. яркий аксессуар задаёт настроение
+  if (ids.has('glasses')) return A('Стильный','Стильное');
+  if (ids.has('hat')) return A('Элегантный','Элегантное');
+  // 3. чистый стиль, и место ему под стать
   if (st === 'formal' && c === 0 && ['date','bar'].includes(place.id)) return A('Томный','Томное');
   if (st === 'formal' && c === 0 && !CASUAL_PLACES.includes(place.id)) return f >= 3 ? A('Безупречный','Безупречное') : A('Строгий','Строгое');
   if (st === 'casual' && f === 0 && !FORMAL_PLACES.includes(place.id) && c >= 3) return A('Беззаботный','Беззаботное');
-  // 3. второй голос: портрет, который набрал больше всех после главного (вещи + место целиком)
+  // 4. второй голос: портрет, который набрал больше всех после главного (вещи + место целиком)
   const sc = {}; ORDER.forEach(x => sc[x] = 0);
   ids.forEach(id => { const w = ITEMS.find(i => i.id === id).w; for (const x in w) sc[x] += w[x]; });
   for (const x in place.w) sc[x] += place.w[x];
   const second = ORDER.filter(x => x !== k).sort((a,b) => (sc[b]-sc[a]) || ((place.w[b]||0)-(place.w[a]||0)))[0];
   if (sc[second] >= 3 && sc[second] >= sc[k] * .4){ if (second === 'CHISTO' && place.id === 'office') return A('Деловой','Деловое'); return MOOD[second][neut ? 1 : 0]; }
-  // 4. без второго голоса
+  // 5. без второго голоса
   if (st === 'formal' && c === 0) return f >= 3 ? A('Безупречный','Безупречное') : A('Строгий','Строгое');
   if (st === 'casual' && f === 0) return c >= 3 ? A('Беззаботный','Беззаботное') : A('Расслабленный','Расслабленное');
   if (c >= 1 && f >= 1) return A('Эклектичный','Эклектичное');
