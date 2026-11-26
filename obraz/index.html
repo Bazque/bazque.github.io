@@ -85,7 +85,9 @@ footer a{color:var(--choc)}
 .stage .tools button{border:1px solid var(--line);background:rgba(255,255,255,.85);border-radius:999px;font:600 12.5px/1 Inter,sans-serif;color:var(--choc);padding:8px 12px;cursor:pointer}
 .stage .count{position:absolute;left:12px;bottom:12px;font-size:12.5px;color:var(--brown)}
 .hint{font-size:13px;color:var(--brown);text-align:center}
-.tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;margin:0 -20px;padding-left:20px;padding-right:20px}
+.tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;margin:0 -20px;padding-left:20px;padding-right:20px;scroll-snap-type:x proximity;scroll-padding:0 20px;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 20px,#000 calc(100% - 44px),transparent);mask-image:linear-gradient(90deg,transparent 0,#000 20px,#000 calc(100% - 44px),transparent)}
+.tabs::after{content:"";flex:none;width:24px}
+.tabs button{scroll-snap-align:start}
 .tabs::-webkit-scrollbar{display:none}
 .tabs button{flex:none;border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:9px 15px;font:600 14px/1 Inter,sans-serif;color:var(--ink);cursor:pointer}
 .tabs button.on{background:var(--choc);border-color:var(--choc);color:#fff}
@@ -106,7 +108,8 @@ footer a{color:var(--choc)}
   .dress .top{grid-column:1/-1}
   .stage-wrap{top:12px;margin:0;padding:0}
   .stage{height:min(76vh,640px)}
-  .tabs{margin:0;padding:0;flex-wrap:wrap}
+  .tabs{margin:0;padding:0;flex-wrap:wrap;-webkit-mask-image:none;mask-image:none}
+  .tabs::after{display:none}
   .grid{grid-template-columns:repeat(auto-fill,minmax(100px,1fr))}
   .item svg{height:72px}
 }
@@ -158,13 +161,18 @@ footer a{color:var(--choc)}
 .deco{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
 .deco i{position:absolute;display:block}
 .deco svg{display:block;width:100%;height:100%}
+.deco .b{color:var(--choc);opacity:.13;animation:drift var(--d) ease-in-out var(--dl) infinite alternate}
 .deco .s{color:var(--choc);animation:twinkle var(--d) ease-in-out var(--dl) infinite}
+@keyframes drift{from{transform:translateY(0) rotate(var(--r0))}to{transform:translateY(-26px) rotate(var(--r1))}}
+.stage .st{position:absolute;pointer-events:none;color:var(--choc);animation:twinkle var(--d) ease-in-out var(--dl) infinite}
+.stage .st.r{color:#c98e88}
+.stage .st svg{display:block;width:100%;height:100%}
 .deco .s.r{color:#c98e88}
 @keyframes twinkle{0%,100%{opacity:.08;transform:scale(.6) rotate(0)}50%{opacity:.5;transform:scale(1) rotate(25deg)}}
 .burst{position:fixed;pointer-events:none;z-index:65;color:var(--choc);animation:burst 1.1s cubic-bezier(.2,.7,.3,1) forwards}
 .burst svg{display:block;width:100%;height:100%}
 @keyframes burst{0%{opacity:0;transform:translate(0,0) scale(.3)}15%{opacity:1}100%{opacity:0;transform:translate(var(--x),var(--y)) scale(1) rotate(160deg)}}
-@media(prefers-reduced-motion:reduce){.deco i,.burst{animation:none!important}.burst{display:none}}
+@media(prefers-reduced-motion:reduce){.deco i,.burst,.stage .st{animation:none!important}.burst{display:none}}
 </style>
 </head>
 <body>
@@ -681,7 +689,7 @@ const ORDER = ['CHISTO','BRIZ','UYUT','MAGNIT','CVET','DREVO'];
 const PLACES = [
   {n:1, id:'office', e:'💼', name:'В офис', to:'в офис', sub:'планёрка в 10:00', w:{CHISTO:3,BRIZ:1}},
   {n:2, id:'date', e:'🌹', name:'На свидание', to:'на свидание', sub:'первое или сотое', w:{MAGNIT:2,CVET:2,UYUT:1}},
-  {n:3, id:'brunch', e:'🥐', name:'На бранч', to:'на бранч с друзьями', sub:'с друзьями и сплетнями', w:{CVET:2,BRIZ:2}},
+  {n:3, id:'brunch', e:'🥐', name:'На бранч', to:'на бранч с друзьями', sub:'обсуждать новые сплетни', w:{CVET:2,BRIZ:2}},
   {n:4, id:'bar', e:'🍸', name:'В бар', to:'в бар', sub:'и домой ближе к утру', w:{MAGNIT:3,UYUT:1}},
   {n:5, id:'theatre', e:'🎭', name:'В театр', to:'в театр', sub:'антракт и буфет', w:{MAGNIT:2,CVET:1,DREVO:1}},
   {n:6, id:'walk', e:'🌉', name:'Гулять по Петербургу', to:'гулять по Петербургу', sub:'набережные и мосты', w:{DREVO:2,BRIZ:1,UYUT:1}},
@@ -753,6 +761,7 @@ function renderTabs(){
     const b = document.createElement('button'); b.textContent = label; b.setAttribute('role','tab');
     b.className = k === cat ? 'on' : ''; b.setAttribute('aria-selected', k === cat);
     b.onclick = () => { cat = k; renderTabs(); renderGrid(); };
+    if (k === cat) requestAnimationFrame(() => box.scrollTo({left: Math.max(0, b.offsetLeft - box.offsetLeft - 20 - (box.clientWidth - b.offsetWidth)/2 + 20), behavior:'smooth'}));
     box.appendChild(b);
   });
 }
@@ -829,7 +838,7 @@ function flyBack(d){
 
 /* ---------- Блёстки ---------- */
 const STAR = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c.6 6.2 5.8 11.4 12 12-6.2.6-11.4 5.8-12 12-.6-6.2-5.8-11.4-12-12C6.2 11.4 11.4 6.2 12 0z"/></svg>';
-function sparkle(x, y, n=10){
+function sparkle(x, y, n=14){
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   if (x === undefined){ const r = $('stage').getBoundingClientRect(); x = r.left + r.width/2; y = r.top + r.height*.4; }
   for (let i = 0; i < n; i++){
@@ -840,11 +849,25 @@ function sparkle(x, y, n=10){
     setTimeout(() => el.remove(), 1200);
   }
 }
+const BOTTLE = '<svg viewBox="0 0 22 26" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="7" y="1" width="8" height="5" rx="1.5"/><path d="M11 8 4 5.5v6L11 9l7 2.5v-6z" stroke-linejoin="round"/><rect x="2" y="9" width="18" height="16" rx="4"/></svg>';
+const BOTTLE2 = '<svg viewBox="0 0 22 30" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="8" y="1" width="6" height="6" rx="1"/><path d="M9 7h4v3H9z"/><path d="M6 10h10c2 0 4 2 4 4v11c0 2-2 4-4 4H6c-2 0-4-2-4-4V14c0-2 2-4 4-4z"/><path d="M6 17h10" opacity=".6"/></svg>';
 (function(){
   const box = $('deco'), rnd = (a,b) => a + Math.random()*(b-a);
-  for (let i = 0; i < 14; i++){
+  [[3,14],[89,9],[1,48],[91,42],[4,82],[88,76]].forEach(([x,y],i) => {
+    const el = document.createElement('i'); el.className = 'b'; const w = rnd(34,58);
+    el.style.cssText = `left:${x}%;top:${y}%;width:${w}px;height:${w*1.2}px;--d:${rnd(4,7)}s;--dl:-${rnd(0,5)}s;--r0:${rnd(-14,0)}deg;--r1:${rnd(0,14)}deg`;
+    el.innerHTML = i % 2 ? BOTTLE2 : BOTTLE; box.appendChild(el);
+  });
+  // звёздочки внутри сцены с персонажем
+  const st = $('stage');
+  [[8,12],[86,18],[14,46],[82,52],[10,78],[88,80],[24,26],[74,34],[20,64],[78,66]].forEach(([x,y],i) => {
+    const el = document.createElement('i'); el.className = 'st' + (i % 3 ? '' : ' r'); const w = rnd(9,17);
+    el.style.cssText = `left:${x}%;top:${y}%;width:${w}px;height:${w}px;--d:${rnd(2.2,4.5)}s;--dl:-${rnd(0,4)}s`;
+    el.innerHTML = STAR; st.insertBefore(el, st.firstChild);
+  });
+  for (let i = 0; i < 30; i++){
     const el = document.createElement('i'); el.className = 's' + (i % 3 ? '' : ' r');
-    const w = rnd(8,18); el.style.cssText = `left:${rnd(0,98)}%;top:${rnd(0,98)}%;width:${w}px;height:${w}px;--d:${rnd(2.4,5)}s;--dl:-${rnd(0,5)}s`;
+    const w = rnd(8,22); el.style.cssText = `left:${rnd(0,98)}%;top:${rnd(0,98)}%;width:${w}px;height:${w}px;--d:${rnd(2.4,5)}s;--dl:-${rnd(0,5)}s`;
     el.innerHTML = STAR; box.appendChild(el);
   }
 })();
@@ -868,7 +891,7 @@ async function go(){
   const wait = new Promise(r => setTimeout(r, 1400));
   try { await drawCard(result); } catch(e){ console.error(e); }
   await wait;
-  fill(result); show('s-res'); sparkle(innerWidth/2, Math.min(innerHeight*.3, 240), 16);
+  fill(result); show('s-res'); sparkle(innerWidth/2, Math.min(innerHeight*.3, 240), 24); setTimeout(() => sparkle(innerWidth*.25, 380, 12), 350); setTimeout(() => sparkle(innerWidth*.75, 420, 12), 650);
 }
 function fill(r){
   $('r-kicker').textContent = (G === 'm' ? 'Ваш персонаж идёт ' : 'Ваша героиня идёт ') + place.to;
@@ -942,6 +965,12 @@ function download(){
 function startGame(g){ G = g; worn = {}; cat = 'top'; show('s-dress'); renderTabs(); renderGrid(); drawFig(false); }
 $('pv-f').innerHTML = figureSVG('f', {top:'dress', bottom:'dress', shoes:'heels'});
 $('pv-m').innerHTML = figureSVG('m', {outer:'tux', bottom:'tux', shoes:'loafers', neck:'bow', top:'shirt'});
+setInterval(() => {
+  if ($('s-intro').hidden || document.hidden) return;
+  const id = Math.random() < .5 ? 'pv-f' : 'pv-m', f = $(id);
+  f.classList.remove('hop'); void f.getBoundingClientRect(); f.classList.add('hop');
+  const r = f.getBoundingClientRect(); sparkle(r.left + r.width/2, r.top + r.height*.35, 8);
+}, 2600);
 $('pick-f').onclick = () => startGame('f');
 $('pick-m').onclick = () => startGame('m');
 $('back1').onclick = () => show('s-intro');
