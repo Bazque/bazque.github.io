@@ -700,12 +700,25 @@ const PLACES = [
   {n:0, id:'gym', e:'🏋️', name:'В спортзал', to:'в спортзал', sub:'по плану ноги и спина', w:{BRIZ:2,CHISTO:2}}
 ];
 
+/* Формальность вещей: −1 неформальное (спорт, море, расслабленное), +1 официальное и собранное, 0 нейтральное.
+   Если две вещи и больше тянут в одну сторону и перевешивают другую, стиль задают они, и место его не перебивает:
+   неформальному образу не достаются «официальные» и «романтичные» портреты, официальному — «пляжные» и «домашние». */
+const FORMAL = {shirt:1, trousers:1, blazer:1, tux:1, tie:1, bow:1, loafers:1, heels:1, lbd:1, coat:1,
+  tee:-1, hoodie:-1, swim:-1, track:-1, sneakers:-1, flare:-1, check:-1, denim:-1, puffer:-1, sweater:-1, skinny:-1, longsleeve:-1, boots:-1};
+const STYLE_OK = {casual:['BRIZ','UYUT','DREVO'], formal:['CHISTO','MAGNIT','CVET','DREVO'], mixed:ORDER};
+function style(worn){
+  let c = 0, f = 0;
+  new Set(Object.values(worn)).forEach(id => { const v = FORMAL[id] || 0; if (v < 0) c++; if (v > 0) f++; });
+  if (c >= 2 && c > f) return 'casual';
+  if (f >= 2 && f > c) return 'formal';
+  return 'mixed';
+}
 function score(worn, place){
   const s = {}; ORDER.forEach(k => s[k] = 0);
   new Set(Object.values(worn)).forEach(id => { const w = ITEMS.find(i => i.id === id).w; for (const k in w) s[k] += w[k]; });
   for (const k in place.w) s[k] += place.w[k] * .5; // место решает только при близком счёте
-  const pw = place.w;
-  return ORDER.slice().sort((a,b) => (s[b]-s[a]) || ((pw[b]||0)-(pw[a]||0)) || (ORDER.indexOf(a)-ORDER.indexOf(b)))[0];
+  const pw = place.w, ok = STYLE_OK[style(worn)];
+  return ok.slice().sort((a,b) => (s[b]-s[a]) || ((pw[b]||0)-(pw[a]||0)) || (ORDER.indexOf(a)-ORDER.indexOf(b)))[0];
 }
 
 /* Комментарий стилиста: немного юмора про сочетания */
@@ -889,9 +902,10 @@ async function go(){
   show('s-load');
   const k = score(worn, place), T = TYPES[k];
   // третий аромат — под место: из главного портрета места, если он другой
-  const pk = ORDER.slice().sort((a,b) => (place.w[b]||0) - (place.w[a]||0))[0];
+  const pk = STYLE_OK[style(worn)].slice().sort((a,b) => ((place.w[b]||0) - (place.w[a]||0)) || (ORDER.indexOf(a)-ORDER.indexOf(b)))[0];
+  // место добавляет аромат только если подходит стилю образа (у места есть вес этого портрета)
   let frag = T[G].map(f => f.concat(['']));
-  if (pk !== k){
+  if (pk !== k && place.w[pk]){
     const extra = TYPES[pk][G].find(f => !T[G].some(t => t[0] === f[0]));
     if (extra) frag = [frag[0], frag[1], extra.concat(['под место: ' + place.to])];
   }
