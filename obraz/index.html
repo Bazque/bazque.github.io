@@ -1038,7 +1038,7 @@ async function drawCard(r){
   x.fillStyle = '#E8C4C0'; x.font = '600 22px Inter'; spaced(x,'КОД ОБРАЗА',W/2,cy+56,4);
   let cs = 60; x.font = `600 ${cs}px Inter`; while (x.measureText(r.code).width > 640 && cs > 40){ cs -= 2; x.font = `600 ${cs}px Inter`; }
   x.fillStyle = '#FFFFFF'; spaced(x, r.code, W/2, cy+132, 5);
-  x.fillStyle = '#1A1A1A'; x.font = '600 28px Inter'; x.fillText('Оденьте своего: bazque.github.io/obraz', W/2, cy+232);
+  x.fillStyle = '#1A1A1A'; x.font = '600 28px Inter'; x.fillText('Оденьте своего: tut-tvoy-aromat.ru/obraz', W/2, cy+232);
   x.fillStyle = '#8B6A4F'; x.font = '400 26px Inter'; x.fillText('@tut_tvoy_aromat', W/2, cy+274);
   $('r-card').src = c.toDataURL('image/png');
   cardBlob = await new Promise(res => c.toBlob(res, 'image/png'));

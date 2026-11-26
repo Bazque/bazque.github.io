@@ -7,7 +7,7 @@
 <meta name="description" content="7 вопросов о привычках, воспоминаниях и настроении. В конце вы получите карточку с разбором вашего парфюмерного портрета и тремя ароматами, которые стоит послушать.">
 <meta property="og:title" content="Составьте свой парфюмерный портрет">
 <meta property="og:description" content="7 вопросов и карточка с вашим парфюмерным портретом. Ответы никуда не отправляются.">
-<meta property="og:image" content="https://bazque.github.io/img/quiz-og.jpg">
+<meta property="og:image" content="https://tut-tvoy-aromat.ru/img/quiz-og.jpg">
 <meta name="theme-color" content="#F3EBDD">
 <style>
 @font-face{font-family:"Cormorant";src:url(../fonts/cormorant-garamond-600.woff2) format("woff2");font-weight:600;font-display:swap}
@@ -502,7 +502,7 @@ async function drawCard({T,S,code}){
   x.fillStyle = C.CHOC; rr(x,170,cy,W-340,176,88); x.fill();
   x.fillStyle = C.ROSE; x.font = '600 22px Inter'; spaced(x,'ВАШ КОД',W/2,cy+56,4);
   x.fillStyle = '#FFFFFF'; x.font = '600 64px Inter'; spaced(x, code, W/2, cy+134, 6);
-  x.fillStyle = C.INK; x.font = '600 28px Inter'; x.fillText('Составьте свой: bazque.github.io/quiz', W/2, cy+232);
+  x.fillStyle = C.INK; x.font = '600 28px Inter'; x.fillText('Составьте свой: tut-tvoy-aromat.ru/quiz', W/2, cy+232);
   x.fillStyle = C.BROWN; x.font = '400 26px Inter'; x.fillText('@tut_tvoy_aromat', W/2, cy+274);
 
   $('r-card').src = c.toDataURL('image/png');
