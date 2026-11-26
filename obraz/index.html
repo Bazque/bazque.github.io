@@ -301,7 +301,7 @@ function interp(pts, y){ // плавная интерполяция по точ�
 const half = (B,y) => interp([[Y.shY+3,B.sh],[Y.chestY,B.chest],[Y.waistY,B.waist],[Y.hipY,B.hip],[Y.crotchY,B.hip-.5],[Y.kneeY+40,B.hip-.5]], y);
 const mirror = p => [200 - p[0], p[1]];
 const path = (pts, close=true) => 'M' + pts.map(p => f1(p[0]) + ' ' + f1(p[1])).join('L') + (close ? 'Z' : '');
-const shape = (d, fill, extra='') => `<path d="${d}" fill="${fill}" stroke="${INK}" stroke-width="${SW}" stroke-linejoin="round" stroke-linecap="round" ${extra}/>`;
+const shape = (d, fill, extra='') => `<path d="${d}" fill="${fill}" stroke="${INK}"${/stroke-width/.test(extra) ? '' : ` stroke-width="${SW}"`} stroke-linejoin="round" stroke-linecap="round" ${extra}/>`;
 const line = (d, w=1.2, col=INK, extra='') => `<path d="${d}" fill="none" stroke="${col}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round" ${extra}/>`;
 const range = (a,b,step) => { const r = []; for (let v = a; v < b; v += step) r.push(v); r.push(b); return r; };
 
@@ -586,6 +586,16 @@ const ITEMS = [
     s += line(`M${CX-B.legOff-15} ${Y.footY} L${CX-B.legOff+B.ankle+2.5} ${Y.footY} M${CX+B.legOff+15} ${Y.footY} L${CX+B.legOff-B.ankle-2.5} ${Y.footY}`, 3, '#C98E88');
     s += line(`M${CX-B.legOff-6} ${Y.ankleY+5} l5 -2 M${CX-B.legOff-9} ${Y.ankleY+9} l5 -2 M${CX+B.legOff+6} ${Y.ankleY+5} l-5 -2 M${CX+B.legOff+9} ${Y.ankleY+9} l-5 -2`, 1.1);
     return s; }}},
+  {id:'flops', cat:'shoes', name:'Шлёпанцы', w:{BRIZ:3,UYUT:1}, parts:{shoes:(B)=>{
+    let s = '';
+    [0,1].forEach(i => {
+      const m = p => i ? mirror(p) : p, ax = CX - B.legOff;
+      const sole = [[ax+B.ankle+3, Y.footY-1], [ax+B.ankle+3, Y.footY+3], [ax-15, Y.footY+3], [ax-16, Y.footY-1]].map(m);
+      s += shape(path(sole), '#D9776B', 'stroke-width="1.3"');
+      const toe = m([ax-9, Y.footY-2]), o = m([ax-B.ankle-1, Y.ankleY+9]), n = m([ax+B.ankle+1, Y.ankleY+9]);
+      s += line(path([o, toe, n], false), 2.6, '#2F3B5C');
+    });
+    return s; }}},
   {id:'loafers', cat:'shoes', name:'Лоферы', w:{CHISTO:1,DREVO:1,MAGNIT:1}, parts:{shoes:(B)=>{
     let s = shoe(B, {top:Y.ankleY+7, toe:1}).map(d => shape(d, '#5A2E22')).join('');
     s += line(`M${CX-B.legOff-9} ${Y.ankleY+10} l6 0 M${CX+B.legOff+9} ${Y.ankleY+10} l-6 0`, 1.4, '#C9A47A');
@@ -624,6 +634,8 @@ const BODY_ORDER = ['bottomUnder','shoes','bottomOver','top','neck','knit','oute
 const HEAD_ORDER = ['eyes','head'];
 
 function itemParts(it, g){ return (g === 'f' && it.partsF) ? it.partsF : it.parts; }
+const ACC = {shirt:'классическую рубашку', check:'рубашку в клетку', tee:'футболку', longsleeve:'лонгслив', turtle:'водолазку', sweater:'свитер с горлом', hoodie:'худи', dress:'платье в цветочек', lbd:'маленькое чёрное платье', trousers:'классические брюки', chinos:'чинос', leather:'кожаные брюки', skinny:'джинсы скинни', flare:'джинсы трубы', skirt:'юбку миди', blazer:'пиджак', denim:'джинсовку', tux:'смокинг', puffer:'дутую жилетку', coat:'пальто', track:'спортивный костюм', boots:'ботинки', sneakers:'кроссовки', loafers:'лоферы', heels:'каблуки', flops:'шлёпанцы', hat:'шляпу', glasses:'очки', tie:'галстук', bow:'бабочку', scarf:'шарф'};
+const accName = (id, g) => id === 'swim' ? (g === 'f' ? 'купальник' : 'плавки') : ACC[id];
 function itemName(it, g){ return (g === 'f' && it.nameF) ? it.nameF : it.name; }
 function partLayer(it, slot){ return slot === 'bottom' ? (it.over ? 'bottomOver' : 'bottomUnder') : slot; }
 
@@ -661,14 +673,15 @@ function itemSVG(it, g){
 /* ======================================================================
    ПОДБОР
    Шесть портретов те же, что в квизе. Вещь даёт баллы портретам,
-   место даёт вдвое больше. Ароматы берём из каталога сайта,
+   место только подсказывает при равенстве. Два аромата берём из портрета образа,
+   третий — из портрета места («под место»). Ароматы берём из каталога сайта,
    описываем образами (ноты не называем, пока не сверены с fragrantica.ru).
    ====================================================================== */
 const TYPES = {
   CHISTO:{code:'ЧИСТО', title:'Подозрительно всё в порядке', line:'аккуратно, собранно и без лишнего шума',
     m:[['Juliette Has a Gun Not a Perfume Superdose','усиленная «чистая кожа»: лёгкий, но заметнее и дольше'],['RudRoss Montana','спокойный и чистый, аромат человека, у которого всё в порядке'],['DKNY Be Delicious Men','лёгкий и свежий, на каждый день']],
     f:[['Juliette Has a Gun Not a Perfume','почти невесомый, звучит как чистая кожа, только лучше'],['RudRoss Montana','спокойный и чистый, аромат человека, у которого всё в порядке'],['DKNY Be Delicious','хрустящее и свежее яблоко']]},
-  BRIZ:{code:'БРИЗ', title:'Белая рубашка на ветру', line:'свежо, легко и с ветром в голове',
+  BRIZ:{code:'БРИЗ', title:'Свежий ветер с залива', line:'свежо, легко и с ветром в голове',
     m:[['Jo Malone Wood Sage & Sea Salt','свежий, как прогулка у моря'],['Guerlain Homme L\'Eau','свежий и лёгкий, на каждый день'],['Bvlgari Tygar','свежий и дерзкий']],
     f:[['Jo Malone Wood Sage & Sea Salt','свежий, как прогулка у моря'],['DKNY Be Delicious','хрустящее и свежее яблоко'],['Tiziana Terenzi Kirkè','сочный и солнечный']]},
   UYUT:{code:'УЮТ', title:'Плед, и никуда не надо', line:'тепло, мягко и хочется обнять',
@@ -687,24 +700,37 @@ const TYPES = {
 const ORDER = ['CHISTO','BRIZ','UYUT','MAGNIT','CVET','DREVO'];
 /* n — цифра в коде, её не меняем, даже если места переставить */
 const PLACES = [
-  {n:1, id:'office', e:'💼', name:'В офис', to:'в офис', sub:'планёрка в 10:00', w:{CHISTO:3,BRIZ:1}},
-  {n:2, id:'date', e:'🌹', name:'На свидание', to:'на свидание', sub:'первое или сотое', w:{MAGNIT:2,CVET:2,UYUT:1}},
-  {n:3, id:'brunch', e:'🥐', name:'На бранч', to:'на бранч с друзьями', sub:'обсуждать новые сплетни', w:{CVET:2,BRIZ:2}},
-  {n:4, id:'bar', e:'🍸', name:'В бар', to:'в бар', sub:'и домой ближе к утру', w:{MAGNIT:3,UYUT:1}},
-  {n:5, id:'theatre', e:'🎭', name:'В театр', to:'в театр', sub:'антракт и буфет', w:{MAGNIT:2,CVET:1,DREVO:1}},
-  {n:6, id:'walk', e:'🌉', name:'Гулять по Петербургу', to:'гулять по Петербургу', sub:'набережные и мосты', w:{DREVO:2,BRIZ:1,UYUT:1}},
-  {n:7, id:'dacha', e:'🌲', name:'На дачу', to:'на дачу', sub:'лес, костёр и термос', w:{DREVO:3,UYUT:1}},
-  {n:8, id:'rink', e:'⛸️', name:'На каток', to:'на каток', sub:'и глинтвейн после', w:{UYUT:3,CVET:1}},
-  {n:9, id:'sea', e:'🏖️', name:'На море', to:'на море', sub:'наконец-то отпуск', w:{BRIZ:3,CVET:1}},
-  {n:0, id:'gym', e:'🏋️', name:'В спортзал', to:'в спортзал', sub:'по плану ноги и спина', w:{BRIZ:2,CHISTO:2}}
+  {n:1, id:'office', for:'под офис', e:'💼', name:'В офис', to:'в офис', sub:'планёрка в 10:00', w:{CHISTO:3,BRIZ:1}},
+  {n:2, id:'date', for:'под свидание', e:'🌹', name:'На свидание', to:'на свидание', sub:'первое или сотое', w:{MAGNIT:2,CVET:2,UYUT:1}},
+  {n:3, id:'brunch', for:'под бранч', e:'🥐', name:'На бранч', to:'на бранч с друзьями', sub:'обсуждать новые сплетни', w:{CVET:2,BRIZ:2}},
+  {n:4, id:'bar', for:'под бар', e:'🍸', name:'В бар', to:'в бар', sub:'и домой ближе к утру', w:{MAGNIT:3,UYUT:1}},
+  {n:5, id:'theatre', for:'под театр', e:'🎭', name:'В театр', to:'в театр', sub:'антракт и буфет', w:{MAGNIT:2,CVET:1,DREVO:1}},
+  {n:6, id:'walk', for:'под прогулку', e:'🌉', name:'Гулять по Петербургу', to:'гулять по Петербургу', sub:'набережные и мосты', w:{DREVO:2,BRIZ:1,UYUT:1}},
+  {n:7, id:'dacha', for:'под дачу', e:'🌲', name:'На дачу', to:'на дачу', sub:'лес, костёр и термос', w:{DREVO:3,UYUT:1}},
+  {n:8, id:'rink', for:'под каток', e:'⛸️', name:'На каток', to:'на каток', sub:'и глинтвейн после', w:{UYUT:3,CVET:1}},
+  {n:9, id:'sea', for:'под море', e:'🏖️', name:'На море', to:'на море', sub:'наконец-то отпуск', w:{BRIZ:3,CVET:1}},
+  {n:0, id:'gym', for:'под спортзал', e:'🏋️', name:'В спортзал', to:'в спортзал', sub:'по плану ноги и спина', w:{BRIZ:2,CHISTO:2}}
 ];
 
+/* Формальность вещей: −1 неформальное (спорт, море, расслабленное), +1 официальное и собранное, 0 нейтральное.
+   Если две вещи и больше тянут в одну сторону и перевешивают другую, стиль задают они, и место его не перебивает:
+   неформальному образу не достаются «официальные» и «романтичные» портреты, официальному — «пляжные» и «домашние». */
+const FORMAL = {shirt:1, trousers:1, blazer:1, tux:1, tie:1, bow:1, loafers:1, heels:1, lbd:1, coat:1,
+  tee:-1, hoodie:-1, swim:-1, flops:-1, track:-1, sneakers:-1, flare:-1, check:-1, denim:-1, puffer:-1, sweater:-1, skinny:-1, longsleeve:-1, boots:-1};
+const STYLE_OK = {casual:['BRIZ','UYUT','DREVO'], formal:['CHISTO','MAGNIT','CVET','DREVO'], mixed:ORDER};
+function style(worn){
+  let c = 0, f = 0;
+  new Set(Object.values(worn)).forEach(id => { const v = FORMAL[id] || 0; if (v < 0) c++; if (v > 0) f++; });
+  if (c >= 2 && c > f) return 'casual';
+  if (f >= 2 && f > c) return 'formal';
+  return 'mixed';
+}
 function score(worn, place){
   const s = {}; ORDER.forEach(k => s[k] = 0);
   new Set(Object.values(worn)).forEach(id => { const w = ITEMS.find(i => i.id === id).w; for (const k in w) s[k] += w[k]; });
-  for (const k in place.w) s[k] += place.w[k] * 2;
-  const pw = place.w;
-  return ORDER.slice().sort((a,b) => (s[b]-s[a]) || ((pw[b]||0)-(pw[a]||0)) || (ORDER.indexOf(a)-ORDER.indexOf(b)))[0];
+  for (const k in place.w) s[k] += place.w[k] * .5; // место решает только при близком счёте
+  const pw = place.w, ok = STYLE_OK[style(worn)];
+  return ok.slice().sort((a,b) => (s[b]-s[a]) || ((pw[b]||0)-(pw[a]||0)) || (ORDER.indexOf(a)-ORDER.indexOf(b)))[0];
 }
 
 /* Комментарий стилиста: немного юмора про сочетания */
@@ -713,7 +739,8 @@ function comment(g, worn, place, T){
   const n = new Set(Object.values(worn)).size;
   const he = g === 'm', swimName = he ? 'плавках' : 'купальнике';
   if (has('swim') && place.id === 'theatre') return `В ${swimName} в театр? Смело. Буфет запомнит этот вечер, а мы подобрали аромат с таким же характером.`;
-  if (has('swim') && !['sea','gym'].includes(place.id) && n <= 2) return `В ${swimName} ${place.to}, и это в ноябре. Уважаем. Аромат подобрали тёплый к образу, а вот куртку всё-таки советуем.`;
+  if (has('swim') && !['sea','gym'].includes(place.id)) return `В ${swimName} ${place.to}? Смелый выбор, особенно в ноябре. Образ у персонажа летний, поэтому в подборке есть свежесть, а один аромат мы подобрали под место.`;
+  if (has('flops') && ['theatre','office'].includes(place.id)) return `В шлёпанцах ${place.to}: дресс-код дрогнул, но устоял. Подобрали ароматы, с которыми любой вход становится эффектным.`;
   if (has('tux') && place.id === 'dacha') return 'Смокинг на даче. Соседи запомнят этот день надолго, а мы позаботились, чтобы запомнили и аромат.';
   if (has('tux') && place.id === 'gym') return 'Смокинг в спортзал: тренер пока не понял, но точно оценил. Аромат подобрали такой же уверенный.';
   if (has('heels') && place.id === 'dacha') return 'Каблуки на даче: грядки пусть подождут. Аромат подобрали под настроение, а не под рельеф.';
@@ -884,10 +911,68 @@ function renderPlaces(){
   });
 }
 
+/* Тройка ароматов — микс:
+   1) главный аромат портрета образа;
+   2) аромат «за вещь»: самая яркая вещь образа, если она тянет в другой портрет (плавки → свежий);
+   3) аромат под место, из портретов, которые подходят стилю образа.
+   Повторов нет; если источник совпал с портретом образа, берём следующий аромат этого портрета. */
+function mix(k, worn, place){
+  const used = new Set(), out = [];
+  const take = (pk, tag) => { const f = TYPES[pk][G].find(f => !used.has(f[0])); if (f){ used.add(f[0]); out.push([f[0], f[1], tag]); return true; } return false; };
+  const ids = [...new Set(Object.values(worn))], W = id => ITEMS.find(i => i.id === id).w;
+  // 1) за вещь, которая сильнее всех тянет в главный портрет
+  const lead = ids.filter(id => W(id)[k]).sort((a,b) => W(b)[k] - W(a)[k])[0];
+  take(k, lead ? 'за ' + accName(lead, G) : 'за образ в целом');
+  // 2) за вещь, которая заметно (2+ балла) тянет в другой портрет
+  let alt = null;
+  ids.forEach(id => { const w = W(id); for (const pk in w) if (pk !== k && w[pk] >= 2 && (!alt || w[pk] > alt.v)) alt = {id, pk, v:w[pk]}; });
+  if (alt) take(alt.pk, 'за ' + accName(alt.id, G));
+  else take(k, 'за образ в целом');
+  // 3) под место: портрет места, подходящий стилю образа, по возможности новый
+  const ok = STYLE_OK[style(worn)], usedP = new Set([k, alt && alt.pk]);
+  const cand = ok.filter(x => place.w[x]).sort((a,b) => ((usedP.has(a)) - (usedP.has(b))) || ((place.w[b]||0) - (place.w[a]||0)) || (ORDER.indexOf(a)-ORDER.indexOf(b)));
+  if (!(cand.length && take(cand[0], place.for))) take(k, place.for);
+  while (out.length < 3 && take(k, 'за образ в целом'));
+  return out;
+}
+
+/* Прилагательное к портрету: делает результат живее.
+   [мужской род, средний род] — ЧИСТО и ДРЕВО среднего рода. */
+const FORMAL_PLACES = ['office','theatre','date','bar'], CASUAL_PLACES = ['sea','gym','dacha','rink'];
+/* Эпитет по «второму голосу» образа: какая деталь или место тянут в другую сторону.
+   Пары [мужской род, средний род]: ЧИСТО и ДРЕВО — среднего рода. */
+const MOOD = {CHISTO:['Собранный','Собранное'], BRIZ:['Летний','Летнее'], UYUT:['Уютный','Уютное'], MAGNIT:['Томный','Томное'], CVET:['Романтичный','Романтичное'], DREVO:['Задумчивый','Задумчивое']};
+function adjective(k, worn, place){
+  const neut = k === 'CHISTO' || k === 'DREVO', A = (m, n) => neut ? n : m;
+  const ids = new Set(Object.values(worn)); let c = 0, f = 0;
+  ids.forEach(id => { const v = FORMAL[id] || 0; if (v < 0) c++; if (v > 0) f++; });
+  const st = style(worn);
+  // 1. весёлые несоответствия
+  if ((ids.has('swim') || ids.has('flops')) && !['sea','gym'].includes(place.id)) return A('Смелый','Смелое');
+  if (st === 'casual' && FORMAL_PLACES.includes(place.id)) return A('Игривый','Игривое');
+  if (st === 'formal' && CASUAL_PLACES.includes(place.id)) return A('Неожиданный','Неожиданное');
+  // 2. чистый стиль, и место ему под стать
+  if (st === 'formal' && c === 0 && ['date','bar'].includes(place.id)) return A('Томный','Томное');
+  if (st === 'formal' && c === 0 && !CASUAL_PLACES.includes(place.id)) return f >= 3 ? A('Безупречный','Безупречное') : A('Строгий','Строгое');
+  if (st === 'casual' && f === 0 && !FORMAL_PLACES.includes(place.id) && c >= 3) return A('Беззаботный','Беззаботное');
+  // 3. второй голос: портрет, который набрал больше всех после главного (вещи + место целиком)
+  const sc = {}; ORDER.forEach(x => sc[x] = 0);
+  ids.forEach(id => { const w = ITEMS.find(i => i.id === id).w; for (const x in w) sc[x] += w[x]; });
+  for (const x in place.w) sc[x] += place.w[x];
+  const second = ORDER.filter(x => x !== k).sort((a,b) => (sc[b]-sc[a]) || ((place.w[b]||0)-(place.w[a]||0)))[0];
+  if (sc[second] >= 3 && sc[second] >= sc[k] * .4){ if (second === 'CHISTO' && place.id === 'office') return A('Деловой','Деловое'); return MOOD[second][neut ? 1 : 0]; }
+  // 4. без второго голоса
+  if (st === 'formal' && c === 0) return f >= 3 ? A('Безупречный','Безупречное') : A('Строгий','Строгое');
+  if (st === 'casual' && f === 0) return c >= 3 ? A('Беззаботный','Беззаботное') : A('Расслабленный','Расслабленное');
+  if (c >= 1 && f >= 1) return A('Эклектичный','Эклектичное');
+  return A('Чистый','Чистое');
+}
+
 async function go(){
   show('s-load');
   const k = score(worn, place), T = TYPES[k];
-  result = {T, k, code: T.code + '-' + (G === 'm' ? 'М' : 'Ж') + place.n, frag: T[G], text: comment(G, worn, place, T)};
+  const frag = mix(k, worn, place);
+  result = {T, k, code: T.code + '-' + (G === 'm' ? 'М' : 'Ж') + place.n, frag, adj: adjective(k, worn, place), text: comment(G, worn, place, T)};
   const wait = new Promise(r => setTimeout(r, 1400));
   try { await drawCard(result); } catch(e){ console.error(e); }
   await wait;
@@ -895,11 +980,11 @@ async function go(){
 }
 function fill(r){
   $('r-kicker').textContent = (G === 'm' ? 'Ваш персонаж идёт ' : 'Ваша героиня идёт ') + place.to;
-  $('r-title').textContent = r.T.title;
-  $('r-tag').textContent = r.text;
+  $('r-title').textContent = r.adj + ' ' + r.T.code;
+  $('r-tag').textContent = '«' + r.T.title + '». ' + r.text;
   $('r-code').textContent = r.code;
   const fr = $('r-frag'); fr.innerHTML = '';
-  r.frag.forEach(([n,d]) => { const el = document.createElement('div'); el.innerHTML = '<b></b><span></span>'; el.firstChild.textContent = n; el.lastChild.textContent = d; fr.appendChild(el); });
+  r.frag.forEach(([n,d,tag]) => { const el = document.createElement('div'); el.innerHTML = '<b></b><span></span>'; el.firstChild.textContent = n; el.lastChild.textContent = tag ? d + ' · ' + tag : d; fr.appendChild(el); });
   const items = [...new Set(Object.values(worn))].map(id => itemName(ITEMS.find(i => i.id === id), G).toLowerCase());
   $('r-why').innerHTML = '<b>Образ:</b> ';
   $('r-why').append(items.join(', ') + '. ');
@@ -932,17 +1017,18 @@ async function drawCard(r){
   x.fillStyle = '#1A1A1A'; x.font = '700 34px Georgia, serif'; spaced(x,'ТУТ ТВОЙ АРОМАТ',W/2,226,6);
   x.fillStyle = '#6B2E2A'; x.font = '600 25px Inter'; spaced(x, ((G === 'm' ? 'ИДЁТ ' : 'ИДЁТ ') + place.to).toUpperCase(), W/2, 292, 4);
   // подиум и персонаж
-  x.fillStyle = '#FBF7F0'; rr(x,250,324,580,690,40); x.fill(); x.strokeStyle = '#E2D6C3'; x.lineWidth = 2; x.stroke();
-  try { const im = await figImage(); const fh = 650, fw = fh*200/450; x.drawImage(im, W/2 - fw/2, 342, fw, fh); } catch(e){ console.error(e); }
+  x.fillStyle = '#FBF7F0'; rr(x,265,324,550,640,40); x.fill(); x.strokeStyle = '#E2D6C3'; x.lineWidth = 2; x.stroke();
+  try { const im = await figImage(); const fh = 604, fw = fh*200/450; x.drawImage(im, W/2 - fw/2, 340, fw, fh); } catch(e){ console.error(e); }
   // заголовок
-  let fs = 84, lines;
-  do { x.font = `600 ${fs}px Cormorant`; lines = wrap(x, r.T.title, 880); fs -= 4; } while (lines.length > 2 && fs > 56);
-  fs += 4; let y = 1050 + fs*.9;
-  x.fillStyle = '#1A1A1A'; lines.forEach(l => { x.fillText(l, W/2, y); y += fs*.98; });
-  y += 18;
-  x.font = '600 23px Inter'; x.fillStyle = '#6B2E2A'; spaced(x, 'СТОИТ ПОСЛУШАТЬ', W/2, y, 3.5); y += 50;
+  let fs = 88; const head = r.adj + ' ' + r.T.code;
+  do { x.font = `600 ${fs}px Cormorant`; fs -= 4; } while (x.measureText(head).width > 880 && fs > 56);
+  fs += 4; let y = 996 + fs*.85;
+  x.fillStyle = '#1A1A1A'; x.fillText(head, W/2, y);
+  y += 50; x.font = 'italic 600 36px Cormorant'; x.fillStyle = '#6B2E2A'; x.fillText('«' + r.T.title + '»', W/2, y);
+  y += 58;
+  x.font = '600 23px Inter'; x.fillStyle = '#6B2E2A'; spaced(x, 'СТОИТ ПОСЛУШАТЬ', W/2, y, 3.5); y += 54;
   x.fillStyle = '#1A1A1A';
-  r.frag.forEach(([n]) => { let s = 31; do { x.font = `400 ${s}px Inter`; s -= 1; } while (x.measureText(n).width > 860 && s > 22); x.fillText(n, W/2, y); y += 46; });
+  r.frag.forEach(([n]) => { let s = 31; do { x.font = `400 ${s}px Inter`; s -= 1; } while (x.measureText(n).width > 860 && s > 22); x.fillStyle = '#1A1A1A'; x.fillText(n, W/2, y); y += 48; });
   // код
   const cy = 1440;
   x.fillStyle = '#6B2E2A'; rr(x,170,cy,W-340,176,88); x.fill();
